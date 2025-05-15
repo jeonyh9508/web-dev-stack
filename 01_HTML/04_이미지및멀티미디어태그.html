@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>이미지 및 멀티미디어 태그</title>
+  </head>
+  <body>
+    <h2>이미지 태그</h2>
+    <img
+      src="assets/candle.jpg"
+      alt="초 이미지"
+      width="200"
+      height="150"
+      loading="lazy"
+    />
+    <!-- src="이미지경로(같은선상의)" 상위폴더로 올라갈 때는 ../
+        현재위치는 ./
+        alt="설명,의미"  width,height="사이즈(픽셀) 세로,가로는 비율에 맞춰진다"
+        loading = "lazy" 사용자가 화면을 내릴 때 성능 최적화 -->
+
+    <h3>고정 크기 (픽셀 단위)_</h3>
+    <p>화면 크기와 관계없이 고정된 크기</p>
+
+    <img src="assets/cake_720.jpg" width="200px" height="120" />
+    <img src="assets/pizza_720.jpg" width="200" height="120" />
+
+    <h3>가변 크기 (퍼센트 단위)</h3>
+    <p>부모 태그의 너비에 따라 크기가 자동으로 조절</p>
+
+    <img src="assets/cake_720.jpg" width="49%" height="120" />
+    <img src="assets/pizza_720.jpg" width="49%" height="120" />
+
+    <h3>반응형 이미지</h3>
+    <p>디바이스 너비에 따라 최적의 이미지를 자동선택</p>
+    <img
+      src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200"
+      srcset="
+        https://images.unsplash.com/photo-1518770660439-4636190af475?w=480   480w,
+        https://images.unsplash.com/photo-1518770660439-4636190af475?w=800   800w,
+        https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200 1200w
+      "
+      sizes="(max-width: 600px) 400px, (max-width: 900px) 800px, 1200px"
+      alt="해당하는 이미지 경로"
+      width="100%"
+    />
+    <!-- url뒤에 ? (요청) w = 가로 원하는 사이즈 -->
+
+    <h2>오디오 태그</h2>
+    <!-- 
+    controls : 재생 컨트롤러 표시 
+    loop : 반복 재생
+    -->
+    <audio src="assets/audio.mp3" controls loop>
+      <a href="assets/audio.mp3" download>오디오 다운로드</a>
+      <!-- ctrl + space 태그자동완성 -->
+    </audio>
+
+    <h2>비디오 태그</h2>
+  </body>
+</html>
