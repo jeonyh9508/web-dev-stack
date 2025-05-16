@@ -52,10 +52,35 @@
     loop : 반복 재생
     -->
     <audio src="assets/audio.mp3" controls loop>
+      브라우저가 오디오를 지원하지 않습니다
+      <!-- 뜨지 않음 -->
       <a href="assets/audio.mp3" download>오디오 다운로드</a>
       <!-- ctrl + space 태그자동완성 -->
     </audio>
 
     <h2>비디오 태그</h2>
+    <!-- 
+     - controls : 재생 컨트롤러 표시
+     - poster : 썸네일
+    -->
+    <video
+      src="assets/video.mp4"
+      width="400"
+      controls
+      poster="assets/thumbnail.png"
+    ></video>
+
+    <!-- iframe : 외부 컨텐츠 삽입
+     ex)유튜브 -> 공유 -> 퍼가기 -->
+    <iframe
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/BKU4eOWSthQ?si=prCb0vmOCmy-ZXaq"
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen
+    ></iframe>
   </body>
 </html>
