@@ -47,26 +47,6 @@ header a:hover {
   font-size: 2rem;
 }
 
-/*.heading1 {
-  background-color: rgb(75, 53, 42);
-  color: white;
-  height: 100vh;
-  text-align: center;
-}
-
-.heading2 {
-  background-color: rgb(202, 120, 66);
-  color: beige;
-  height: 100vh;
-}
-
-.heading3 {
-  background-color: rgb(178, 205, 156);
-  color: green;
-  height: 100vh;
-}
-*/
-
 .heading1 {
   background-color: rgb(75, 53, 42);
   color: white;
@@ -84,15 +64,24 @@ header a:hover {
   color: green;
   height: 100vh;
 }
+
 article {
-  display: flex;
-  justify-content: center;
+  display: block;
   text-align: center;
+  align-content: center;
 }
 
 article h1 {
+  margin: 20px;
   font-size: 2rem;
 }
+
+article p {
+  display: block;
+  margin-left: 200px;
+  margin-right: 200px;
+}
+
 #top {
   width: 50px;
   height: 50px;
