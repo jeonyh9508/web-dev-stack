@@ -1,0 +1,62 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* 초기화 */
+}
+body {
+  background: indigo;
+  /* 데코레이션 */
+  background: linear-gradient(purple, pink);
+  /* 전체 높이 */
+  height: 100vh;
+  padding: 20px;
+  display: flex;
+}
+.profile-card {
+  border: 3px solid white;
+  width: 400px;
+  margin: auto;
+  /* margin-top: 20px; 
+  margin-bottom: 20px; */
+  border-radius: 25px;
+  padding: 20px;
+  text-align: center;
+  color: white;
+}
+
+/* 방법 1. .profile-image {
+  width: 200px;
+  height: 200px;
+  background-color: skyblue;
+  margin: auto;
+  margin-top: 20px; 
+  margin-bottom: 20px;
+  border-radius: 50%;
+  background-image: url(assets/hui.png);
+  background-size: cover;
+  background-position: center; 
+} */
+
+.profile-card img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-card a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: 3px solid white;
+  margin: 15px;
+  padding: 10px;
+}
+
+.profile-card a:hover {
+  background-color: white;
+  color: black;
+}

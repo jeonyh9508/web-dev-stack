@@ -25,7 +25,8 @@
   padding-left: 10px;
   padding-right: 20px;
   padding-bottom: 40px;
-  /* top right bottom left */
+  /* top right bottom left
+  시계방향 */
   padding: 30px 20px 40px 10px;
   /* top right/left bottom */
   padding: 30px 20px 40px;
@@ -83,6 +84,7 @@
   /* dotted : 도트 */
   border: 2px dotted blue;
 }
+
 .radius-box {
   width: 120px;
   height: 120px;
@@ -91,11 +93,142 @@
   text-align: center;
   line-height: 120px;
   margin-bottom: 10px;
-  display: inline-block;
+  margin: auto;
 }
 .radius1 {
   border-radius: 10px;
 }
 .radius2 {
   border-radius: 50%;
+}
+/* box-sizing */
+.box {
+  width: 300px;
+  height: 200px;
+  background-color: lightcoral;
+  padding: 20px;
+  margin: 10px;
+  border: 10px solid;
+}
+.box-content {
+  box-sizing: content-box;
+}
+.box-border {
+  box-sizing: border-box;
+}
+/* display */
+.display {
+  background-color: pink;
+  padding: 10px;
+  margin: 5px;
+  width: 150px;
+  height: 70px;
+}
+.display-inline {
+  display: inline;
+}
+.display-block {
+  display: block;
+}
+.display-inline-block {
+  display: inline-block;
+}
+/* float */
+.float {
+  float: left;
+  width: 80px;
+  height: 80px;
+  margin: 5px;
+  background-color: skyblue;
+  text-align: center;
+  line-height: 80px;
+}
+/* position */
+#outer {
+  position: relative;
+  width: 400px;
+  height: 200px;
+  background-color: #f4f4f4;
+  /* sticky속성 추가 */
+  overflow: auto;
+}
+.position-box {
+  width: 100px;
+  height: 100px;
+}
+#relative {
+  background-color: orange;
+  position: relative;
+  /* top, bottom, left, right */
+  bottom: 50px;
+  right: -150px;
+}
+#absolute {
+  background-color: green;
+  position: absolute;
+  top: 50px;
+  left: 20px;
+  /* 브라우저 기준 / 부모에게 position: relative; 가 있다면 부모가 기준*/
+}
+#fixed {
+  background-color: red;
+  position: fixed;
+  right: 20px;
+  top: 30px;
+  /* 브라우저내 고정 */
+}
+#sticky {
+  background-color: blue;
+  position: sticky;
+  top: 0;
+  /* 스크롤을 내렸을 때, top 값이 0이되면 고정 */
+}
+
+/* visibility */
+.visibility {
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+  background-color: lightgray;
+  display: inline-block;
+}
+#vis2 {
+  visibility: visible;
+}
+#vis1 {
+  /* 영역은 남아있다 */
+  visibility: hidden;
+}
+#dis1 {
+  /* 영역도 사라진다 */
+  display: none;
+}
+
+#z-outer {
+  width: 200px;
+  height: 200px;
+  background-color: #ddd;
+  position: relative;
+}
+.z-index {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  opacity: 0.5;
+}
+#z-index1 {
+  background-color: red;
+  z-index: 1;
+  top: 20px;
+  left: 20px;
+}
+#z-index2 {
+  background-color: green;
+  z-index: 2;
+  top: 40px;
+  left: 40px;
+}
+#z-index3 {
+  background-color: blue;
+  z-index: 999;
 }
