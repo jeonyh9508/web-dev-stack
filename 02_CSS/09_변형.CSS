@@ -1,0 +1,124 @@
+section {
+  display: flex;
+}
+
+.box {
+  width: 150px;
+  height: 150px;
+  background-color: black;
+  color: white;
+  line-height: 150px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 10px;
+  margin: auto;
+}
+.transition {
+  background-color: cadetblue;
+  /* transition: all 10s; */
+  /* transition-property: background-color, font-size; */
+  /* property : 속성명시, duration : 전환 시간 timing-fuction : 전환 속도 곡선 delay : 전환 시간 지연 시간 */
+  transition-property: all;
+  transition-duration: 5s;
+  /* 검사 스타일 탭에서 조절가능 linear */
+  transition-timing-function: ease-in-out;
+  transition-delay: 1s;
+  transition: all 1s ease-in-out;
+}
+.transition:hover {
+  background-color: coral;
+  font-size: 2rem;
+  transform: scale(1.5) rotate(360deg);
+  border-radius: 50%;
+}
+/* transform */
+.transform-scale {
+  background-color: darkgray;
+}
+.transform-scale:hover {
+  /* scale : 크기 확대 */
+  transform: scale(1.2);
+}
+.transform-rotate {
+  background-color: darkgreen;
+}
+.transform-rotate:hover {
+  /* rotate : 회전(각도deg) */
+  transform: rotate(45deg);
+}
+.transform-translate {
+  background-color: darkblue;
+}
+.transform-translate:hover {
+  /* translate : 이동(x, y) */
+  transform: translate(40px, 20px);
+}
+.transform-skew {
+  background-color: darkred;
+}
+.transform-skew:hover {
+  /* skew : 기울이기 (x, y) */
+  transform: skew(50deg, 0deg);
+}
+/* animation */
+@keyframes bounce {
+  0% {
+    transform: translate(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: translate(25px, 50px);
+  }
+}
+
+@keyframes bounce2 {
+  0%,
+  100% {
+    transform: translate(0);
+  }
+  50% {
+    transform: translateY(-30px);
+  }
+}
+
+.animation-once {
+  background-color: saddlebrown;
+  /* animation: 애니메이션명 지속시간 속도곡선 횟수 */
+  animation: bounce 1s ease-in-out 1;
+}
+
+.animation-alternate {
+  background-color: burlywood;
+  /* infinite 무한 alternate 왕복 */
+  /* animation: bounce 1s ease-in-out infinite alternate; */
+}
+
+.animation-reverse {
+  background-color: sandybrown;
+  /* animation 역순 실행 */
+  animation: bounce 1s ease-in-out reverse;
+}
+
+.animation-paused {
+  background-color: lightsalmon;
+  animation: bounce2 2s linear infinite;
+}
+
+.animation-paused:hover {
+  animation-play-state: paused;
+}
+
+.perspective-container {
+  perspective: 600px;
+}
+.perspective-container .box {
+  transition: transform 1s;
+  transform-style: preserve-3d;
+}
+.perspective-container .box:hover {
+  transform: rotateY(180deg);
+}
+
+/* junu1229 */

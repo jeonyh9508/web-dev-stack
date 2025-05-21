@@ -6,6 +6,9 @@
 .item {
   color: white;
   background-color: blueviolet;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 #grid-basic {
   grid-template-columns: 100px 200px 100px;
@@ -32,4 +35,58 @@
 
 #grid-span .span2 {
   grid-row: 2 / 4;
+}
+#grid-area {
+  grid-template-areas:
+    "header header"
+    "nav main"
+    "nav sidebar"
+    "footbar footbar";
+}
+.header {
+  grid-area: header;
+  background-color: aliceblue;
+}
+.nav {
+  grid-area: nav;
+  background-color: aquamarine;
+}
+.main {
+  grid-area: main;
+  background-color: burlywood;
+}
+.sidebar {
+  grid-area: sidebar;
+  background-color: coral;
+}
+.footbar {
+  grid-area: footbar;
+  background-color: cornflowerblue;
+}
+
+#auto-fit {
+  /* auto-fit : 가능한 공간만큼 채우고,남은 칸은 collapse */
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}
+#auto-fill {
+  /* auto-fill : 가능한 칸 수만큼 채우고, 빈칸도 자리 확보 */
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+}
+.item i {
+  font-size: 2rem;
+  color: chartreuse;
+}
+#items {
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: 100px;
+  align-items: flex-end;
+  justify-items: flex-end;
+}
+
+#content {
+  grid-template-columns: repeat(3, 80px);
+  grid-template-rows: repeat(2, 80px);
+  height: 300px;
+  align-content: space-evenly;
+  justify-content: center;
 }
