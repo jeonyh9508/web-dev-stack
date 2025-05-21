@@ -92,7 +92,7 @@ section {
 .animation-alternate {
   background-color: burlywood;
   /* infinite 무한 alternate 왕복 */
-  /* animation: bounce 1s ease-in-out infinite alternate; */
+  animation: bounce 1s ease-in-out infinite alternate;
 }
 
 .animation-reverse {
@@ -120,5 +120,3 @@ section {
 .perspective-container .box:hover {
   transform: rotateY(180deg);
 }
-
-/* junu1229 */
