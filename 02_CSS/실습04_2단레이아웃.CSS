@@ -1,0 +1,53 @@
+header {
+  position: fixed;
+  background-image: url(assets/background.jpg);
+  background-color: rgb(0, 0, 0, 0.7);
+  background-blend-mode: color;
+  color: white;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  background-size: cover;
+  object-fit: cover;
+}
+header h1 {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  margin: 70px;
+  font-size: 4rem;
+  padding-bottom: 5px;
+  border-bottom: 3px solid white;
+}
+header nav {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  padding-bottom: 30px;
+  gap: 20px;
+}
+
+section {
+  display: flex;
+  padding-left: 321.8px;
+  flex-direction: column;
+  text-align: center;
+}
+
+section h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: left;
+}
+
+section img {
+  margin: 20px;
+  width: 100%;
+  max-width: 400px;
+}
+section p {
+  text-align: left;
+  line-height: 1.5;
+}

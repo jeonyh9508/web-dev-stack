@@ -1,0 +1,55 @@
+:root {
+  /* CSS변수 var로 호출 */
+  --main-width: 300px;
+  --main-color: rgba(0, 0, 0, 0.7);
+}
+header {
+  position: fixed;
+  width: var(--main-width);
+  height: 100%;
+  color: white;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--main-color);
+  background-blend-mode: color;
+  background-image: url(assets/background.jpg);
+  background-position: center;
+  background-size: cover;
+}
+header h1 {
+  font-size: 4rem;
+  padding-top: 20px;
+  padding-bottom: 5px;
+  border-bottom: 3px solid white;
+}
+header nav {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 50px;
+  gap: 20px;
+}
+header nav a {
+  text-decoration: underline;
+}
+main {
+  padding: 10px;
+  padding-left: calc(var(--main-width) + 10px);
+  text-align: center;
+}
+main h2,
+main p {
+  text-align: left;
+}
+main h2 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+main img {
+  width: 100%;
+  max-width: 400px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}

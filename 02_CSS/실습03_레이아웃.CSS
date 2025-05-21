@@ -30,6 +30,10 @@ header {
   height: 100%;
 }
 
+header {
+  position: fixed;
+  width: 100%;
+}
 header a {
   text-align: center;
   display: block;
@@ -69,10 +73,11 @@ article {
   display: block;
   text-align: center;
   align-content: center;
+  line-height: 20px;
 }
 
 article h1 {
-  margin: 20px;
+  margin: 30px;
   font-size: 2rem;
 }
 
@@ -91,6 +96,6 @@ article p {
   color: white;
   line-height: 50px;
   position: fixed;
-  bottom: 10px;
-  right: 10px;
+  bottom: 50px;
+  right: 50px;
 }
