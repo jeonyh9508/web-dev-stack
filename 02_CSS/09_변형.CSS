@@ -23,7 +23,7 @@ section {
   /* 검사 스타일 탭에서 조절가능 linear */
   transition-timing-function: ease-in-out;
   transition-delay: 1s;
-  transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out 0.3s;
 }
 .transition:hover {
   background-color: coral;
@@ -49,7 +49,7 @@ section {
 .transform-translate {
   background-color: darkblue;
 }
-.transform-translate:hover {
+.transform-translate:active {
   /* translate : 이동(x, y) */
   transform: translate(40px, 20px);
 }
