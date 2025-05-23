@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>반복문</title>
+  </head>
+  <body>
+    <h1>반복문</h1>
+    <script>
+      /*
+            for( 초기값 ; 조건식 ; 증감연산자자 ){
+                반복문 조건에 해당되는만큼 실행
+            }
+        */
+      // 1 ~ 10까지 출력력
+      for (let i = 1; i <= 10; i++) {
+        console.log(i);
+      }
+    </script>
+
+    <h2>1. 전위/후위 연산자</h2>
+    <script>
+      //전위 연산자(++n, --n) : 계산하고 출력
+      //후위 연산자(n++, n--) : 출력하고 계산
+      let num = 1;
+      num = num + 1; // 2
+      // num = num + 1 : ++num, num++
+      // num = num - 1 : --num, num--
+      console.log(++num); // 3
+      console.log(--num); // 2
+      console.log(num++); // 2, num = 3
+      console.log(num); // 3
+      console.log(num--); // 3, num = 2
+      console.log(num); // 2
+    </script>
+
+    <h2>2. 복합대입연산자</h2>
+    <script>
+      num = num + 3;
+      console.log(num); // 5
+      num += 3;
+      console.log(num); // 8
+      num -= 2; //num = num -2
+      console.log(num); // 6
+    </script>
+
+    <h2>3. 배열과 for문</h2>
+    <script>
+      const movies = [
+        "야당",
+        "파과",
+        "미션 임파서블",
+        "플립",
+        "주차금지",
+        "릴로 & 스티치",
+      ];
+      /*
+      const [f1, f2, f3, f4, f5] = movies;
+      console.log(f1);
+      console.log(f2);
+      */
+      console.log(movies[0]);
+      console.log(movies[1]);
+      console.log(movies[2]);
+      // (i<=4) = (i<5)
+      for (let i = 0; i < movies.length; i++) {
+        console.log(movies[i]);
+      }
+
+      // for ... in ...: 인덱스 기반
+      // for(const 인덱스 in 배열){}
+      for (const index in movies) {
+        console.log(movies[index]);
+      }
+
+      // for ... of : 값 기반
+      // for (const 값 of 배열) {}
+    </script>
+  </body>
+</html>

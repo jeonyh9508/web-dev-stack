@@ -6,13 +6,23 @@
     <title>변수 & 연산자 연습문제</title>
   </head>
   <body>
+    <!-- 
+    변수 명명 규칙
+    1) 문자, 숫자, 기호는 $, _ 만 사용
+    2) 첫글자에는 숫자 금지
+    3) 예약어(const, if, switch..) 금지
+    4) 표기법대로 사용 - camelCase(낙타 표기법) userId
+    5) 상수(const로 표시한 것 금지)는 대문자 + SNAKE_CASE(언더바 표기법법) 
+    -->
     <h1>변수 & 연산자 연습문제</h1>
     <ol style="line-height: 2">
       <li>
         킬로그램(kg)을 파운드(lb)로 환산하여 console에 출력하시오. (1kg = 2.2lb)
         <script>
-          const kg = 60;
+          const kg = 70;
           // Q1: 여기에 코드를 작성하세요
+          const lb = kg * 2.2;
+          console.log(lb);
         </script>
       </li>
 
@@ -21,6 +31,8 @@
         <script>
           const m2 = 99;
           // Q2: 여기에 코드를 작성하세요
+          const py = m2 * 0.3;
+          console.log(py);
         </script>
       </li>
 
@@ -31,6 +43,8 @@
           const lower = 14;
           const height = 4;
           // Q3: 여기에 코드를 작성하세요
+          const area = ((upper + lower) / 2) * height;
+          console.log(area);
         </script>
       </li>
 
@@ -38,6 +52,10 @@
         예금 12,000,000원을 연이율 4%로 정기예금했을 때 월 이자를 구하시오.
         <script>
           // Q4: 여기에 코드를 작성하세요
+          const deposit = 12000000;
+          const rate = 0.04;
+          const monthly = (deposit * rate) / 12;
+          console.log(monthly);
         </script>
       </li>
 
@@ -45,6 +63,10 @@
         올해가 2025년일 때, 나이(예: 55)를 기준으로 출생연도를 계산하시오.
         <script>
           // Q5: 여기에 코드를 작성하세요
+          const year = 2025;
+          const age = 55;
+          const birth = year - age + 1;
+          console.log(birth);
         </script>
       </li>
 
@@ -53,6 +75,11 @@
         잔돈은 얼마?
         <script>
           // Q6: 여기에 코드를 작성하세요
+          const price = 5500;
+          const money = 15000;
+          const cups = parseInt(money / price);
+          const change = money % price;
+          console.log(`${cups}잔, 잔돈 ${change}원`);
         </script>
       </li>
 
@@ -61,6 +88,13 @@
         10인분마다 음료 1개 서비스. 총 지불 금액?
         <script>
           // Q7: 여기에 코드를 작성하세요
+          const food = 12000;
+          const drink = 2000;
+          const foodNum = 64;
+          const drinkNum = 6;
+          const service = parseInt(foodNum / 10);
+          const total = food * foodNum + drink * (drinkNum - service);
+          console.log(total);
         </script>
       </li>
 
@@ -68,6 +102,11 @@
         두 자리 정수(예: 73)의 각 자릿수를 더한 값을 구하시오. (7 + 3 = 10)
         <script>
           // Q8: 여기에 코드를 작성하세요
+          const number = 73;
+          const ten = parseInt(number / 10);
+          const one = number % 10;
+          const sum = ten + one;
+          console.log(sum);
         </script>
       </li>
 
@@ -75,6 +114,10 @@
         이름, 나이, 취미를 변수로 저장한 후 소개 문장을 console에 출력하시오.
         <script>
           // Q9: 여기에 코드를 작성하세요
+          const name = "이름";
+          const age2 = "나이";
+          const hobby = "취미";
+          console.log(`저는 ${name}이고, 나이는 ${age2}이고, ${hobby}가 취미`);
         </script>
       </li>
 
@@ -83,8 +126,17 @@
         console에 출력하시오.
         <script>
           // Q10: 여기에 코드를 작성하세요
+          const test1 = "100";
+          const test2 = 100;
+          console.log(test1 == test2);
+          console.log(test1 === test2);
         </script>
       </li>
     </ol>
   </body>
 </html>
+
+<!-- https://school.programmers.co.kr/learn/challenges?order=recent
+    https://www.acmicpc.net/problem/tags
+https://solved.ac/
+ -->
