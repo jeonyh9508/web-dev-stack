@@ -77,22 +77,12 @@
         <script>
           const words = ["오므라이스", "라면", "불고기", "된장찌개", "김밥"];
           // Q6
-          const [f1, f2, f3, f4, f5] = words;
 
-          const letters = 3;
-
-          switch (letters) {
-            case 2:
-              console.log(f1, f2, f3, f4, f5);
+          for (let i = 0; i < words.length; i++) {
+            for (let j = 3; j <= words[i].length; ) {
+              console.log(words[i]);
               break;
-            case 3:
-              console.log(f1, f3, f4);
-              break;
-            case 4:
-              console.log(f1, f4);
-              break;
-            case 5:
-              console.log(f1);
+            }
           }
 
           console.log("6-----------------------------------");
