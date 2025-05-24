@@ -12,7 +12,7 @@
         1부터 10까지 숫자를 출력하는 반복문을 작성하시오.
         <script>
           // Q1
-          for (let i = 0; i <= 10; i++) {
+          for (let i = 1; i <= 10; i++) {
             console.log(i);
           }
           console.log("1-----------------------------------");
@@ -35,8 +35,7 @@
         1부터 사용자에게 입력받은 숫자까지의 합을 출력하시오. (prompt 사용)
         <script>
           // Q3
-          let i = 3;
-          //prompt("숫자를 입력하세요");
+          let i = prompt("숫자를 입력하세요");
           let sum = 0;
           for (j = 1; j <= Number(i); j++) {
             sum += j;
@@ -116,11 +115,11 @@
         멈추도록 구현하시오.
         <script>
           // Q8
-          for (let j = 1; j <= 10; j++) {
-            if (j % 2 === 0) continue;
+          for (let i = 1; i <= 10; i++) {
+            if (i % 2 === 0) continue;
 
-            console.log(j);
-            if (j === 7) break;
+            console.log(i);
+            if (i === 7) break;
           }
           console.log("8-----------------------------------");
         </script>
@@ -137,10 +136,11 @@
           const target = Math.floor(Math.random() * 100) + 1; // 1~100 랜덤 숫자
           console.log(target);
 
+          /*
           const game = Number(prompt("랜덤 숫자 맞추기"));
           console.log(game);
 
-          /* for (let tried = 1; target === game; tried++) {
+         for (let tried = 1; target === game; tried++) {
                    if (target === game) {
                      console.log(prompt(tried + "번 만에 정답을 맞췄습니다"));
                    } else if (target > game) {
