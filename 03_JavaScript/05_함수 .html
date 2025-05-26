@@ -124,7 +124,8 @@
         // doubled.push(numbers[index] * 2);
         doubled[index] = numbers[index] * 2;
       }
-      console.log(doubled);
+      const jsdoubled = JSON.stringify(doubled);
+      console.log(jsdoubled);
 
       // => map((값 , 인덱스 , 배열)=>{}) : 각 요소를 가공하여 새로운 배열 반환
       const doubledMap = numbers.map((value, index, array) => {
