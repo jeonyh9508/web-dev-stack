@@ -51,7 +51,7 @@
         <script>
           // Q4: 여기에 코드를 작성하세요
           const age = 31;
-          console.log(age > 65 || age < 8 ? "무료" : "10,000원");
+          console.log(age >= 65 || age <= 8 ? "무료" : "10,000원");
         </script>
       </li>
 
@@ -68,6 +68,7 @@
           } else if (9 <= month && month <= 11) {
             console.log("가을");
           } else {
+            // 12이상의 숫자도 겨울로 출력
             console.log("겨울");
           }
         </script>
@@ -84,6 +85,7 @@
             console.log("A");
           } else if (90 > score && score >= 80) {
             console.log("B");
+            //앞에 조건은 명시하지 않아도 if에서 90 미만
           } else if (80 > score && score >= 70) {
             console.log("C");
           } else if (70 > score && score >= 60) {

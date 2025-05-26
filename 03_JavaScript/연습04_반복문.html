@@ -126,36 +126,73 @@
         <script>
           const target = Math.floor(Math.random() * 100) + 1; // 1~100 랜덤 숫자
           console.log(target);
-
-          // const game = Number(prompt("숫자를 입력하세요"));
+          const tried = 1;
+          const game = Number(prompt("숫자를 입력하세요"));
 
           /* while (true) {
-                          if (target > game) {
-                            console.log(small);
-                            continue;
-                            tried++;
-                          } else if (target < game) {
-                            console.log(big);
-                            continue;
-                            tried++;
-                          } else if (target === game) {
-                            console.log(prompt(tried + "번만에 성공"));
-                            break;
-                          }
-            } */
+                            if (target > game) {
+                              console.log(small);
+                              continue;
+                              tried++;
+                            } else if (target < game) {
+                              console.log(big);
+                              continue;
+                              tried++;
+                            } else if (target === game) {
+                              console.log(prompt(tried + "번만에 성공"));
+                              break;
+                            }
+              } */
           /*    const tried = 1;
-            while (target != game) {
-              if (target > game) {
-                console.log(prompt(tried + "번째 시도 너무 작습니다."));
-              } else if (target < game) {
-                console.log(prompt(tried + "번째 시도 너무 큽니다."));
+              while (target != game) {
+                if (target > game) {
+                  console.log(prompt(tried + "번째 시도 너무 작습니다."));
+                } else if (target < game) {
+                  console.log(prompt(tried + "번째 시도 너무 큽니다."));
+                }
+                if (target == game) {
+                  break;
+                }
               }
-              if (target == game) {
+              console.alert(prompt(tried + "번만에 성공"));
+              */
+          /*
+            while (target != game) {
+              const small = console.log(Number(prompt("너무 작습니다.")));
+              const big = console.log(Number(prompt("너무 큽니다.")));
+
+              if (target > game) {
+                console.log(small);
+              } else if (target < game) {
+                console.log(big);
+              } else if ((target == game, target == small, target == big)) {
                 break;
               }
+            }*/
+          /*
+            const small = console.log(Number(prompt("너무 작습니다.")));
+            const big = console.log(Number(prompt("너무 큽니다.")));
+
+            while (target != game) {
+              if ((target == game, target == small, target == big)) {
+                break;
+              } else if (target > game) {
+                console.log(game);
+              } else if (target < game) {
+                console.log(game);
+              }
             }
-            console.log(prompt(tried + "번만에 성공"));
+            console.log(prompt("정답"));
             */
+          /*
+           while (target != game) {
+            tried++;
+            if (target == game) {
+            } else if(target > game){
+
+            }
+          }
+          alert("게임끝")*/
         </script>
       </li>
     </ol>

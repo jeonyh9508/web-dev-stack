@@ -87,7 +87,7 @@
     <script>
       const arr2 = []; // 배열은 빈 배열에서 시작
       arr2.push(1);
-      arr2[1] = 5; // 갑 추가 [인덱스] = 값값
+      arr2[1] = 5; // 갑 추가 [인덱스] = 값
       arr2[0] = 3; // 값 수정
       console.log(arr2);
     </script>
@@ -116,6 +116,7 @@
     <script>
       const arr3 = [1, 2, 2, 3, 3, 4, 4, 4, 5];
       const unique = new Set(arr3);
+      // console.log("Set 확인", ...unique);
       console.log(unique);
       // ... 전개(spread) 연산자
       const uniqueArr = [...unique]; // [1, 2, 3, 4, 5]
