@@ -1,0 +1,30 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  border: 0;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: gray;
+}
+
+h2 {
+  margin: 15px;
+}
+#id1 {
+  font-size: 30px;
+}
+#id2 {
+  font-size: 50px;
+}
+#id3 {
+  font-size: 30px;
+}
+#id4 {
+  font-size: 25px;
+}
