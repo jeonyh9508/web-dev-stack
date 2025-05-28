@@ -24,4 +24,4 @@ const quotes = [
     ko: "그들이 당신에 대해 뭐라고 쓰든 전혀 신경쓰지 마라. 다만 그것을 자세히 평가하라",
   },
 ];
-export default queotes;
+export default quotes;

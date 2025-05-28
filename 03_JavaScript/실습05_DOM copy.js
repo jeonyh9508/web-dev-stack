@@ -23,6 +23,7 @@ console.log(weeks[today.getDay()]);
   const sec = String(today.getSeconds()).padStart(2, "0"); // 초 padStart(최대자릿수, 빈공간을 채울 숫자)
   time.innerHTML = `${hour}:${min}:${sec}`;
 };
+
 const randomBackground = () => {
   const body = document.body;
   /*
@@ -64,6 +65,8 @@ const count = () => {
                     ${String(min % 60).padStart(2, "0")}분
                     ${String(sec % 60).padStart(2, "0")}초`;
 };
+
+import quotes from "./quotes.js";
 
 const randomQuote = () => {
   const random = quotes[Math.floor(Math.random() * quotes.length)];
