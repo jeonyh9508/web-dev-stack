@@ -2,8 +2,8 @@
 // restart를 누르면 초기화면
 // 문제 -> 새로고침을 할땐 첫 화면 answer 출력, 클릭 -> display none 이 저장됨.
 window.addEventListener("DOMContentLoaded", () => {
-  const img1 = document.querySelector("#spy1");
   const img = document.querySelectorAll("img");
+  const img1 = document.querySelector("#spy1");
   const img2 = document.querySelector("#spy2");
   const img3 = document.querySelector("#spy3");
   const answer = document.querySelector("#answer");
