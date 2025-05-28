@@ -50,7 +50,7 @@ function stringSplit() {
 
   // 3. 배열 값 하나씩 가져오기 -> 반복문
   for (let i = 0; i < laArr.length; i++) {
-    // console.log(laArr[i]);
+    console.log(laArr[i]);
     // 4. li 태크 만들기
     const li = document.createElement("li");
     // 5. li 태그에 값 넣기
