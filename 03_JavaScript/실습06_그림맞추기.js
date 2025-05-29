@@ -7,6 +7,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const img2 = document.querySelector("#spy2");
   const img3 = document.querySelector("#spy3");
   const answer = document.querySelector("#answer");
+  const click = document.querySelector("#click");
 
   const game = () => {
     const random1 = Math.floor(Math.random() * img.length + 1);
@@ -25,11 +26,12 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     }
   };
+
   game();
 
   let count = 0;
   let tried = 1;
-  const click = document.querySelector("#click");
+
   click.addEventListener("click", () => {
     game();
     count += tried;
@@ -37,7 +39,5 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 
   const restart = document.querySelector("#restart");
-  restart.addEventListener("click", () => {
-    location.reload();
-  });
+  restart.addEventListener("click", end);
 });

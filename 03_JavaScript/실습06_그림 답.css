@@ -1,0 +1,35 @@
+body {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+}
+img {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  margin: 10px;
+}
+button {
+  border: none;
+  font-size: 1rem;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  background: tomato;
+  color: navy;
+}
+button:last-child {
+  background: navy;
+  color: tomato;
+}
+
+h2 {
+  font-style: italic;
+  visibility: hidden;
+}
