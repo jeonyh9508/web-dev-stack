@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="실습08_로그인.css" />
+  </head>
+  <body>
+    <section>
+      <h1 id="userName"></h1>
+      <div id="log">
+        <button id="logout">로그아웃</button>
+      </div>
+      <script>
+        const name = localStorage.getItem("name");
+        userName.innerHTML = `${name}님, 환영합니다.`;
+        const logout = document.querySelector("#logout");
+        logout.addEventListener("click", () => {
+          location.href =
+            "http://127.0.0.1:5501/03_JavaScript/%EC%8B%A4%EC%8A%B508_%EB%A1%9C%EA%B7%B8%EC%9D%B8.html";
+        });
+      </script>
+    </section>
+  </body>
+</html>

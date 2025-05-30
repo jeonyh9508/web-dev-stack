@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>실습 08 _ 로그인</title>
+    <link rel="stylesheet" href="실습08_로그인.css" />
+  </head>
+  <body>
+    <h1>로그인</h1>
+    <div id="form">
+      <div>
+        <input type="text" id="userName" placeholder="이름을 입력해주세요" />
+      </div>
+      <div>
+        <input
+          type="text"
+          id="password"
+          placeholder="비밀번호를 입력해주세요"
+        />
+      </div>
+      <div>
+        <button type="button" onclick="setLocal()">로그인</button>
+      </div>
+      <script>
+        const userName = document.querySelector("#userName");
+        const password = document.querySelector("#password");
+
+        userName.addEventListener("input", (e) => {
+          console.log(e.target.value);
+        });
+        password.addEventListener("input", (e) => {
+          console.log(e.target.value);
+          password.setAttribute("type", "password");
+        });
+
+        const setLocal = function () {
+          localStorage.setItem("name", userName.value);
+          localStorage.setItem("password", password.value);
+        };
+        const button = document.querySelector("button");
+        button.addEventListener("click", () => {
+          if (userName.value === "" || password.value === "") {
+            alert("아이디와 비밀번호를 확인해주세요");
+            location.href =
+              "http://127.0.0.1:5501/03_JavaScript/%EC%8B%A4%EC%8A%B508_%EB%A1%9C%EA%B7%B8%EC%9D%B8.html";
+          } else {
+            location.href =
+              "http://127.0.0.1:5501/03_JavaScript/%EC%8B%A4%EC%8A%B508_%EB%A1%9C%EA%B7%B8%EC%9D%B8%EC%84%B1%EA%B3%B5.html";
+          }
+        });
+      </script>
+    </div>
+  </body>
+</html>
+
+<!-- 1. 아이디 입력 비밀번호 입력
+    로그인 클릭
+    2.로그인을 클릭하면 , 
+    setlocalStorage로
+    아이디 비밀번호 저장.
+    
+    겟name님 환영합니다. 로그아웃. 출력
+    까지 한페이지-->
