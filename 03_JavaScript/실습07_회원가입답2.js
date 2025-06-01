@@ -42,7 +42,7 @@ const validCheck = () => {
   const passwordCheck = document.querySelector("#passwordCheck");
   fields.forEach(({ id, exp }) => {
     const input = document.querySelector(`#${id}`);
-
+    // console.log(fields);
     if (input.value === "") {
       console.log(`id1 : `, id);
       check = false;

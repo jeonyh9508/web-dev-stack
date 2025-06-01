@@ -61,10 +61,12 @@ password.addEventListener("input", (e) => {
   }
 
   if (passwordCheck.value === e.target.value) {
+    // passwordsCheck.value 가 password input 값과 동일하다면.
     passwordCheckSpan.innerHTML = "OK!";
     passwordCheckSpan.style.color = "green";
     check3 = true;
   } else {
+    //그렇지 않다면.
     passwordCheckSpan.innerHTML = "위 비밀번호와 동일하게";
     passwordCheckSpan.style.color = "red";
     check3 = false;
