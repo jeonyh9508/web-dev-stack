@@ -282,7 +282,109 @@ FROM DUAL;
 */
 -- USER_INFO 에서 BIRTHDATE로 연도, 월, 일 따로 조회
 SELECT BIRTHDATE,
-    EXTRACT(YEAR FROM BIRTHDATE),
-    EXTRACT(MONTH FROM BIRTHDATE),
-    EXTRACT(DAY FROM BIRTHDATE)
+    EXTRACT(YEAR FROM BIRTHDATE) 연,
+    EXTRACT(MONTH FROM BIRTHDATE) AS 월,
+    EXTRACT(DAY FROM BIRTHDATE) "일"
 FROM USER_INFO;
+
+/*
+    형 변환 함수
+    
+    TO_CHAR(날짜|숫자, 포멧)
+    - 날짜 또는 숫자형 데이터를 문자 타입으로 변환
+*/
+SELECT
+    TO_CHAR(1234, 'L99,999') -- 현재 설정된 화폐 단위
+FROM DUAL;
+
+ALTER SESSION SET NLS_CURRENCY ='₩';
+
+-- EMPLOYEE에서 연봉을 TO_CHAR를 이용해 조회 (,)
+
+SELECT EMP_NAME,SALARY,
+    TO_CHAR(SALARY*12,'L999,999,999') 연봉
+FROM EMPLOYEE
+ORDER BY 연봉 DESC;
+
+-- 날짜 -> 문자
+SELECT 
+    TO_CHAR(SYSDATE, 'RRRR') 연, -- 년 : YYYY, YY, RRRR, RR, YEAR
+    TO_CHAR(SYSDATE, 'MM') 월, -- 월 : MM, RM, (MON, MONTH) : -월
+    TO_CHAR(SYSDATE, 'DD') 일, -- 일 : D - 주(일요일 - 1), DD - 월. DDD - 연 
+    TO_CHAR(SYSDATE, 'DAY') 요일,  -- 요일 : DY, DAY
+    TO_CHAR(SYSDATE, 'PM HH:MI:SS'), -- 시 분 초
+    TO_CHAR(SYSDATE, 'AM HH24:MI:SS') -- 24시간 표기법
+FROM DUAL;
+
+-- BIRTHDATE를 '2025년 06월 04일 수요일' 포맷으로 조회
+SELECT NAME, BIRTHDATE,
+    TO_CHAR (BIRTHDATE,'YYYY"년" MM"월" DD"일" DAY')
+FROM USER_INFO;
+
+/*
+    TO_DATE(숫자|문자, 포멧)
+    - 숫자 또는 문자형 데이터를 날짜 타입으로 변환
+*/
+-- 숫자 -> 날짜
+SELECT TO_DATE(20250604) FROM DUAL;
+SELECT TO_DATE(20250604164230, 'YYYY-MM-DD HH24:MI:SS') FROM DUAL;
+
+-- 문자 -> 날짜
+SELECT TO_DATE('20250604') FROM DUAL;
+SELECT TO_DATE('20250604164230', 'YYYY-MM-DD HH24:MI:SS') FROM DUAL;
+
+/*
+    TO_NUMBER(문자, 포멧)
+    - 문자형 데이터를 숫자 타입으로 변환
+*/
+SELECT '100000'+'550000' FROM DUAL;
+SELECT TO_NUMBER('100,000','999,999') + TO_NUMBER('550,000','999,999') FROM DUAL;
+
+/*
+    NULL 처리 함수
+    
+    NVL/COALESCE(값1, 값2)
+    - 값1이 NULL이 아니면 값1을 반환하고,
+      값1이 NULL이면 값2를 반환
+*/
+-- USER_INFO에서 MBTI가 NULL인 경우 'MBTI 모름' 처리
+SELECT NAME,MBTI,
+    NVL(MBTI,'MBTI 모름'),
+    COALESCE(MBTI,'MBTI 모름')
+FROM USER_INFO;
+
+-- COALESCE(값1, 값2, ...)
+-- MBTI가 NULL이 아니면 MBTI, NULL이면 HOBBY, 이것 또한 NULL이면 '모름'
+SELECT NAME,MBTI,HOBBY,
+    COALESCE(MBTI, HOBBY, '모름')
+FROM USER_INFO;
+
+/*
+    NVL2(값1,값2,값3)
+    - 값1이 NULL이 아니면 값2, NULL이면 값3
+*/
+-- EMPLOYEE에서 부서코드(DEPT_CODE)가 있으면 '부서있음', 없으면 '부서없음'
+SELECT EMP_NAME,DEPT_CODE,
+    NVL2(DEPT_CODE,'부서 있음','부서 없음') 부서
+FROM EMPLOYEE
+ORDER BY DEPT_CODE ASC NULLS FIRST;
+
+/*
+    NULLIF(값1, 값2)
+    - 두 개의 값이 동일하면 NULL, 동일하지 않으면 값1
+*/
+SELECT 
+    NULLIF('123','123'),
+    NULLIF('123','456')
+FROM DUAL;
+
+/*
+    선택 함수 : 여러 가지 경우에 선택할 수 있는 기능을 제공
+    
+    DECODE(값, 조건값1, 결과값, 조건값2, 결과값2, ...)
+    - 비교하고자 하는 값이 조건값과 일치하는 경우 그에 해당하는 결과값 반환
+*/
+-- EMPLOYEE에서 주민번호(EMP_NO)로 성별(남, 여) 조회
+SELECT EMP_NAME, EMP_NO,
+    DECODE(SUBSTR(EMP_NO,8,1),1,'남',2,'여') 성별
+FROM EMPLOYEE;
