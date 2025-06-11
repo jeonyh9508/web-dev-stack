@@ -67,10 +67,6 @@ CREATE TABLE GRADE(
 
 -- 프로젝트 관리 : 테이블 몇개든 상관없이 짜고 FOREIGN KEY까지 걸어보기
 
--- 프로젝트 : 관계자 , 프로그램, 사용처, 시작일, 마감일
--- 관계자:  이름, 직위, 일정, 업무분장
--- 프로그램 : 진행도, 관계자, 테스트, SWOT, 기능
-
 -- 테이블에 필요한 컬럼 짜기 힘들다면 어떤 기능이 있어야 되는지 정도로 제출 -- 내일까지
 /*
 CREATE TABLE PROJECT (
@@ -139,3 +135,18 @@ ALTER TABLE PROJECT_MEMBERS ADD FOREIGN KEY (PRO_NO) REFERENCES PROJECT(PRO_NO);
 ALTER TABLE PROJECT_TASKS ADD FOREIGN KEY (PRO_NO) REFERENCES PROJECT(PRO_NO);
 
 -- 일정 관리 테이블
+/*
+CREATE TABLE SCHEDULE(
+	SCHEDULE_NO INT AUTO_INCREMENT PRIMARY KEY,
+	ADMIN VARCHAR(10),
+    MEMBER_NO INT,
+    DEADLINE DATE,
+    UPDATE_DESC VARCHAR(50),
+    PART VARCHER(50),
+    ASSIGNMENT VARCHAR(100),
+    WORK VARCHAR(50),
+    EDIT VARCHAR(50),
+    JOIN VARCHAR(50),
+    DELETE VARCHAR(50)
+);
+*/
