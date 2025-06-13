@@ -768,18 +768,26 @@ BEGIN
         UPDATE TB_PRODUCT
         SET STOCK = STOCK + :NEW.AMOUNT
         WHERE PCODE = :NEW.PCODE;
-    ELSIF  -- 출고된 경우
+    END IF;
+   /* ELSIF  -- 출고된 경우
     :NEW.STATUS = '출고'
     THEN 
         UPDATE TB_PRODUCT
         SET STOCK = STOCK - :NEW.AMOUNT
         WHERE PCODE = :NEW.PCODE;
-        END IF;
+        */
+    IF    -- 출고된 경우
+    :NEW.STATUS = '출고' 
+    THEN    
+        UPDATE TB_PRODUCT
+        SET STOCK = STOCK - :NEW.AMOUNT
+        WHERE PCODE = :NEW.PCODE;
+    END IF;
 END;
 /
 
 INSERT INTO TB_PRODETAIL(PCODE, AMOUNT, STATUS)
 VALUES(3, 4, '출고');
-
+ROLLBACK;
 SELECT * FROM TB_PRODETAIL;
 SELECT * FROM TB_PRODUCT;
