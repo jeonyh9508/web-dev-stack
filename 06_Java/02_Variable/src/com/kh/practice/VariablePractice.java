@@ -8,9 +8,9 @@ public class VariablePractice {
 	
 	public static void main(String[] args) {
 		VariablePractice v = new VariablePractice();
-		//v.method1();
-		//v.method2(); 패스
-		//v.method3();
+		v.method1();
+		v.method2(); 
+		v.method3();
 		v.method4();
 		v.method5();
 		v.method6();
@@ -24,19 +24,22 @@ public class VariablePractice {
 	 * 
 	 * 성인 2명과 청소년 3명이 영화를 보려고 할 때 지불해야 할 금액을 계산 후 출력하세요.
 	 * */
-/*
+
 	public void method1() {
+		
 		int adult = 10000;
 		int youth = 7000;
 		
-	System.out.print("성인은 몇 명인가요? > ");
-	int adult_total = sc.nextInt();
-	System.out.print("청소년은 몇 명인가요? > ");
-	int youth_total = sc.nextInt();
-	System.out.println((adult * adult_total) + (youth * youth_total));
-	
+		System.out.print("성인은 몇 명인가요? > ");
+		int adult_total = sc.nextInt();
+		
+		System.out.print("청소년은 몇 명인가요? > ");
+		int youth_total = sc.nextInt();
+		
+		System.out.println((adult * adult_total) + (youth * youth_total));
+		System.out.println("");
 	}
-*/
+
 	/*
 	 * x=5, y=7, z=9의 값을 직접 변경하지 않고 변수를 사용하여
 	 * 
@@ -46,22 +49,25 @@ public class VariablePractice {
 	 * 
 	 * 로 출력하세요.
 	 * */
-/*
+
 	public void method2() {
 		int x = 5;
 		int y = 7;
 		int z = 9;
 		
 		// 코드 적어주세요!
-	
+		int i = x;
+			x = y;
+			y = z;
+			z = i;
 		
-	System.out.println("x = "+ x);
-	System.out.println("y = "+ y);
-	System.out.println("z = "+ z);
-	System.out.println("");
+		System.out.println("x = " + x);
+		System.out.println("y = " + y);
+		System.out.println("z = " + z);
+		System.out.println("");
 	}
-	
-*/
+
+
 
 	/*
 	 * 정수 두 개를 입력 받아 두 수의 합(+), 차(-), 곱(*), 나누기(/)한 몫을 출력하세요.
@@ -73,13 +79,15 @@ public class VariablePractice {
 	 * 곱하기 : 161
 	 * 나누기 몫 : 3
 	 * */
-/*
+
 	public void method3() {
 	
-		System.out.println("첫 번째 정수 > ");
+		System.out.print("첫 번째 정수 > ");
 		int i = sc.nextInt();
-		System.out.println("두 번째 정수 >");
+		
+		System.out.print("두 번째 정수 > ");
 		int j = sc.nextInt();
+		
 		System.out.println("합 = " + (i + j));
 		System.out.println("차 = " + (i - j));
 		System.out.println("곱 = " + (i * j));
@@ -87,7 +95,7 @@ public class VariablePractice {
 		System.out.println("");
 	
 	}
-*/
+
 	/*
 	 * 가로, 세로 값을 입력 받아 사각형의 면적과 둘레를 계산하여 출력하세요.
 	 * 공식) 면적 : 가로 * 세로
@@ -103,8 +111,10 @@ public class VariablePractice {
 		
 		System.out.print("가로 길이 >");
 		double width = sc.nextDouble();
+		
 		System.out.print("세로 길이 > ");
 		double height = sc.nextDouble();
+		
 		System.out.println(width * height);
 		System.out.println((width + height) * 2);
 		System.out.println("");
@@ -119,8 +129,13 @@ public class VariablePractice {
 	 * 마지막 문자 : e
 	 * */
 	public void method5() {
-		String str = "apple";
-		System.out.println(str);
+		
+		System.out.print("영어 단어를 입력해주세요 > ");
+		String str = sc.next();
+		
+		System.out.println("첫번째 글자 " + str.substring(0,1));
+		System.out.println("두번째 글자 " + str.substring(1,2));
+		System.out.println("마지막 글자 " + str.substring(str.length()-1));
 		System.out.println("");
 
 	}
@@ -134,6 +149,16 @@ public class VariablePractice {
 	 * */
 	public void method6() {
 		
+		System.out.print("문자 하나를 입력해주세요 > ");
+		char ch =  sc.next().charAt(0);
+		int i = ch;
+		
+		System.out.println(ch + " unicode : " + i);
+		i = i + 1;
+		ch = (char) i;		
+		
+		System.out.println(ch + " unicode : " + i);
+		System.out.println("");
 	}
 	
 	/*
@@ -145,8 +170,27 @@ public class VariablePractice {
 	 * 총점 : 218
 	 * 평균 : 72.67
 	 * */
+	
 	public void method7() {
-
+		
+		System.out.println("국어 점수를 입력해주세요 > ");
+		double kor = sc.nextInt();
+		
+		System.out.println("영어 점수를 입력해주세요 >");
+		double eng = sc.nextInt();
+		
+		System.out.println("수학 점수를 입력해주세요 > ");
+		double math = sc.nextInt();
+		
+		int score =  (int) (kor + eng + math);
+		double avg = (kor + eng + math) / 3;
+	
+		System.out.println("총점 : " + score);
+		System.out.printf("평균 : %.2f", avg);
+		
+		
+		
+		
 	}
 
 }
