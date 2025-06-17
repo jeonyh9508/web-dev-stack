@@ -8,12 +8,12 @@ public class VariablePractice {
 	
 	public static void main(String[] args) {
 		VariablePractice v = new VariablePractice();
-		v.method1();
-		v.method2(); 
-		v.method3();
-		v.method4();
-		v.method5();
-		v.method6();
+//		v.method1();
+//		v.method2(); 
+//		v.method3();
+//		v.method4();
+//		v.method5();
+//		v.method6();
 		v.method7();
 	}
 	
@@ -185,7 +185,10 @@ public class VariablePractice {
 		int score =  (int) (kor + eng + math);
 		double avg = (kor + eng + math) / 3;
 	
-		System.out.println("총점 : " + score);
+		System.out.printf("국어 : %.0f \n", kor);
+		System.out.printf("영어 : %.0f \n", eng);
+		System.out.printf("수학 : %.0f \n", math);
+		System.out.printf("총점 : %d \n", score);
 		System.out.printf("평균 : %.2f", avg);
 		
 		
