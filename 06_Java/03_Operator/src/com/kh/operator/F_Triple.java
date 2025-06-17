@@ -20,8 +20,9 @@ public class F_Triple { // 클래스 명 A ~ 연산 우선 순위
 
 		F_Triple f = new F_Triple();
 //		f.method1();
-		f.practice1();
-		f.practice2();
+//		f.practice1();
+//		f.practice2();
+		f.practice3();
 	}
 
 	public void method1() {
@@ -56,6 +57,7 @@ public class F_Triple { // 클래스 명 A ~ 연산 우선 순위
 		
 		System.out.println(result);
 	}
+	
 	public void practice2() {
 	/*
 		사용자한테 문자를 하나 입력받아서 입력한 문자가 대문자이면 "알파벳 대문자입니다."
@@ -67,5 +69,35 @@ public class F_Triple { // 클래스 명 A ~ 연산 우선 순위
 		String result = ('A' <= ch && ch <= 'Z') ? "알파벳 대문자 입니다." 
 						: ('a' <= ch && ch <= 'z') ? "알파벳 소문자 입니다." : "알파벳이 아니네요";
 		System.out.println(result);
+	}
+	
+	public void practice3() {
+		/*
+			사용자한테 숫자를 입력받아 해당 숫자가 알파벳 범위안에 들어 간다면,
+			"알파벳 D 입니다." 그게 아니면 "알파벳이 아닙니다."
+		*/
+		/*
+		System.out.println("숫자를 입력해주세요 > ");
+		int num = sc.nextInt();
+		char ch = (char) num;
+		
+		String result = ('A' <= ch && ch <= 'Z') || ('a' <= ch && ch <= 'z') ? 
+					"알파벳 "+ ch +" 입니다." : "알파벳이 아닙니다";
+		
+			   result = ( 65 <= num && num <= 90) || (97 <= num && num <= 122) ? 
+					"알파벳 "+ ch +" 입니다." : "알파벳이 아닙니다";
+		
+			   result = ( 65 <= ch && ch <= 90) || (97 <= ch && ch <= 122) ? 
+					"알파벳 "+ ch +" 입니다." : "알파벳이 아닙니다";
+		
+			   result = ('A' <= num && num <= 'Z') || ('a' <= num && num <= 'z') ? 
+					"알파벳 "+ ch +" 입니다." : "알파벳이 아닙니다";
+		System.out.println(result);
+		*/
+		System.out.println("숫자를 입력해주세요 > ");
+		int num = sc.nextInt();
+		boolean result = ('A' <= num && num <= 'Z') || ('a' <= num && num <= 'z');
+		System.out.println(result ? "알파벳 " + (char)num + " 입니다." : "알파벳이 아닙니다");
+		
 	}
 }

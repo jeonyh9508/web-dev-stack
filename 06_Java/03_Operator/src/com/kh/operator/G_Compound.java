@@ -23,11 +23,25 @@ public class G_Compound {
 
 		int number = 12; 
 		
-		number += 1;
-		System.out.println(number);
+		number += 3;
+		System.out.println(number); // 12 + 3 = 15
+		
+		number -= 5;
+		System.out.println(number); // 15 - 5 = 10
 
-		}
-			
+		number *= 6;
+		System.out.println(number); // 10 * 6 = 60
+		
+		number /= 3;
+		System.out.println(number); // 60 / 3 = 20
+		
+		number %= 3;
+		System.out.println(number); // 20 % 3 = 2
+		
+		String str = "Hello";
+		str += ", Java!";
+		System.out.println(str); // Hello, Java!
+
 	}
 
 }
