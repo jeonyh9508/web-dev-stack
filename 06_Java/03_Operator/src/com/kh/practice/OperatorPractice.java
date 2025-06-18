@@ -9,14 +9,14 @@ public class OperatorPractice {
 	public static void main(String[] args) {
 
 		OperatorPractice o = new OperatorPractice();
-//		o.method1();
-//		o.method2();
-//		o.method3();
-//		o.method4();
-//		o.method5();
-//		o.method6();
+		o.method1();
+		o.method2();
+		o.method3();
+		o.method4();
+		o.method5();
+		o.method6();
 		o.method7();
-//		o.method8();
+		o.method8();
 		
 	}
 
@@ -117,8 +117,10 @@ public class OperatorPractice {
 	public void method7() {
 		System.out.println("사과 개수 입력 > ");
 		int apple = sc.nextInt();
+		
 		System.out.println("바구니 개수 입력 > ");
 		int basket = sc.nextInt();
+		
 		int need = (apple / basket);
 		
 		if (apple % basket == 0) {

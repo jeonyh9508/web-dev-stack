@@ -8,12 +8,12 @@ public class VariablePractice {
 	
 	public static void main(String[] args) {
 		VariablePractice v = new VariablePractice();
-//		v.method1();
-//		v.method2(); 
-//		v.method3();
-//		v.method4();
-//		v.method5();
-//		v.method6();
+		v.method1();
+		v.method2(); 
+		v.method3();
+		v.method4();
+		v.method5();
+		v.method6();
 		v.method7();
 	}
 	
@@ -135,7 +135,7 @@ public class VariablePractice {
 		
 		System.out.println("첫번째 글자 " + str.substring(0,1));
 		System.out.println("두번째 글자 " + str.substring(1,2));
-		System.out.println("마지막 글자 " + str.substring(str.length()-1));
+		System.out.println("마지막 글자 " + str.substring(str.length() - 1));
 		System.out.println("");
 
 	}
@@ -154,7 +154,7 @@ public class VariablePractice {
 		int i = ch;
 		
 		System.out.println(ch + " unicode : " + i);
-		i = i + 1;
+		i += 1;
 		ch = (char) i;		
 		
 		System.out.println(ch + " unicode : " + i);
