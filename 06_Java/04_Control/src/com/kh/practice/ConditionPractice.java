@@ -220,6 +220,7 @@ public class ConditionPractice {
     	double weight = sc.nextDouble();
     	double bmi = weight / (height * height) * 10000;
     	String status = "";
+    	sc.nextLine();
     if(bmi < 18.5) {
     	status = "저체중";
     }else if(bmi < 23) {
