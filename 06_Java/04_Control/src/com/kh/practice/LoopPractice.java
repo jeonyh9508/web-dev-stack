@@ -10,11 +10,11 @@ class LoopPractice {
 	public static void main(String[] args) {
 
 		LoopPractice l = new LoopPractice();
-		l.method1();
-		l.method2();
-		l.method3();
-		l.method4();
-		l.method5();
+//		l.method1();
+//		l.method2();
+//		l.method3();
+//		l.method4();
+//		l.method5();
 		l.method6();
 		
 	}
@@ -135,7 +135,7 @@ class LoopPractice {
         졌습니다 ㅠㅠ
 
         가위바위보 : 보
-        컴퓨터 : 바위
+        컴퓨터  바위
         김미경 : 보
         이겼습니다 !
 	    비긴 횟수 : 1, 진 횟수 : 1, 이긴 횟수 : 1
@@ -152,12 +152,13 @@ class LoopPractice {
     	
     	while(rsp) {
     		
-    	System.out.println("가위 바위 보");
-    	
-    	System.out.print(name + " : ");
+    	System.out.print("가위 바위 보 : ");
     	String hand = sc.next();
+    	//System.out.print(name + " : ");
     	
-    	int random = (int)(Math.random()* 3 + 1);	
+    	
+    	int random = (int)(Math.random()* 3 + 1);
+    	
     	switch(random) {
     		case 1 : System.out.println("컴퓨터 : 가위");
     		break;
@@ -166,9 +167,10 @@ class LoopPractice {
     		case 3 : System.out.println("컴퓨터 : 보");
 			break;
     	}
-    	 	
-    	    	
-       	int hand2 = 0;
+    	
+    	System.out.println(name + " : " + hand);
+    	
+    	int hand2 = 0;
     	switch(hand) {
 	    	case "가위" : hand2 = 1;
 			break;
@@ -178,15 +180,15 @@ class LoopPractice {
 			break;	
 			default : System.out.println("다시"); continue;
     	}
-    	
-    	
+    	 	
+    	    
     	if(random == hand2) {
     		System.out.println("비겼습니다.");
     		draw += 1;
     	} else if (random == 1 && hand2 == 2 ||
     			   random == 2 && hand2 == 3 ||
     			   random == 3 && hand2 == 1) {
-    		System.err.println("이겼습니다 !");
+    		System.out.println("이겼습니다 !");
     		win += 1;
     	} else {
     		System.out.println("졌습니다.. ");
