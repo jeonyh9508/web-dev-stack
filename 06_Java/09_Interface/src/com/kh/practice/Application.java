@@ -139,19 +139,23 @@ public class Application {
 			case 1:
 				System.out.print("전화 번호 입력 : ");
 				String phone = sc.nextLine();
+				
 				user.setPhone(phone);
 				break;
 			case 2:
 				System.out.print("생일 입력 (예 : 2025-06-23) : ");
 				String birthDateInput = sc.nextLine();
+				
 				LocalDate birthDate = LocalDate.parse(birthDateInput); 
 				user.setBirthDate(birthDate);
 				break;
 			case 3:
 				System.out.print("부서 번호 입력 : ");
 				int deptNo = Integer.parseInt(sc.nextLine());
+				
 				System.out.print("부서 입력 : ");
 				String deptName = sc.nextLine();
+				
 				Department department = new Department();
 				department.setDeptName(deptName);
 				department.setDeptNo(deptNo);
