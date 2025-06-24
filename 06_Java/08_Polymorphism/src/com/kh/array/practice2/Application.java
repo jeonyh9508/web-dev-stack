@@ -63,9 +63,11 @@ public class Application {
 			System.out.println("현재 등록된 회원 수는 1명입니다.");
 		}else 
 			System.out.println("현재 등록된 회원 수는 0명입니다.");
+		
 		if(arr[0] == null || arr[1] == null || arr[2] == null) {
 		System.out.println("1. 새 회원 등록");}
 		else {System.out.println("회원 수가 모두 꽉 찼기 때문에 일부 메뉴만 오픈합니다.");}
+		
 		System.out.println("2. 회원 정보 수정");
 		System.out.println("3. 전체 회원 정보 출력");
 		System.out.println("9. 끝내기");
@@ -75,13 +77,15 @@ public class Application {
 	switch (number) {
 	case 1 : 	System.out.print("아이디 : ");
 				member.setId(sc.nextLine());
+				
 				if(member.getId() != null) {
 				for(int i = 0; i < arr.length; i++) {
 					if(arr[i]!=null &&arr[i].getId().equals(member.getId())) {
 						System.out.println("아이디 중복");
-						break;
+						continue;
 					}
 				}
+				
 				System.out.print("이름 : ");
 				member.setName(sc.nextLine());
 				System.out.print("비밀번호 : ");
@@ -91,7 +95,8 @@ public class Application {
 				System.out.print("성별 (M/F) : ");
 				member.setGender(sc.nextLine().charAt(0));
 				System.out.print("나이 : ");
-				member.setAge(Integer.parseInt(sc.nextLine()));}
+				member.setAge(Integer.parseInt(sc.nextLine()));
+				}
 				
 				
 				
