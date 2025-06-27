@@ -14,32 +14,58 @@ public class MemberController {
 	private Member member = null;
 	
 	// 회원가입 및 로그인 처리
-	public int registerAndLogin(String name, int age) {
+	public boolean registerAndLogin(String name, int age) {
+		// 회원 가입 -> 회원 목록에 추가
+//		members.add(new Member(name, age));
 		
-		if(this.members == null) {
-			Member member = new Member();
-			this.member.setName(name);
-			this.member.setAge(age);
-			this.members.add(member);
-		}	
-		//동일 이름 존재하면 가입 불가 처리
-		for(int i = 0; i < this.members.size(); i++) {
-			if(this.members.get(i).getName().equals(name)) {
-				if(this.members.get(i).getAge() != age) {
-				System.out.println("이미 존재하는 이름입니다. 다시 입력해주실래요?");} return 2;
-			}else if (this.members.get(i).getName().equals(name) && this.members.get(i).getAge() == age) {
-				System.out.println("로그인 성공 !");
+		
+		
+
+		for(Member member : members) {
+			// 이름 나이 동일 로그인
+			if(member.getName().equals(name) && member.getAge() == age) {
+				// 로그인
+				this.member = member;
+				return true;
 			}
+			// 동일 이름 존재 -> 가입 불가
+			if(member.getName().equals(name)) {
+				return false;
+				
 		}
-		return 1;
+	}
+		// 회원 가입 처리
+			Member m = new Member();
+			m.setName(name);
+			m.setAge(age);
+			members.add(m);
+			this.member = m;
+			return true;
+	
+//		// 로그인
+//		member = new Member();
+//		member.setName(name);
+//		member.setAge(age);
+		
+	
+		// 동일 이름 존재하면 가입 불가 처리
+		// 이름 나이가 동일하면 로그인
+		// 기존에 이름이 없으면 가입후 로그인
 	}
 	public void logout() {
-		
+		member = null;
 	}
 	
 	public Member getMember() {
-		return this.member;
+		return member;
 	}
-	
-	
+	// 대여 후 멤버 정보 새로 저장
+	public void setMember(Member member) {
+		for(int i = 0; i < members.size(); i++) {
+			Member m = members.get(i);
+			if(m.getName().equals(member.getName())) {
+			members.set(i, member);
+			}
+		}
 	}
+}
