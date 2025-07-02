@@ -276,7 +276,7 @@ SELECT * FROM MEM_MEMBER2;
 
 -- 데이터 삭제 : DELETE FROM 테이블명 WHERE 조건;
 -- MEM_GRADE 테이블에서 GRADE_CODE가 1인 걸 삭제
-DELETE MEM_GRADE WHERE GRADE_CODE = 1;
+DELETE FROM MEM_GRADE WHERE GRADE_CODE = 1;
 
 -- 부모테이블(MEM_GRADE)에서 데이터 값을 삭제할 경우 문제 발생
 -- 이유 : 자식 레코드가 있어서 삭제되지 않음
