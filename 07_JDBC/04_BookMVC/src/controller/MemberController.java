@@ -7,7 +7,7 @@ import vo.Member;
 
 public class MemberController {
 
-	private MemberDAO md= new MemberDAO();
+	private MemberDAO md = MemberDAO.getInstance();
 	
 	// 4. 회원가입 
 	public void register(Member member) {

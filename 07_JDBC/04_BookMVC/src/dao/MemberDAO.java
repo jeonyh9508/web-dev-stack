@@ -11,13 +11,20 @@ import vo.Member;
 
 public class MemberDAO {
 	
-	public MemberDAO() {
+	private static MemberDAO instance = new MemberDAO();
+	
+	private MemberDAO() {
 		try {
 			Class.forName(ServerInfo.DRIVER);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	public static MemberDAO getInstance() {
+		return instance;
+	}
+	
 	
 	public Connection getConnect() throws SQLException {
 		return DriverManager.getConnection(ServerInfo.URL, ServerInfo.USER, ServerInfo.PASSWORD);
