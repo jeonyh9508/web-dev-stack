@@ -57,9 +57,9 @@ public class BookRentApp {
 		boolean set = true;
 		while(set) {
 		System.out.println("관리자 하이");
-		System.out.println("1. 회원 가입");
-		System.out.println("2. 로그인");
-		System.out.println("9. 종료");
+		System.out.println("1. 책 등록");
+		System.out.println("2. 책 삭제");
+		System.out.println("3. 로그아웃");
 		System.out.print("메뉴 번호 선택 : ");
 		int select = Integer.parseInt(sc.nextLine());
 		switch(select) {
@@ -82,9 +82,11 @@ public class BookRentApp {
 		boolean set = true;
 		while(set) {
 		System.out.println("회원님 하이");
-		System.out.println("1. 회원 가입");
-		System.out.println("2. 로그인");
-		System.out.println("9. 종료");
+		System.out.println("1. 회원 탈퇴");
+		System.out.println("2. 로그아웃");
+		System.out.println("3. 책 대여");
+		System.out.println("4. 대여한 책 조회");
+		System.out.println("5. 대여 취소");
 		System.out.print("메뉴 번호 선택 : ");
 		int select = Integer.parseInt(sc.nextLine());
 		switch(select) {
@@ -125,7 +127,7 @@ public class BookRentApp {
 		
 		if(cc.login(id, pwd) != null) {
 			basicMenu();
-		}else if (id.equals("admin") && pwd.equals("1234")) {
+		} else if (id.equals("admin") && pwd.equals("1234")) {
 			adminMenu();
 		} else {menu();}
 		
