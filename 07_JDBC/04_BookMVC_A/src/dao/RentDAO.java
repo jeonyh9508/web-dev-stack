@@ -45,7 +45,7 @@ public class RentDAO {
 	// 8. 내가 대여한 책 조회
 	public ArrayList<Rent> printRentBook(String id) throws SQLException {
 		Connection connect = connect();
-		String query = "SELECT * FROM rent WHERE id = ?";
+		String query = "select * from rent join book using (book_no) where id = ? ";
 		PreparedStatement ps = connect.prepareStatement(query);
 		ps.setString(1, id);
 		
@@ -57,6 +57,8 @@ public class RentDAO {
 			rent.setId(rs.getString("id"));
 			rent.setBookNo(rs.getInt("book_no"));
 			rent.setRentDate(rs.getDate("rent_date").toLocalDate());
+			rent.setBook(new Book(rs.getInt("book_no"), rs.getString("title"), 
+					   	rs.getString("author"), rs.getInt("access_age")));
 			list.add(rent);
 		}
 		return list;

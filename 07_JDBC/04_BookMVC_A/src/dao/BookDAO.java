@@ -51,6 +51,22 @@ public class BookDAO {
 		return list;
 	}
 
+	// 타이틀, 저자, 접근제한이 완전히 일치한 경우
+	public boolean checkBook(String title, String author, int accessAge) throws SQLException {
+		Connection connect = connect();
+		String query = "SELECT * FROM book WHERE title = ? AND author = ? AND access_age = ?";
+		
+		PreparedStatement ps = connect.prepareStatement(query);
+		ps.setString(1, title);
+		ps.setString(2, author);
+		ps.setInt(3, accessAge);
+		ResultSet rs = ps.executeQuery();
+		
+		return rs.next();
+	}
+	
+	
+	
 	// 2. 책 등록
 	public void registerBook(String title, String author, int accessAge) throws SQLException {
 		Connection connect = connect();
@@ -62,13 +78,26 @@ public class BookDAO {
 		ps.executeUpdate();
 	}
 
+	// 제목으로 책 조회 -> primary key 만 조회
+	public int searchBook(String title) throws SQLException {
+		Connection connect = connect();
+		String query = "SELECT * FROM book WHERE title = ?";
+		PreparedStatement ps = connect.prepareStatement(query);
+		ps.setString(1, title);
+		ResultSet rs = ps.executeQuery();
+		if(rs.next()) {
+			return rs.getInt("book_no");
+		}
+		return -1;
+		}
+	
 	// 3. 책 삭제
-	public void sellBook(int bookNo) throws SQLException {
+	public int sellBook(int bookNo) throws SQLException {
 		Connection connect = connect();
 		String query = "DELETE FROM book WHERE book_no = ?";
 		PreparedStatement ps = connect.prepareStatement(query);
 		ps.setInt(1, bookNo);
-		ps.executeUpdate();
+		return ps.executeUpdate();
 	}
 
 }

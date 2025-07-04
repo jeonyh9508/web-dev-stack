@@ -62,6 +62,6 @@ select * from member;
 select * from book;
 select * from rent;
 
-insert into member values ('1234','1234','1234',1234);
-insert into member values ('1234','1234','1234',1234);
-SELECT * FROM rent JOIN member USING (id) JOIN book USING (book_no) WHERE id = 'bibi';
+select * from rent
+join book using (book_no)
+ here id ='test01'; 

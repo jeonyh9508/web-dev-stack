@@ -29,7 +29,13 @@ public class MemberController {
 	}
 	
 	// 6. 회원탈퇴
-	public void delete(String id) {
+	public boolean delete(String id) {
 		// 회원탈퇴시 대여중인 책을 모두 기록 삭제
+		try {
+			dao.delete(id);
+			return true;
+		} catch (SQLException e) {
+			return false;
+		}
 	}
 }
