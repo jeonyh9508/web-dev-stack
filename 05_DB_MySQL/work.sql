@@ -48,7 +48,7 @@ create table rent(
 	rent_no int primary key auto_increment,
     id varchar(100),
     book_no int,
-    rentDate DATETIME DEFAULT (CURRENT_DATE)
+    rent_date DATETIME DEFAULT (CURRENT_DATE)
 );
     
 ALTER TABLE rent ADD FOREIGN KEY (id) REFERENCES member(id);
@@ -63,3 +63,5 @@ select * from book;
 select * from rent;
 
 insert into member values ('1234','1234','1234',1234);
+insert into member values ('1234','1234','1234',1234);
+SELECT *e FROM rent JOIN member USING (id) JOIN book USING (book_no) WHERE id = 'bibi';

@@ -2,29 +2,35 @@ package controller;
 
 import java.util.ArrayList;
 
-import dao.BookDAO;
 import vo.Book;
 
 public class BookController {
 
-	BookDAO bd = new BookDAO();
-
 	// 1. 전체 책 조회
 	public ArrayList<Book> printBookAll() {
-		return bd.printBookAll();
+		return null;
 	}
-
+	
 	// 2. 책 등록
 	public boolean registerBook(String title, String author, int accessAge) {
-		bd.registerBook(title, author, accessAge);
-		return true;
+		// 기존 제목, 저자, 제한 나이까지 동일한 책이 있으면 안되게!
+		return false;
 	}
-
+	
 	// 3. 책 삭제
-	public void sellBook(int bookNo) {
-		bd.sellBook(bookNo);
-		// 대여된 책은 삭제 불가
-
+	public boolean sellBook(int bookNo) {
+		
+		// 빌려있는 책은 삭제 못하게!
+		
+		return false;
 	}
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
