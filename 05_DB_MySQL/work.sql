@@ -51,7 +51,7 @@ create table rent(
     rent_date DATETIME DEFAULT (CURRENT_DATE)
 );
     
-ALTER TABLE rent ADD FOREIGN KEY (id) REFERENCES member(id);
+ALTER TABLE rent ADD FOREIGN KEY (id) REFERENCES member(id) on delete cascade;
 ALTER TABLE rent ADD FOREIGN KEY (book_no) REFERENCES book(book_no);
     
 drop table rent;
@@ -64,4 +64,4 @@ select * from rent;
 
 select * from rent
 join book using (book_no)
- here id ='test01'; 
+where id ='test01'; 
