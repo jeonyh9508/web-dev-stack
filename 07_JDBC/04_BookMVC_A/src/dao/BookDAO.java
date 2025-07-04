@@ -34,16 +34,19 @@ public class BookDAO {
 	public ArrayList<Book> printBookAll() throws SQLException {
 		Connection connect = connect();
 		String query = "SELECT * FROM book";
+		
 		PreparedStatement ps = connect.prepareStatement(query);
 		ResultSet rs = ps.executeQuery();
+		
 		ArrayList<Book> list = new ArrayList<>();
+		
 		while (rs.next()) {
 			Book book = new Book();
 			book.setBookNo(rs.getInt("book_no"));
 			book.setTitle(rs.getString("title"));
 			book.setAuthor(rs.getString("author"));
 			book.setAccessAge(rs.getInt("access_age"));
-			list.add(new Book());
+			list.add(book);
 		}
 		return list;
 	}
