@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import config.ServerInfo;
@@ -40,6 +41,7 @@ public class MemberDAO {
 			ps.setInt(4, member.getAge());
 			
 			ps.executeUpdate();	
-		
 	}
+	
+
 }

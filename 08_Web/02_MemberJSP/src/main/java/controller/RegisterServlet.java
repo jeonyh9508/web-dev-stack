@@ -43,8 +43,9 @@ public class RegisterServlet extends HttpServlet {
 		
 		// 3. 결과 페이지 이동
 		response.sendRedirect("result.jsp");
+			
+		
 	}
-	
 	
 
 }
