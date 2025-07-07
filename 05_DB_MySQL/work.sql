@@ -58,10 +58,6 @@ drop table rent;
 drop table member;
 drop table book;
     
-select * from member;
+select * from work.member;
 select * from book;
 select * from rent;
-
-select * from rent
-join book using (book_no)
-where id ='test01'; 
