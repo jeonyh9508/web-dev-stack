@@ -56,6 +56,21 @@ public class MemberDAO {
 		return null;
 	}
 	
+	// 회원조회
+	public Member selectMember(String id) throws SQLException {
+		Connection connect = connect();
+		String query = "SELECT * FROM member WHERE id = ?";
+		PreparedStatement ps = connect.prepareStatement(query);
+		ps.setString(1, id);
+		ResultSet rs = ps.executeQuery();
+		if(rs.next()) {
+			return new Member(rs.getString("id"), rs.getString("name"),
+								rs.getString("pwd"), rs.getInt("age"));
+							
+		}
+		return null;
+	}
+	
 	// 6. 회원탈퇴
 	public void delete(String id) throws SQLException {
 		Connection connect = connect();
