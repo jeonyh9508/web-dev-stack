@@ -61,3 +61,5 @@ drop table book;
 select * from work.member;
 select * from book;
 select * from rent;
+
+Delete from member where age=15;
