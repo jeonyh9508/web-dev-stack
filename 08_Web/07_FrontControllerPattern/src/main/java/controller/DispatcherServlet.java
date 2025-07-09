@@ -66,7 +66,7 @@ public class DispatcherServlet extends HttpServlet {
 		
 		dao.register(new Member(id, pwd, name, age));
 		
-		return "index.jsp";
+		return "/index.jsp";
 	}
 	
 	protected String login(HttpServletRequest request, HttpServletResponse response) throws SQLException {
@@ -79,7 +79,7 @@ public class DispatcherServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("member", member);
 
-		return "index.jsp";
+		return "/index.jsp";
 	}
 
 	protected String search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
@@ -107,6 +107,6 @@ public class DispatcherServlet extends HttpServlet {
 		if(member != null) {
 			session.invalidate();
 		}
-		return "index.jsp";
+		return "/index.jsp";
 	}
 }
