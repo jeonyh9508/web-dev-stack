@@ -22,8 +22,8 @@
 			<c:otherwise>
 				<%-- 로그인 된 경우 --%>
 				<li><a href="/views/search.jsp">회원검색</a></li>
-				<li><a href="/front?command=allMember.do">전체 회원 보기</a></li>
-				<li><a href="/front?command=logout">로그아웃</a></li>
+				<li><a href="/allMember.do">전체 회원 보기</a></li>
+				<li><a href="/logout.do">로그아웃</a></li>
 				<%-- ?key=value
 					key = command
 					value = logout

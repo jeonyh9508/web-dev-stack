@@ -36,20 +36,17 @@ public class DispatcherServlet extends HttpServlet {
 		try {
 			if (command.equals("login")) {
 				path = login(request, response);
-				request.getRequestDispatcher(path).forward(request, response);
+				
 			} else if(command.equals("register")) {
 				path = register(request, response);
-				response.sendRedirect(path);
 			} else if(command.equals("search")) {
 				path = search(request, response);
-				request.getRequestDispatcher(path).forward(request, response);
 			} else if(command.equals("allMember")){
-				path = searchAll(request, response);
-				request.getRequestDispatcher(path).forward(request, response);
+				path = allMember(request, response);
 			} else if(command.equals("logout")) {
 				path = logout(request, response);
-				response.sendRedirect(path);
 			}
+			request.getRequestDispatcher(path).forward(request, response);
 			} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -66,7 +63,7 @@ public class DispatcherServlet extends HttpServlet {
 		
 		dao.register(new Member(id, pwd, name, age));
 		
-		return "/index.jsp";
+		return "index.jsp";
 	}
 	
 	protected String login(HttpServletRequest request, HttpServletResponse response) throws SQLException {
@@ -79,20 +76,20 @@ public class DispatcherServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("member", member);
 
-		return "/index.jsp";
+		return "index.jsp";
 	}
 
 	protected String search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-	String id = request.getParameter("id");
+		String id = request.getParameter("id");
 		
 		MemberDAO dao = new MemberDAO();
-			Member member = dao.search(id);
-			request.setAttribute("member", member);
+		Member member = dao.search(id);
+		request.setAttribute("member", member);
 	
-			return "/views/result.jsp";
+		return "/views/result.jsp";
 	}
 	
-	protected String searchAll(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+	protected String allMember(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 		MemberDAO dao = new MemberDAO();
 			List<Member> list = dao.resultAll();
 			request.setAttribute("list", list);
@@ -107,6 +104,6 @@ public class DispatcherServlet extends HttpServlet {
 		if(member != null) {
 			session.invalidate();
 		}
-		return "/index.jsp";
+		return "index.jsp";
 	}
 }
