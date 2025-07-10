@@ -29,7 +29,7 @@ drop table person;
 select * from person;
 
 insert into person(name, age, addr) values ("비비빅" , 1 , "GS25");
-
+drop table member;
 create table member(
 	id varchar(100) primary key,
 	name varchar(50) not null,
