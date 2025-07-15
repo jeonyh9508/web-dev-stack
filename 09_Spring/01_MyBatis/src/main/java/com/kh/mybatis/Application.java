@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 // MyBatis mapper 인터페이스 위치 패키지
-@MapperScan("com.project.erp.mapper")
+@MapperScan("com.kh.mybatis.mapper")
 @SpringBootApplication
 public class Application {
 
