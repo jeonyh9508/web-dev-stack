@@ -2,14 +2,34 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  background-color: black;
+  background-color: gray;
 }
 
 .head {
+  padding-left: 10px;
+  padding-right: 30px;
   position: fixed;
+  width: 100vw;
+  height: 100px;
   display: flex;
-  flex-direction: row;
+  align-items: center;
   justify-content: space-between;
+}
+.head > .top-menu {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.head > .title{
+	width: 200px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.head > div > p {
+	margin: 15px;
 }
 
 .side {

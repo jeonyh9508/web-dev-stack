@@ -8,14 +8,22 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <title>Insert title here</title>
   </head>
   <body>
-    <h1>
-      <img
-        src="${pageContext.request.contextPath}/static/logo.png"
-        width="100"
-      />Header
-    </h1>
-    <p>공지</p>
-	<p>알림</p>
-	<a href="">로그인</a>
+	
+	<div class="title">
+		<img
+		       src="${pageContext.request.contextPath}/static/logo.png"
+		       width="100"
+		     />
+	    <h1>
+	     회사명
+	    </h1>
+	</div>
+	
+	<div class="top-menu">
+	    <p>공지</p>
+		<p>알림</p>
+		<p><a href="">로그인</a></p>
+	</div>
+	
   </body>
 </html>
