@@ -3,6 +3,6 @@ package com.project.erp.mapper;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public class ErpMapper {
+public interface UserMapper {
 
 }

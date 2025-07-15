@@ -1,0 +1,64 @@
+:root {
+  --side-width: 200px;
+  --header-height: 80px;
+}
+
+.side {
+  position: fixed;
+  background-color: #181823;
+  height: 100%;
+  width: var(--side-width);
+  color: white;
+  overflow-y: auto;
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+.side h1 {
+padding-top: 20px;
+  font-size: 2rem;
+}
+.side nav{
+	display: flex;
+	padding-bottom: 50px;
+	flex-direction: column;
+}
+.side nav ul{
+	padding: 10px;
+}
+.side nav ul h4{
+	padding: 10px;
+}
+.side nav ul li{
+	padding: 10px;
+}
+.main {
+  padding-left: var(--side-width);
+  background-color: #C0EEF2;
+  height: 100vh;
+}
+.main header {
+  display: flex;
+  position: fixed;
+  justify-content: space-between;
+  background-color: #181823;
+  height: var(--header-height);
+  width: 100%;
+  text-align: center;
+  align-items: center;
+  color : #E9F8F9;
+}
+.main div {
+	padding-right: 30px;
+	margin-right: var(--side-width);
+	color : #E9F8F9;
+	font-weight: bold;
+}
+.main div a{
+	padding: 15px;
+}
+.main section {
+  padding-top: var(--header-height);
+}
