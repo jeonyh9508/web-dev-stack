@@ -1,5 +1,6 @@
 package com.kh.mybatis.mapper;
 
+
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -15,4 +16,5 @@ public interface MemberMapper {
 	void update(Member vo);
 	void delete(String id);
 	List<Member> search(SearchDTO dto);
+	void selectDelete(List<String> idList);
 }

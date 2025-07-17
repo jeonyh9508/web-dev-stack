@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.mybatis.model.dto.SearchDTO;
 import com.kh.mybatis.model.vo.Member;
@@ -16,6 +17,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
+// 응답과 요청을 담당
 public class MemberController {
 	
 	@Autowired
@@ -86,4 +88,21 @@ public class MemberController {
 		return "index";
 	}
 	
+	/*
+	 * HttpServletRequest request , HttpServletResponse response
+	 * 
+	 * */
+	
+	
+	@PostMapping("/delete")
+	public String delelte(@RequestParam(name="idList", required = false) List<String> idList) {
+		// required : false -> null 이어도 에러가 나지 않음 기본값: true
+		if(idList != null) {
+			service.selectDelete(idList);
+		}
+		return "redirect:/";
+		// 어디로 요청하는지 -> / delete
+		// 어떤 방식으로 -> get/post
+		// 요청을 보낼때 보내는 값이 존재 ->  @RequestParam(name) = 변수명
+	}
 }

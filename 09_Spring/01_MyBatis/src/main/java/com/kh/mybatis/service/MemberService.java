@@ -9,10 +9,10 @@ import com.kh.mybatis.mapper.MemberMapper;
 import com.kh.mybatis.model.dto.SearchDTO;
 import com.kh.mybatis.model.vo.Member;
 
-@Service
+@Service  // Mapper(DAO)에서 받아온 값을 가공
 public class MemberService {
 
-	@Autowired
+	@Autowired // Spring 에서 가져오고 싶은 데이터
 	private MemberMapper mapper;
 	
 	public void register(Member member) {
@@ -39,4 +39,7 @@ public class MemberService {
 		return mapper.search(dto);		
 	}
 	
+	public void selectDelete(List<String> idList) {
+		mapper.selectDelete(idList);
+	}
 }

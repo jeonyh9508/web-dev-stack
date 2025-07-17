@@ -1,15 +1,15 @@
-package com.project.erp;
+package com.kh.ajax;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@MapperScan("com.project.erp.mapper")
+@MapperScan("com.kh.ajax.mapper")
 @SpringBootApplication
-public class ErpProjectApplication {
-	
+public class Application {
+
 	public static void main(String[] args) {
-		SpringApplication.run(ErpProjectApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 
 }
