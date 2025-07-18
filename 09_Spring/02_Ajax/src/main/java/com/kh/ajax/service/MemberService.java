@@ -22,4 +22,9 @@ public class MemberService implements MemberMapper{
 		 return mapper.idBoolCheck(id);
 	 }
 	 
+	 @Override
+	 public void register(Member vo) {
+		 mapper.register(vo);
+	 }
+	 
 }

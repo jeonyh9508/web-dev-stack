@@ -14,11 +14,11 @@ public class PageController {
 		
 		// 사용자가 로그인을 했는지 안했는지
 		// 역할 컬럼이 필요
-		
+	
 //		if(session.getAttribute("user") == null) {
 //			return "redirect:/login";
 //		}
-		
+//		
 		model.addAttribute("component", "../component/main.jsp");
 		return "/common/layout";
 	}
@@ -28,9 +28,8 @@ public class PageController {
 		return "/page/login";
 	}
 	
-	@GetMapping("/example")
-	public String example(Model model) {
-		model.addAttribute("component", "../component/example.jsp");
-		return "/common/layout";
+	@GetMapping("/register")
+	public String register() {
+		return "/page/register";
 	}
 }

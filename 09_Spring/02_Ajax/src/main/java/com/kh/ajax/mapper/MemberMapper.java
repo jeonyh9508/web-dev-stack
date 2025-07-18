@@ -9,4 +9,5 @@ public interface MemberMapper {
 	//resultType Member / id 변수명 / parameterType String 
 	Member idCheck(String id);
 	boolean idBoolCheck(String id);
+	void register(Member vo);
 }
