@@ -1,0 +1,55 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.upload.mapper.BoardMapper">
+
+	<select id="fileAll" resultType="Board">
+		SELECT * FROM board 
+	</select>
+
+	<select id="fileSearch" parameterType="Board" resultType="Board">
+		SELECT * FROM board
+	<where>
+		<choose>
+			<when test="select == 'id'">
+				id LIKE CONCAT ('%',#{search},'%')
+			</when>
+			<when test="select == 'title'">
+				title LIKE CONCAT ('%',#{search},'%')
+			</when>
+			<when test="select == 'content'">
+				content LIKE CONCAT ('%',#{search},'%')
+			</when>
+			<when test="select == 'url'">
+				url LIKE CONCAT ('%',#{search},'%')
+			</when>
+			<when test="select == 'createAt'">
+				create_at LIKE CONCAT ('%',#{search},'%')
+			</when>
+		</choose>
+	</where>
+	</select>
+	<insert id="fileUpload" parameterType="Board">
+		INSERT INTO board(title, content, url, create_at) VALUES(#{title}, #{content}, #{url}, #{createAt})
+	</insert>
+	<delete id="fileDelete" parameterType="String">
+		DELETE FROM board WHERE id = #{id}
+	</delete>
+	<update id="fileUpdate" parameterType="Board">
+		UPDATE board
+		<set>
+			<if test="title != null">
+				title = #{title},
+			</if>
+			<if test="content != null">
+				content = #{content},
+			</if>
+			<if test="name != null">
+				url = #{url},
+			</if>
+			<if test="createAt != 0">
+				age = #{createAt}
+			</if>
+		</set> 
+	WHERE id = #{id}
+	</update>
+	
+</mapper>

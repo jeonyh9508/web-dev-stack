@@ -79,7 +79,7 @@ CREATE TABLE project (
   project_code VARCHAR(50) NOT NULL COMMENT '프로젝트 코드 (예: PJT-2025-001)',
   project_name VARCHAR(200) NOT NULL COMMENT '프로젝트명',
   project_type VARCHAR(50) COMMENT '프로젝트 유형 (신약개발, 제네릭 등)',
-  manager_id INT COMMENT '프로젝트 책임자 ID',
+  manager_id INT DEFAULT 0 COMMENT '프로젝트 책임자 ID',
   status VARCHAR(20) COMMENT '상태 (계획중, 진행중, 완료 등)',
   start_date DATE COMMENT '프로젝트 시작일',
   end_date DATE COMMENT '프로젝트 종료일',
@@ -142,6 +142,7 @@ CREATE TABLE storage (
   lab_id INT NOT NULL COMMENT '연구실 위치',
   type VARCHAR(50) COMMENT '보관 종류 (냉장, 상온 등)'
 );
+
 CREATE TABLE team (
   team_id INT PRIMARY KEY AUTO_INCREMENT COMMENT '팀 ID',
   team_name VARCHAR(100) NOT NULL COMMENT '팀 이름',
@@ -174,20 +175,22 @@ alter table schedule add foreign key (user_no) references user_info(user_no);
 alter table schedule add foreign key (user_no) references user_info(user_no);
 
 -- approval_history
-alter table approval_history add foreign key (project_id) references project(project_id);
+-- alter table approval_history add foreign key (project_id) references project(project_id);
+ALTER TABLE approval_history ADD FOREIGN KEY (project_id) REFERENCES project(project_id) ON DELETE SET NULL;
 -- approval - budget foreign key 삭제 (primary key 아님)
 
 -- project_budget
-alter table project_budget add foreign key (project_id) references project(project_id);
+-- alter table project_budget add foreign key (project_id) references project(project_id);
+ALTER TABLE project_budget ADD FOREIGN KEY (project_id) REFERENCES project(project_id) ON DELETE SET NULL;
 
 -- project_chemical
-alter table project_chemical add foreign key (project_id) references project(project_id);
+alter table project_chemical add foreign key (project_id) references project(project_id) ON DELETE SET NULL;
 
 -- project_document
-alter table project_document add foreign key (project_id) references project(project_id);
+alter table project_document add foreign key (project_id) references project(project_id) ON DELETE SET NULL;
 
 -- project_member
-alter table project_member add foreign key (project_id) references project(project_id);
+alter table project_member add foreign key (project_id) references project(project_id)ON DELETE SET NULL;
 alter table project_member add foreign key (user_id) references user(user_id);
 
 -- user
@@ -203,10 +206,10 @@ alter table storage add foreign key (lab_id) references lab(lab_id);
 
 -- project_task
 alter table project_task add foreign key (assignee_id) references project_member(member_id);
-alter table project_task add foreign key (project_id) references project(project_id);
+alter table project_task add foreign key (project_id) references project(project_id) ON DELETE SET NULL;
 
 -- project_phase
-alter table project_phase add foreign key (project_id) references project(project_id);
+alter table project_phase add foreign key (project_id) references project(project_id) ON DELETE SET NULL;
 
 drop table approval_history;
 drop table chemical;

@@ -1,0 +1,15 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.paging.mapper.FilmMapper">
+	<resultMap type="Film" id="FilmMap">
+		<id property="id" column="film_id" /> <!-- primary key 는 아이디로 지정권장 -->
+		<result property="title" column="title" />
+		<result property="desc" column="description" />
+	</resultMap>
+	<select id="showFilm" resultMap="FilmMap"
+		parameterType="PagingDTO">
+		SELECT film_id, title, description FROM film_text LIMIT #{offset}, #{limit}
+	</select>
+	<select id="total" resultType="int">
+		SELECT COUNT(*) FROM film_text
+	</select>
+</mapper>
