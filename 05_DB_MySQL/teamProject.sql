@@ -135,7 +135,7 @@ CREATE TABLE project_phase (
   phase_id INT PRIMARY KEY AUTO_INCREMENT COMMENT '프로젝트 단계 고유 ID',
   project_id INT NOT NULL COMMENT '연결된 프로젝트 ID',
   phase_name VARCHAR(100) NOT NULL COMMENT '단계명 (기획, 임상1상 등)',
-  responsible_team VARCHAR(100) COMMENT '담당 부서 또는 팀',
+  responsible_dept INT COMMENT '담당 부서 또는 팀',
   start_date DATE COMMENT '단계 시작일',
   end_date DATE COMMENT '단계 종료일',
   progress INT COMMENT '진행률 (%)',
