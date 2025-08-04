@@ -26,31 +26,44 @@
 				<th>번호</th>
 				<th>제목</th>
 				<th>작성시간</th>
-				<th>수정</th>
-				<th>삭제</th>
 			</thead>
+			<form action="/list">
+				<input type="text" name="keyword" value="${param.keyword}">
+				<input type="submit" value="검색">
+			</form>
 			<tbody>
 				<c:forEach items="${list}" var="item">
 				<tr>
 					<td>${item.no}</td>
 					<td><a href="/view?no=${item.no}">${item.title}</a></td>
 					<td><fmt:formatDate value="${item.formatDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-					<td><a href="/update?no=${item.no}">수정</a>
-					<td><a href="/delete?no=${item.no}">삭제</a>
 				</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		<button type="button" class="btn btn-dark" data-bs-toggle="modal"
-			data-bs-target="#exampleModal">글 추가</button>
-		<div class="modal fade" id="exampleModal" tabindex="-1"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
+		
+		<nav>
+			<ul class="pagination">
+				<li class="page-item ${paging.prev ? '' : 'disabled'}"><a
+					class="page-link" href="/list?keyword=${param.keyword}&page=${paging.startPage - 1}">Previous</a></li>
+				<c:forEach begin="${paging.startPage}" end="${paging.endPage}"
+					var="page">
+					<li class="page-item"><a class="page-link ${paging.page == page ? 'active' : ''}"
+						href="/list?keyword=${param.keyword}&page=${page}">${page}</a></li>
+				</c:forEach>
+				<li class="page-item ${paging.next ? '' : 'disabled'}"><a
+					class="page-link" href="/list?keyword=${param.keyword}&page=${paging.endPage + 1}">Next</a></li>
+			</ul>
+		</nav>
+		
+		<button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">글 추가</button>
+		
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h1 class="modal-title fs-5" id="exampleModalLabel">게시글 등록</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal"
-							aria-label="Close"></button>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"	aria-label="Close"></button>
 					</div>
 					<form action="/write" method="post" enctype="multipart/form-data">
 						<div class="modal-body">
@@ -68,8 +81,7 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
-								data-bs-dismiss="modal">닫기</button>
+							<button type="button" class="btn btn-secondary"	data-bs-dismiss="modal">닫기</button>
 							<button type="submit" class="btn btn-primary">등록</button>
 						</div>
 					</form>

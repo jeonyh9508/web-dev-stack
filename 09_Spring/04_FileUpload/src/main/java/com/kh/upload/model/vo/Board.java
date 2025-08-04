@@ -1,6 +1,7 @@
 package com.kh.upload.model.vo;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

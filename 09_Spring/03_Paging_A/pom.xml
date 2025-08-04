@@ -12,7 +12,7 @@
 	<artifactId>mybatis</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>02_Ajax</name>
+	<name>03_Paging_A</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>

@@ -10,11 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 @Controller
 public class CustomErrorController implements ErrorController{
 
-    private final BoardController boardController;
-
-    CustomErrorController(BoardController boardController) {
-        this.boardController = boardController;
-    }
 
 	@RequestMapping("/error") // 어떤 메소드로 터질지 모르기 때문에 포괄성 높은 RequestMapping
 	public String handleError(HttpServletRequest request) {

@@ -2,7 +2,6 @@ package com.kh.upload.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -11,20 +10,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.upload.model.dto.BoardDTO;
+import com.kh.upload.model.dto.PagingDTO;
 import com.kh.upload.model.vo.Board;
 import com.kh.upload.service.BoardService;
 
 @Controller
 public class BoardController {
+	
+	private String path = "\\\\192.168.0.35\\upload\\";
+
 
 	@Autowired
 	private BoardService service;
 
-  
+
 	@GetMapping("/")
 	public String index() {
 		return "index";
@@ -36,8 +38,7 @@ public class BoardController {
 //		System.out.println(uuid.toString()); 업로드 할때마다 random
 		String fileName = uuid.toString() + "_" + file.getOriginalFilename();
 //		System.out.println(fileName);
-		File copyFile = new File("\\\\192.168.0.35\\upload\\" + fileName); // \\192.168.0.35\\upload
-
+		File copyFile = new File(path + fileName); // \\192.168.0.35\\upload
 		try {
 			file.transferTo(copyFile);
 		} catch (IllegalStateException | IOException e) {
@@ -67,11 +68,13 @@ public class BoardController {
 	}
 	
 	@GetMapping("/list")
-	public String list(Model model) {
-		List<BoardDTO> list = service.selectAll();
-		model.addAttribute("list", list);
+	public String list(Model model, PagingDTO paging) {
+		List<BoardDTO> list = service.selectAll(paging);
+			model.addAttribute("list", list);
+			model.addAttribute("paging",new PagingDTO(paging.getPage(), service.total(paging.getKeyword())));
 		return "list";
 	}
+
 	/*
 	@PostMapping("/write")
 	public String write(Board vo, BoardDTO dto) {
@@ -106,6 +109,51 @@ public class BoardController {
 		Board select = service.select(no);
 		model.addAttribute("select", select);
 		return "view";
+	}
+	
+//	@PostMapping("/update")
+//	public String update(Model model, Board vo, MultipartFile file) {
+//		File before = new File("\\\\192.168.0.35\\upload\\" + vo.getUrl());
+//		before.delete();
+//		
+//		System.out.println(file);
+//		vo.setUrl(fileUpload(file));
+//		
+//		System.out.println(vo);
+//		fileUpload(file);
+//		
+//		service.update(vo);
+//		return "redirect:/view?no=" + vo.getNo();
+//	}
+	
+	@PostMapping("/update")
+	public String update(BoardDTO dto) {
+		// 새로운 파일로 수정 -> 기존 파일 살제 해당 파일 업로드 -> DB URL 수정
+		if(!dto.getFile().isEmpty()) {
+			// 1. 파일이 비어있지 않다면 기존 파일 삭제
+			File file = new File(path + dto.getUrl());
+			file.delete();
+			
+			// 2. 해당 파일 업로드
+			String url = fileUpload(dto.getFile());
+			dto.setUrl(url);
+		}
+	
+		// 3. 해당 no에 따른 데이터 수정
+		service.update(dto);
+		
+		return "redirect:/view?no=" + dto.getNo();
+	}
+	
+	@GetMapping("/delete")
+	public String delete(int no, BoardDTO dto) {
+		// 이미지가 있는 경우 삭제를 
+		Board select = service.select(no);
+		
+		File file = new File(path + select.getUrl());
+		file.delete();
+		service.delete(no);
+		return "redirect:/list";
 	}
 	
 }

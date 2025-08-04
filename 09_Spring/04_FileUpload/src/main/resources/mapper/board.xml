@@ -12,24 +12,42 @@
 		INSERT INTO board(title, content, url) VALUES (#{title}, #{content}, #{url})
 	</insert>
 
-	<select id="selectAll" resultMap="boardMap">
-		SELECT *
-		FROM board
+	<select id="selectAll" resultMap="boardMap" parameterType="PagingDTO">
+		SELECT * FROM board
+		<where>
+			<if test="keyword != null">
+			title LIKE CONCAT ('%', ${keyword}, '%')
+			</if>
+		</where>
+		ORDER BY no DESC
+		LIMIT #{offset}, #{limit}
+	</select>
+
+	<select id="total" parameterType="String" resultType="int">
+		SELECT COUNT(*) from board
+		<where>
+			<if test="keyword != null">
+			title LIKE CONCAT ('%', ${keyword}, '%')
+			</if>
+		</where>
+	</select>
+	
+	<select id="paging" resultMap="boardMap" parameterType="BoardDTO">
+		SELECT * FROM board LIMIT #{offset}, #{limit}
 	</select>
 
 	<select id="select" parameterType="int" resultMap="boardMap">
 		SELECT * FROM board WHERE no = #{no}
 	</select>
 
-	<update id="update" parameterType="Board">
+	<update id="update" parameterType="BoardDTO">
 		UPDATE board
 		SET title = #{title}, content = #{content}, url = #{url}
 		WHERE no = #{no}
 	</update>
 
 	<delete id="delete" parameterType="int">
-		DELETE FROM board WHERE no =
-		#{no}
+		DELETE FROM board WHERE no = #{no}
 	</delete>
 
 </mapper>

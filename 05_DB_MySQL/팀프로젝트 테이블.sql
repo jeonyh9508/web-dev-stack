@@ -77,7 +77,7 @@ CREATE TABLE chemical (
 );
 CREATE TABLE project (
   project_id INT PRIMARY KEY AUTO_INCREMENT COMMENT '프로젝트 고유 ID',
-  project_code VARCHAR(50) NOT NULL COMMENT '프로젝트 코드 (예: PJT-2025-001)',
+  project_code VARCHAR(50) NOT NULL UNIQUE COMMENT '프로젝트 코드 (예: PJT-2025-001)',
   project_name VARCHAR(200) NOT NULL COMMENT '프로젝트명',
   project_type VARCHAR(50) COMMENT '프로젝트 유형 (신약개발, 제네릭 등)',
   manager_id INT DEFAULT 0 COMMENT '프로젝트 책임자 ID',
