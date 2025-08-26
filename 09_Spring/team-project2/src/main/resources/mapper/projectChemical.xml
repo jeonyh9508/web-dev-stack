@@ -1,0 +1,115 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sh.haagendazo.mapper.ProjectChemicalMapper">
+
+<resultMap type="Project" id="projectChemical">
+    <!-- project -->
+    <id property="projectId" column="projectId"/>
+    <result property="projectCode" column="projectCode"/>
+    <result property="projectName" column="projectName"/>
+    <result property="projectType" column="projectType"/>
+    <result property="userId" column="userId"/>
+    <result property="startDate" column="startDate"/>
+    <result property="endDate" column="endDate"/>
+    <result property="status" column="status"/>
+    <result property="description" column="description"/>
+    <result property="createdAt" column="createdAt"/>
+    <result property="updatedAt" column="updatedAt"/>
+    <!-- project_member -->
+    <result property="memberId" column="memberId"/>
+    <result property="memberUserId" column="memberUserId"/>
+    <result property="memberRole" column="memberRole"/>
+    <result property="memberCreatedAt" column="memberCreatedAt"/>
+    <!-- user -->
+    <result property="userUserId" column="userUserId"/>
+    <result property="email" column="email"/>
+    <result property="password" column="password"/>
+    <result property="name" column="name"/>
+    <result property="deptId" column="deptId"/>
+    <result property="gradeId" column="gradeId"/>
+    <result property="userCreatedAt" column="userCreatedAt"/>
+    <!-- project_chemical -->
+    <result property="projectChemicalId" column="projectChemicalId"/>
+    <result property="pcChemicalId" column="pcChemicalId"/>
+    <result property="pcUserId" column="pcUserId"/>
+    <result property="usedQty" column="usedQty"/>
+    <result property="usedAt" column="usedAt"/>
+    <!-- chemical -->
+    <result property="chemicalId" column="chemicalId"/>
+    <result property="chemicalName" column="chemicalName"/>
+    <result property="casNo" column="casNo"/>
+    <result property="storageUnit" column="storageUnit"/>
+    <result property="storageId" column="storageId"/>
+    <result property="stockQty" column="stockQty"/>
+    <result property="storageUnit" column="storageUnit"/>
+    <result property="thresholdQty" column="thresholdQty"/>
+    <result property="cCreatedAt" column="cCreatedAt"/>
+    <!-- approval -->
+    <result property="approvalId" column="approvalId"/>
+    <result property="approvalProjectId" column="approvalProjectId"/>
+    <result property="requestedBy" column="requestedBy"/>
+    <result property="approvalType" column="approvalType"/>
+    <result property="targetId" column="targetId"/>
+    <result property="approvalStatus" column="approvalStatus"/>
+    <result property="comment" column="comment"/>
+    <result property="approvedBy" column="approvedBy"/>
+    <result property="approvedAt" column="approvedAt"/>
+</resultMap>
+
+<select id="projectChemicalList" resultMap="projectChemical" parameterType="int">
+ SELECT 
+    project.project_id AS projectId,
+    
+    project_member.member_id AS memberId,
+    project_member.user_id AS memberUserId,
+    project_member.role AS memberRole,
+    
+    user.user_id AS userUserId,
+    user.email AS email,
+    user.password AS password,
+    user.name AS name,
+    user.dept_id AS deptId,
+    user.grade_id AS gradeId,
+    user.created_at AS userCreatedAt,
+    
+    pc.project_chemical_id AS projectChemicalId,
+    pc.chemical_id AS pcChemicalId,
+    pc.user_id AS pcUserId,
+    pc.used_qty AS usedQty,
+    pc.used_at AS usedAt,
+    
+    chemical.chemical_id AS chemicalId,
+    chemical.chemical_name AS chemicalName,
+    chemical.storage_unit AS storageUnit,
+    
+    approval.project_id AS approvalProjectId,
+    approval.requested_by AS requestedBy,
+    approval.approval_type AS approvalType,
+    approval.target_id AS targetId,
+    approval.status AS approvalStatus
+FROM project
+LEFT JOIN project_member 
+    ON project.project_id = project_member.project_id
+LEFT JOIN user 
+    ON project_member.user_id = user.user_id
+LEFT JOIN project_chemical pc
+    ON project.project_id = pc.project_id
+    AND pc.user_id = project_member.user_id
+LEFT JOIN chemical 
+    ON pc.chemical_id = chemical.chemical_id
+LEFT JOIN approval 
+    ON project.project_id = approval.project_id
+WHERE project.project_id = #{projectId}
+  AND pc.project_chemical_id IS NOT NULL
+</select>
+
+<!-- 시약 조회 -->
+<select id="chemicalList" resultMap="projectChemical">
+	SELECT chemical_id AS chemicalId, chemical_name AS chemicalName FROM chemical
+</select>
+
+<!-- 시약 추가 -->
+<insert id="pcAdd" parameterType="Project">
+	INSERT INTO project_chemical(project_id, chemical_id, user_id, used_qty, used_at)
+	VALUES (#{projectId}, #{pcChemicalId}, #{userId}, #{usedQty}, #{usedAt}); 
+</insert>
+</mapper>

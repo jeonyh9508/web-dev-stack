@@ -1,0 +1,32 @@
+body {
+  font-family: "Segoe UI", sans-serif;
+  background: #f9f9f9;
+  padding: 40px;
+  color: #333;
+}
+
+h1 {
+  color: #2c3e50;
+}
+
+.incident-card {
+  background: white;
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.incident-card h2 {
+  margin-top: 0;
+}
+
+.incident-card a {
+  color: #2980b9;
+  text-decoration: none;
+}
+
+.incident-card a:hover {
+  text-decoration: underline;
+}

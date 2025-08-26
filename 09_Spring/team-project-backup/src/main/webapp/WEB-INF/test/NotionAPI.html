@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Notion API Demo</title>
+  </head>
+  <body>
+    <h1>📋 Notion 데이터</h1>
+    <ul id="data-list"></ul>
+
+    <script>
+      fetch("http://localhost:3000/notion-data")
+        .then((res) => res.json())
+        .then((data) => {
+          const list = document.getElementById("data-list");
+          data.forEach((item) => {
+            const li = document.createElement("li");
+            li.textContent = `제목: ${item.title}, 태그: ${item.tags.join(
+              ", "
+            )}`;
+            list.appendChild(li);
+          });
+        });
+    </script>
+  </body>
+</html>

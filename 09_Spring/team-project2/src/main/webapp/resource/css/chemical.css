@@ -1,0 +1,241 @@
+
+body {
+    height: 100vh;
+    display: flex;
+	flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* 상단 정렬로 변경 */
+    padding-top: 50px;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #f8f9fa; /* 흰색 계열 폰트 색상 */
+    background-image: url(../../resource/static/back1.jpg);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-blend-mode: color;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+.header {
+	display: flex;
+	flex-direction: row;
+}
+.footer-button {
+	display: flex;
+	flex-direction: row;
+}
+.pagination {
+	display: flex;
+	justify-content: center;
+	gap: 8px;
+	list-style: none;
+	padding: 0;
+}
+
+.pagination li a {
+	display: block;
+	padding: 8px 14px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	color: #333;
+	text-decoration: none;
+	transition: 0.2s;
+}
+
+.pagination li a:hover {
+	background-color: #eee;
+}
+
+.pagination .active a {
+	background-color: #3f51b5;
+	color: white;
+	font-weight: bold;
+	border-color: #3f51b5;
+}
+
+.pagination .disabled a {
+	pointer-events: none;
+	opacity: 0.4;
+}
+
+.add-modal-bg {
+	position: fixed;
+	top: 0; left: 0; right: 0; bottom: 0;
+	background: rgba(0, 0, 0, 0.3);
+	z-index: 1000;
+	display: none;
+	justify-content: center;
+	align-items: center;
+}
+.add-modal {
+	background: rgb(52, 73, 94);
+	color: white;
+	position: relative;
+	width: 350px;
+	padding: 20px;
+	border-radius: 8px;
+}
+.add-modal #add-close {
+	position: absolute;
+	top: 10px; right: 10px;
+	cursor: pointer;
+	font-size: 10px;
+	border: none;
+	background: none;
+}
+
+.modify-modal-bg {
+	position: fixed;
+	top: 0; left: 0; right: 0; bottom: 0;
+	background: rgba(0, 0, 0, 0.3);
+	z-index: 1000;
+	display: none;
+	justify-content: center;
+	align-items: center;
+}
+.modify-modal {
+	background: rgb(52, 73, 94);
+	color: white;
+	position: relative;
+	width: 400px;
+	padding: 20px;
+	border-radius: 8px;
+}
+.modify-modal #modify-close {
+	position: absolute;
+	top: 10px; right: 10px;
+	cursor: pointer;
+	font-size: 10px;
+	border: none;
+	background: none;
+}
+
+.filter-modal-bg {
+	position: fixed;
+	top: 0; left: 0; right: 0; bottom: 0;
+	background: rgba(0, 0, 0, 0.3);
+	z-index: 1000;
+	display: none;
+	justify-content: center;
+	align-items: center;
+}
+
+.filter-modal {
+	background: rgb(52, 73, 94);
+	color: white;
+	position: relative;
+	width: 350px;
+	padding: 20px;
+	border-radius: 8px;
+}
+.filter-modal #filter-close {
+	position: absolute;
+	top: 10px; right: 10px;
+	cursor: pointer;
+	font-size: 10px;
+	border: none;
+	background: none;
+}
+
+.chemicalApproval-modal-bg {
+	position: fixed;
+	top: 0; left: 0; right: 0; bottom: 0;
+	background: rgba(0, 0, 0, 0.3);
+	z-index: 1000;
+	display: none;
+	justify-content: center;
+	align-items: center;
+}
+
+.chemicalApproval-modal {
+	background: rgb(52, 73, 94);
+	color: white;
+	position: relative;
+	width: 350px;
+	padding: 20px;
+	border-radius: 8px;
+}
+.chemicalApproval-modal #chemicalApproval-close {
+	position: absolute;
+	top: 10px; right: 10px;
+	cursor: pointer;
+	font-size: 10px;
+	border: none;
+	background: none;
+}
+
+.searchChemical-modal-bg {
+	position: fixed;
+	top: 0; left: 0; right: 0; bottom: 0;
+	background: rgba(0, 0, 0, 0.3);
+	z-index: 1000;
+	display: none;
+	justify-content: center;
+	align-items: center;
+}
+
+.searchChemical-modal {
+	background: rgb(52, 73, 94);
+	color: white;
+	position: relative;
+	width: 350px;
+	padding: 20px;
+	border-radius: 8px;
+}
+.searchChemical-modal #searchChemical-close {
+	position: absolute;
+	top: 10px; right: 10px;
+	cursor: pointer;
+	font-size: 10px;
+	border: none;
+	background: none;
+}
+
+.thresholdQtyValue {
+	min-width: 70px;
+}
+.stockStatus {
+	min-width: 50px;
+}
+.left {
+	display: flex;
+	flex-direction: row;
+}
+
+#chemicalApprovalTable {
+	min-width: 300px;
+	border-collapse: collapse;
+	margin-bottom: 10px;
+}
+#chemicalApprovalTable td {
+	border-bottom: 1px solid white;
+	padding: 10px 0;
+	min-width: 70px;
+}
+
+#chemListTable {
+	min-width: 300px;
+	border-collapse: collapse;
+	margin-bottom: 10px;
+}
+#chemListTable td {
+	border-bottom: 1px solid white;
+	padding: 10px 0;
+	min-width: 50px;
+}
+#chemTableWindow {
+	margin-top: 10px;
+	border: 1px solid black;
+	width: 350px;
+	height: 250px;
+	display: flex;
+	justify-content: center;
+	overflow-y: auto;
+}
+
+
+
+
+
+
+

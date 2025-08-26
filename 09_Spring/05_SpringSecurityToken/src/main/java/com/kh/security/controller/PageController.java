@@ -29,9 +29,8 @@ public class PageController {
 	
 	@GetMapping("/admin")
 	public void admin() {
-		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication(); 
 		User user = (User) auth.getPrincipal();
-		System.out.println(user);
+//		System.out.println(user);
 	}
 }

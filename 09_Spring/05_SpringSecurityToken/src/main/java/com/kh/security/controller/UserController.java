@@ -2,6 +2,7 @@ package com.kh.security.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -35,6 +36,12 @@ public class UserController {
 			return token;
 		}
 		return null;
+	}
+	
+	@ResponseBody
+	@GetMapping("/check")
+	public User check(String token) {
+		return tokenProvider.validate(token);
 	}
 	
 }

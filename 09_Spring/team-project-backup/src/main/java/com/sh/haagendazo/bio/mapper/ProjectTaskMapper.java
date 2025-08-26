@@ -1,0 +1,12 @@
+package com.sh.haagendazo.bio.mapper;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import com.sh.haagendazo.bio.model.vo.ProjectTask;
+
+@Mapper
+public interface ProjectTaskMapper {
+	List<ProjectTask> allProjectTask();
+}

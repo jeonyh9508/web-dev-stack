@@ -1,0 +1,101 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sh.haagendazo.mapper.CustomerMapper">
+
+	<resultMap type="Customer" id="customerMap">
+		<id property="customerId" column="customer_id" />
+		<result property="name" column="name"/>
+		<result property="assignId" column="assign_id"/>
+		<result property="userName" column="user_name"/>
+		<result property="userId" column="user_id"/>
+		<result property="createdAt" column="created_at"/>
+		<result property="logId" column="log_id"/>
+		<result property="clDescription" column="cl_description"/>
+		<result property="projectId" column="project_id"/>
+		<result property="projectName" column="project_name"/>
+		<result property="logDate" column="log_date"/>
+	</resultMap>
+	
+	<select id="allCustomer" parameterType="Paging" resultMap="customerMap">
+		SELECT
+		customer_id, department, customer.name, user.name AS user_name, assign_id, phone, customer.email, customer.created_at, project.project_name AS project_name, log_date 
+		FROM customer LEFT JOIN customer_log USING (customer_id) LEFT JOIN user ON (assign_id = user_id) LEFT JOIN project USING (project_id)
+		<where>
+		<choose>
+		<when test="select == '고객명' and search != null and search != ''">
+		customer.name LIKE CONCAT('%', #{search}, '%')
+		</when>
+		<when test="select == '담당자명' and search != null and search != ''">
+		user.name LIKE CONCAT('%', #{search}, '%')
+		</when>
+		<when test="select == '상담일자' and search != null and search != ''">
+		DATE(log_date) = STR_TO_DATE(#{search}, '%Y-%m-%d')
+		</when>
+		</choose>
+		</where>
+		LIMIT #{offset}, #{limit}
+	</select>
+	
+	<select id="allLog" parameterType="Paging" resultMap="customerMap">
+		SELECT log_id, customer_log.description AS cl_description, customer.name, user.name AS user_name, assign_id, project_id, project.project_name AS project_name, log_date 
+		FROM customer_log LEFT JOIN customer USING (customer_id) LEFT JOIN user ON (assign_id = user_id) LEFT JOIN project USING (project_id)
+		<where>
+		<choose>
+		<when test="select == '고객명' and search != null and search != ''">
+		customer.name LIKE CONCAT('%', #{search}, '%')
+		</when>
+		<when test="select == '담당자명' and search != null and search != ''">
+		user.name LIKE CONCAT('%', #{search}, '%')
+		</when>
+		<when test="select == '상담일자' and search != null and search != ''">
+		DATE(log_date) = STR_TO_DATE(#{search}, '%Y-%m-%d')
+		</when>
+		</choose>
+		</where>
+		LIMIT #{offset}, #{limit}
+	</select>
+	
+	<select id="total" parameterType="Paging" resultType="int">
+		SELECT COUNT(customer_id) FROM customer LEFT JOIN customer_log USING (customer_id) LEFT JOIN user ON (assign_id = user_id) LEFT JOIN project USING (project_id)
+		<where>
+			<choose>
+				<when test="select == '고객명' and search != null and search != ''">
+					customer.name LIKE CONCAT('%', #{search}, '%')
+				</when>
+				<when test="select == '담당자명' and search != null and search != ''">
+					user.name LIKE CONCAT('%', #{search}, '%')
+				</when>
+				<when test="select == '상담일자' and search != null and search != ''">
+					DATE(log_date) = STR_TO_DATE(#{search}, '%Y-%m-%d')
+				</when>
+			</choose>
+		</where>
+	</select>
+	
+	<select id="totalLog" parameterType="Paging" resultType="int">
+		SELECT COUNT(log_id) 
+		FROM customer_log LEFT JOIN customer USING (customer_id) LEFT JOIN user ON (assign_id = user_id) LEFT JOIN project USING (project_id)
+		<where>
+			<choose>
+				<when test="select == '고객명' and search != null and search != ''">
+					customer.name LIKE CONCAT('%', #{search}, '%')
+				</when>
+				<when test="select == '담당자명' and search != null and search != ''">
+					user.name LIKE CONCAT('%', #{search}, '%')
+				</when>
+				<when test="select == '상담일자' and search != null and search != ''">
+					DATE(log_date) = STR_TO_DATE(#{search}, '%Y-%m-%d')
+				</when>
+			</choose>
+		</where>
+	</select>
+	
+	<update id="updateCs" parameterType="Customer">
+		UPDATE customer SET department= #{department}, phone= #{phone}, email= #{email}, assign_id= #{assignId} WHERE customer_id = #{customerId}
+	</update>
+
+	<update id="updateLog" parameterType="Customer">
+		UPDATE customer_log SET description= #{description}, project_id= #{projectId} WHERE log_id = #{logId}
+	</update>
+	
+	
+</mapper>

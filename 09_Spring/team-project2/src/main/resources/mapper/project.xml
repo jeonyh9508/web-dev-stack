@@ -1,0 +1,248 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sh.haagendazo.mapper.ProjectMapper">
+	<resultMap id="projectMap" type="Project">
+		<!-- project -->
+		<id property="projectId" column="projectId" />
+		<result property="projectCode" column="projectCode" />
+		<result property="projectName" column="projectName" />
+		<result property="projectType" column="projectType" />
+		<result property="userId" column="userId" />
+		<result property="startDate" column="startDate" />
+		<result property="endDate" column="endDate" />
+		<result property="status" column="status" />
+		<result property="description" column="description" />
+		<result property="createdAt" column="createdAt" />
+		<result property="updatedAt" column="updatedAt" />
+
+		<!-- project_member -->
+		<result property="memberId" column="memberId" />
+		<result property="memberUserId" column="memberUserId" />
+		<result property="memberRole" column="memberRole" />
+		<result property="memberCreatedAt" column="memberCreatedAt" />
+
+		<!-- user (참여자) -->
+		<result property="userUserId" column="userUserId" />
+		<result property="email" column="email" />
+		<result property="password" column="password" />
+		<result property="name" column="name" />
+		<result property="deptId" column="deptId" />
+		<result property="gradeId" column="gradeId" />
+		<result property="userCreatedAt" column="userCreatedAt" />
+	</resultMap>
+
+	<!-- 전체 조회 -->
+	<select id="selectAll" resultMap="projectMap"
+		parameterType="Paging">
+		SELECT
+		project.project_id AS projectId,
+		project.project_code AS
+		projectCode,
+		project.project_name AS projectName,
+		project.project_type
+		AS projectType,
+		project.user_id AS userId,
+		project.start_date AS
+		startDate,
+		project.end_date AS endDate,
+		project.status AS status,
+		project.description AS description,
+		project.created_at AS createdAt,
+		project.updated_at AS updatedAt,
+
+		project_member.member_id AS memberId,
+		project_member.user_id AS memberUserId,
+		project_member.role AS
+		memberRole,
+		project_member.created_at AS memberCreatedAt,
+
+		user.user_id
+		AS userUserId,
+		user.email AS email,
+		user.password AS password,
+		user.name AS name,
+		user.dept_id AS deptId,
+		user.grade_id AS gradeId,
+		user.created_at AS userCreatedAt
+		FROM project
+		LEFT JOIN project_member
+		ON project.project_id = project_member.project_id
+		LEFT JOIN user ON
+		project_member.user_id = user.user_id
+		<where>
+			(project.user_id IS NULL OR project.user_id = 0 OR
+			project_member.role = '담당자')
+			<if test="paging.search != null and paging.search != ''">
+				<choose>
+					<when test="paging.select == 'status'">
+						AND project.status LIKE CONCAT('%',
+						#{paging.search}, '%')
+					</when>
+					<when test="paging.select == 'code'">
+						AND project.project_code LIKE CONCAT('%',
+						#{paging.search}, '%')
+					</when>
+					<when test="paging.select == 'name'">
+						AND project.project_name LIKE CONCAT('%',
+						#{paging.search}, '%')
+					</when>
+					<when test="paging.select == 'date'">
+						AND #{paging.search} BETWEEN project.start_date AND
+						project.end_date
+					</when>
+					<when test="paging.select == 'manager'">
+						AND user.name LIKE CONCAT('%', #{paging.search},
+						'%')
+					</when>
+					<when test="paging.select == null">
+						AND (
+						project.status LIKE CONCAT('%',
+						#{paging.search}, '%')
+						OR project.project_code LIKE CONCAT('%',
+						#{paging.search}, '%')
+						OR project.project_name LIKE CONCAT('%',
+						#{paging.search}, '%')
+						)
+					</when>
+				</choose>
+			</if>
+		</where>
+		LIMIT #{paging.offset}, #{paging.limit}
+	</select>
+
+	<!-- 상단 검색 -->
+	<select id="searchBar" resultMap="projectMap"
+		parameterType="Paging">
+		SELECT
+		project.project_id AS projectId,
+		project.project_code AS
+		projectCode,
+		project.project_name AS projectName,
+		project.project_type
+		AS projectType,
+		project.user_id AS userId,
+		project.start_date AS
+		startDate,
+		project.end_date AS endDate,
+		project.status AS status,
+		project.description AS description,
+		project.created_at AS createdAt,
+		project.updated_at AS updatedAt,
+
+		project_member.member_id AS memberId,
+		project_member.user_id AS memberUserId,
+		project_member.role AS
+		memberRole,
+		project_member.created_at AS memberCreatedAt,
+
+		user.user_id
+		AS userUserId,
+		user.email AS email,
+		user.password AS password,
+		user.name
+		AS name,
+		user.dept_id AS deptId,
+		user.grade_id AS gradeId,
+		user.created_at AS userCreatedAt
+		FROM project
+		LEFT JOIN project_member
+		ON project.project_id = project_member.project_id
+		LEFT JOIN user ON
+		project_member.user_id = user.user_id
+		<where>
+			(project.user_id IS NULL OR project.user_id = 0 OR
+			project_member.role = '담당자')
+			AND (
+			project.status LIKE CONCAT('%',
+			#{paging.search}, '%')
+			OR project.project_code LIKE CONCAT('%',
+			#{paging.search}, '%')
+			OR project.project_name LIKE CONCAT('%',
+			#{paging.search}, '%')
+			)
+		</where>
+		LIMIT #{paging.offset}, #{paging.limit}
+	</select>
+
+	<select id="searchBarTotal" resultType="int"
+		parameterType="Paging">
+		SELECT COUNT(DISTINCT project.project_id)
+		FROM project
+		LEFT JOIN
+		project_member ON project.project_id = project_member.project_id
+		LEFT
+		JOIN user ON project_member.user_id = user.user_id
+		<where>
+			(project.user_id IS NULL OR project.user_id = 0 OR
+			project_member.role = '담당자')
+			<if test="search != null and search != ''">
+				AND (
+				project.status LIKE CONCAT('%', #{search}, '%')
+				OR
+				project.project_code LIKE CONCAT('%', #{search}, '%')
+				OR
+				project.project_name LIKE CONCAT('%', #{search}, '%')
+				)
+			</if>
+		</where>
+	</select>
+
+	<!-- 진행 현황 -->
+	<select id="status" resultType="int" parameterType="String">
+		SELECT
+		COUNT(*) FROM project WHERE status = #{status}
+	</select>
+
+	<!-- 중복 체크 -->
+	<select id="duplicate" resultType="int" parameterType="String">
+		SELECT
+		COUNT(*) FROM project WHERE project_code = #{projectCode}
+	</select>
+
+	<!-- 리스트 삭제 -->
+	<delete id="projectSelectDelete" parameterType="ArrayList">
+		DELETE FROM project WHERE project_id IN
+		<foreach collection="idList" item="projectId" open="("
+			close=")" separator=",">
+			#{projectId}
+		</foreach>
+	</delete>
+
+	<!-- 추가 -->
+	<insert id="projectInsert" parameterType="Project"
+		useGeneratedKeys="true" keyProperty="projectId">
+		INSERT INTO project(project_code,
+		project_name, project_type, status,
+		start_date, end_date, description)
+		VALUES (#{projectCode}, #{projectName}, #{projectType}, #{status},
+		#{startDate, jdbcType=DATE}, #{endDate, jdbcType=DATE},
+		#{description})
+	</insert>
+
+	<!-- 프로젝트 페이징 -->
+	<select id="total" resultType="int">
+		SELECT COUNT(DISTINCT project.project_id)
+		FROM project
+		LEFT JOIN
+		project_member ON project.project_id = project_member.project_id
+		LEFT
+		JOIN user ON project_member.user_id = user.user_id
+		<where>
+			<if test="paging.select == 'status' and paging.search != null">
+				project.status LIKE CONCAT('%', #{paging.search}, '%')
+			</if>
+			<if test="paging.select == 'code' and paging.search != null">
+				project.project_code LIKE CONCAT('%', #{paging.search},
+				'%')
+			</if>
+			<if test="paging.select == 'date' and paging.search != null">
+				#{paging.search} BETWEEN project.start_date AND
+				project.end_date
+			</if>
+			<if test="paging.select == 'manager' and paging.search != null">
+				user.name LIKE CONCAT('%', #{paging.search}, '%')
+			</if>
+		</where>
+	</select>
+</mapper>

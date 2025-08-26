@@ -1,0 +1,58 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sh.haagendazo.mapper.ScheduleMapper">
+<resultMap id="ScheduletMap" type="Schedule">
+    <id property="scheduleId" column="schedule_id"/>
+    <result property="title" column="title"/>
+    <result property="description" column="description"/>
+    <result property="userId" column="user_id"/>
+    <result property="projectId" column="project_id"/>
+    <result property="startDatetime" column="start_datetime"/>
+    <result property="endDatetime" column="end_datetime"/>
+    <result property="createdAt" column="created_at"/>
+</resultMap>
+
+<resultMap id="ProjectMap" type="Project">
+	<id property="projectId" column="project_id" />
+	<result property="projectName" column="project_name" />
+	<result property="startDate" column="start_date" />
+	<result property="endDate" column="end_date" />
+</resultMap>
+
+<insert id="insertSchedule" parameterType="Schedule">
+    INSERT INTO schedule (
+        title,
+        description,
+        user_id,
+        project_id,
+        start_datetime,
+        end_datetime,
+        created_at
+    ) VALUES (
+        #{title},
+        #{description},
+        #{userId},
+        #{projectId},
+        #{startDatetime},
+        #{endDatetime},
+        NOW()
+    )
+</insert>
+<update id="projectScheduleUpdate" parameterType="Schedule">
+	UPDATE schedule SET description = #{description}, start_datetime = #{startDatetime}, end_datetime =  #{endDatetime}
+	WHERE schedule_id = #{scheduleId}
+</update>
+
+<select id="projectCal" resultMap="ProjectMap">
+	SELECT project_id, project_name, start_date, end_date
+	FROM project
+</select>
+
+<select id="scheduleCal" resultMap="ScheduletMap">
+	SELECT schedule_id, title, start_datetime, end_datetime, project_id
+FROM schedule;
+</select>
+
+<delete id="scheduleDelete" parameterType="int">
+	DELETE FROM schedule WHERE schedule_id = #{scheduleId}
+</delete>
+</mapper>
