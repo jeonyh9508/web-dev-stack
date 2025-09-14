@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.sh.haagendazo.model.Customer;
 import com.sh.haagendazo.model.Paging;
+import com.sh.haagendazo.model.Project;
 import com.sh.haagendazo.model.User;
 import com.sh.haagendazo.service.CustomerService;
+import com.sh.haagendazo.service.ProjectService;
 import com.sh.haagendazo.service.UserService;
 
 @Controller
@@ -22,6 +24,9 @@ public class CustomerController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ProjectService projectService;
 	
 	@GetMapping("/customer")
 	public String customer(Model model, Paging paging) {
@@ -51,14 +56,44 @@ public class CustomerController {
 	
 	@GetMapping("/customer/log")
 	public String allLog(Model model, Paging paging) {
-
+		
+		List<Customer> list = customerService.showCustomer();
+		model.addAttribute("list", list);
+		
 	    List<Customer> log = customerService.allLog(paging);
 	    model.addAttribute("log", log);
-	    model.addAttribute("paging", new Paging(paging.getPage(), customerService.total(paging)));
+	    model.addAttribute("paging", new Paging(paging.getPage(), customerService.totalLog(paging)));
 	    
 	    List<User> userList = userService.showCsdept();
         model.addAttribute("userList", userList);
         
+        List<Project> projectList = projectService.showLog();
+        model.addAttribute("projectList", projectList);
+        
 	    return "/customer/log";
+	}
+	
+	@PostMapping("/customer/addCustomer")
+	public String addCustomer(Customer vo) {
+		customerService.addCustomer(vo);
+		return "redirect:/customer";
+	}
+	
+	@GetMapping("/customer/delCustomer")
+	public String delCustomer(Customer vo) {
+		customerService.delCustomer(vo);
+		return "redirect:/customer";
+	}
+	
+	@PostMapping("/customer/addLog")
+	public String addLog(Customer vo) {
+		customerService.addLog(vo);
+		return "redirect:/customer/log";
+	}
+	
+	@GetMapping("/customer/delLog")
+	public String delLog(Customer vo) {
+		customerService.delLog(vo);
+		return "redirect:/customer/log";
 	}
 }

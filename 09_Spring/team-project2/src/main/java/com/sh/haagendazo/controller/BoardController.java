@@ -8,12 +8,15 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.http.ResponseEntity;
 
 import com.sh.haagendazo.model.Board;
 import com.sh.haagendazo.model.Customer;
@@ -32,8 +35,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class BoardController {
-
-	private String path = "\\\\192.168.0.20\\upload\\";
+	
+	private String path = "D:\\team-project\\src\\main\\webapp\\resource\\upload\\";
+	//private String path = "\\\\192.168.0.20\\upload\\";
     private final CustomErrorController customErrorController;
 
     BoardController(CustomErrorController customErrorController) {
@@ -50,6 +54,13 @@ public class BoardController {
 		String fileName = uuid.toString() + "_" + file.getOriginalFilename();
 		System.out.println(file.getOriginalFilename());
 		File copyFile = new File(path + fileName);
+		
+	    // 폴더 존재 확인
+	    File folder = new File(path);
+	    if(!folder.exists()) {
+	        folder.mkdirs();
+	    }
+
 		try {
 			file.transferTo(copyFile);
 		} catch (IllegalStateException | IOException e) {
@@ -62,6 +73,7 @@ public class BoardController {
 	public String upload(MultipartFile file) {
 		String fileName = fileUpload(file);
 		// http://localhost:8081/ + fileName <- url
+		System.out.println();
 		return "redirect:/board";
 	}
 	
@@ -125,10 +137,13 @@ public class BoardController {
 	
 	@GetMapping("/customer/board")
 	public String showBoard(Model model, Paging paging) {
+		paging.setLimit(20);
+		paging.setPageSize(20);	
 		List<Board> list = boardService.showBoard(paging);
 		List<User> dept = userService.showCsdept();
-		List<User> manager = userService.showManager();
-		List<Customer> customer = customerService.allCustomer(paging);
+		List<User> manager = userService.showManager(paging);
+		List<Customer> customer = customerService.showCustomer();
+		
 		model.addAttribute("list", list);
 		model.addAttribute("dept", dept);
 		model.addAttribute("manager", manager);
@@ -137,6 +152,35 @@ public class BoardController {
 		return "/customer/board";
 	}
 	
+	// 이미지를 제공하는 새로운 GET 메서드 추가
+		@GetMapping("/resource/upload/{fileName}")
+		public void showImage(@PathVariable String fileName, HttpServletResponse response) {
+		    try (FileInputStream fis = new FileInputStream(path + fileName);
+		         OutputStream os = response.getOutputStream()) {
+		        
+		        // 파일 확장자에 따라 Content-Type 설정
+		        String mimeType = "application/octet-stream";
+		        if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg")) {
+		            mimeType = MediaType.IMAGE_JPEG_VALUE;
+		        } else if (fileName.endsWith(".png")) {
+		            mimeType = MediaType.IMAGE_PNG_VALUE;
+		        } else if (fileName.endsWith(".gif")) {
+		            mimeType = MediaType.IMAGE_GIF_VALUE;
+		        }
+		        response.setContentType(mimeType);
+
+		        byte[] buffer = new byte[1024];
+		        int bytesRead;
+		        while ((bytesRead = fis.read(buffer)) != -1) {
+		            os.write(buffer, 0, bytesRead);
+		        }
+		    } catch (IOException e) {
+		        // 파일이 없거나 읽기 오류 발생 시, 404 에러 반환
+		        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		        e.printStackTrace();
+		    }
+		}
+		
 	@PostMapping("/write")
 	public String write(Board vo) {
 		if(vo.getType().equals("claim")) {
@@ -144,6 +188,10 @@ public class BoardController {
 		} else if (vo.getType().equals("notice")) {
 			vo.setUploaderType("user");
 		};
+		
+		String url = fileUpload(vo.getFile());
+		vo.setUrl(url);
+		
 		boardService.addBoard(vo);
 		System.out.println(vo);
 		

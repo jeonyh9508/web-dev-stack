@@ -5,10 +5,12 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.sh.haagendazo.model.Approval;
 import com.sh.haagendazo.model.Chemical;
 import com.sh.haagendazo.model.Paging;
 import com.sh.haagendazo.model.Project;
 import com.sh.haagendazo.model.Storage;
+import com.sh.haagendazo.model.User;
 
 @Mapper
 public interface ChemicalMapper {
@@ -25,8 +27,11 @@ public interface ChemicalMapper {
 	List<Storage> viewStorage();
 	List<Chemical> viewStockChem(int chemicalId);
 	
-	List<Project> projectListOfUser(int userId);
+	List<Project> projectListOfUser(User user);
 	List<Project> chemicalListOfProject(int projectId);
-	Chemical stockOfchemical(int chemicalId);
-
+	Project stockOfchemical(int chemicalId);
+	void requestUsageChemical(Approval vo);
+	void approvalRequestUsageChemical(Approval vo);
+	
+	List<Chemical> getChemicalChartData();
 }

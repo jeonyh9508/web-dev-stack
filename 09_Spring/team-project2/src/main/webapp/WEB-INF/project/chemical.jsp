@@ -2,78 +2,146 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<div>
-	<h2>사용 시약</h2>
-	<button type=button class="showPcAdd showModal">시약 추가</button>
-	<table border=1px>
-		<thead>
-			<tr>
-				<th>시약명</th>
-				<th>사용자</th>
-				<th>사용량</th>
-				<th>사용일</th>
-				<th>승인여부</th>
-				<th>수정</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${projectChemical}" var="projectChemical" varStatus="status">
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
+
+<div class="project-chemical-section">
+	<div class="tab-title">
+		<h2>사용 시약</h2>
+	</div>
+
+	<button type="button" class="erp-btn erp-btn-proj project-show-chemical-modal">시약 추가</button>
+	<button type="button" onclick="requestModal()" class="erp-btn" style="width: 130px;">시약 사용 요청</button>
+	<a href="/approval"><button type="button" class="erp-btn" style="width: 130px;">승인 페이지로</button></a>
+
+	<form action="/project/pcDelete" method="post" class="erp-form project-chemical-delete">
+		<input type="hidden" name="projectId" value="${param.projectId}" />
+
+		<table class="erp-table project-chemical-table">
+			<thead>
 				<tr>
-					<td>${projectChemical.chemicalName}</td>
-					<td>${projectChemical.name}</td>
-					<td>${projectChemical.usedQty}${projectChemical.storageUnit}</td>	
-					<td><fmt:formatDate value="${projectChemical.usedAt}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-					<td>${projectChemical.approvalStatus}</td>
-					<td><button type="button" class="pcUpdate" data-id="${projectChemical.projectChemicalId}">수정</button></td>
+					<th>시약명</th>
+					<th>CAS 번호</th>
+					<th>총 사용량</th>
+					<th>보유 단위</th>
+					<%--
+					<sec:authorize access="hasAnyRole('MANAGER','ADMIN')">
+						<th>수정</th>
+					</sec:authorize>
+					--%>
 				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				<c:forEach items="${projectChemical}" var="pc">
+					<tr>
+						<td>${pc.chemicalName}</td>
+						<td>${pc.casNo}</td>
+						<td>${pc.usedQty}</td>
+						<td>${pc.storageUnit}</td>
+						<%--
+						<sec:authorize access="hasAnyRole('MANAGER','ADMIN')">
+							<td>
+								<button type="button" class="erp-btn project-pc-update"
+									data-id="${pc.projectChemicalId}">수정</button>
+							</td>
+						</sec:authorize>
+						--%>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</form>
 </div>
-<div class="openPcAdd openModal">
-	<div class="pcAddModal modalBody">
-		<form action="/project/pcAdd" method="post">
-		<h2>시약 추가</h2>
-		<input type="hidden" id="projectId" name="projectId" value="${param.projectId}" />
-		<div>
-		<label>시약명</label>
-		<select name="pcChemicalId">
-			<c:forEach items="${chemicalList}" var="chemical">
-				<option value="${chemical.chemicalId}">${chemical.chemicalName}</option>
-			</c:forEach>
-		</select>
-		</div>
-		<div>
-		<label>사용자</label>
-		<select name="userId">
-			<c:forEach items="${projectUserList}" var="pcUser">
-				<option value="${pcUser.userUserId}">${pcUser.name}</option>
-			</c:forEach>
-		</select>
-		</div>
-		<div>사용량 : <input type="number" name="usedQty" value="1" required></div>
-			<button type=submit>시약 추가</button>
-			<button type="button" class="closePcAdd closeModal">닫기</button>
+
+<!-- 시약 추가 모달 -->
+<div class="erp-open-modal project-chemical-insert-modal">
+	<div class="erp-modal-body">
+		<form action="/project/pcAdd" method="post" class="erp-form">
+			<h2>시약 추가</h2>
+			<input type="hidden" id="projectId" name="projectId"
+				value="${param.projectId}" /> <input type="hidden"
+				name="approvalType" value="chemical" /> <input type="hidden"
+				name="approvalContent" value="Addition" />
+
+			<div>
+				<label>시약명</label> <select name="chemicalId" required
+					class="erp-select" style="margin:10px 0;">
+					<option value="" disabled selected>선택</option>
+					<c:forEach items="${chemicalList}" var="chemical">
+						<option value="${chemical.chemicalId}">${chemical.chemicalName}</option>
+					</c:forEach>
+				</select>
+			</div>
+
+			<div>
+				<label>요청자</label> <select name="userId" required
+					class="project-select" style="margin:0 0 25px 0;">
+					<option value="" disabled selected>선택</option>
+					<c:forEach items="${projectUserList}" var="pcUser">
+						<option value="${pcUser.userUserId}">${pcUser.name}</option>
+					</c:forEach>
+				</select>
+			</div>
+			
+			<!--
+			<div>
+            <label>사용량</label>
+            <input type="number" name="usedQty" value="1" required class="project-input">
+			</div>
+			-->
+			<button type="submit" class="erp-btn">등록</button>
+			<button type="button" class="erp-btn project-close-chemical-modal">닫기</button>
 		</form>
 	</div>
 </div>
+<%-- 사용 요청 모달 --%>
+<div class="request-modal">
+	<div class="request-modal-body">
+		<jsp:include page="../chemical/request.jsp"></jsp:include>
+	</div>
+</div>
+
 <script>
-	$(".pcUpdate").click(function() {
-		const pcId = $(this).data("id")
-		console.log(pcId)
-	})
+$(function() {
+		// 모달 열기
+		$(".project-show-chemical-modal").click(function() {
+			$(".project-chemical-insert-modal").css("display", "flex");
+		});
+
+		// 모달 닫기
+		$(".project-close-chemical-modal").click(function() {
+			$(".project-chemical-insert-modal").hide();
+		});
+
+		// 모달 외부 클릭 시 닫기
+		$(".project-chemical-insert-modal").click(function(e) {
+			if (e.target === this) {
+				$(this).hide();
+			}
+		});
+
+		// 수정 버튼 클릭
+		/*
+		$(".project-pc-update").click(function() {
+			const pcId = $(this).data("id");
+			console.log("수정 클릭, ID:", pcId);
+		});
+		*/
+	});
 	
-	$(".showPcAdd").click(function() {
-		$(".openPcAdd").css("display", "flex");
+	const requestModal = function() {
+		// '시약 사용' 버튼 클릭 시
+		$('.request-modal').css('display', 'flex');
+	};
+	// 모달 배경 클릭 시 닫기
+	$('.request-modal').on('click', function(e) {
+	    // 클릭된 대상이 배경 자신일 경우에만
+	    if (e.target === this) {
+	        $(this).hide();
+	    }
 	});
-
-	$(".closePcAdd").click(function() {
-		$(".openPcAdd").css("display", "none");
+	$("#closeRequestBtn").click((e) => {
+		$('.request-modal').css('display', 'none');
 	});
-
-	$(".openPcAdd").click(function(e) {
-		if (e.target === this) {
-			$(this).hide();
-		}
-	});
+	
 </script>

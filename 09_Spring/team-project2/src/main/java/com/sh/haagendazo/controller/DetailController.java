@@ -1,17 +1,34 @@
 package com.sh.haagendazo.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.List;
+import java.util.UUID;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.sh.haagendazo.model.Approval;
+import com.sh.haagendazo.model.Customer;
 import com.sh.haagendazo.model.Project;
+import com.sh.haagendazo.model.User;
+import com.sh.haagendazo.service.CustomerService;
 import com.sh.haagendazo.service.DetailService;
+import com.sh.haagendazo.service.DocumentService;
 import com.sh.haagendazo.service.ProjectChemicalService;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class DetailController {
@@ -22,23 +39,56 @@ public class DetailController {
 	@Autowired
 	private ProjectChemicalService pcService;
 	
+	@Autowired
+	private DocumentService docuService;
+
+	@Autowired
+	private CustomerService customerService;
+	
+	
+	private String path = "D:\\team-project\\src\\main\\webapp\\resource\\upload\\";
+	
+	// fileUpload
+	private String fileUpload(MultipartFile file) {
+	    UUID uuid = UUID.randomUUID();
+	    String fileName = uuid.toString() + "_" + file.getOriginalFilename();
+
+	    // 폴더 존재 확인
+	    File folder = new File(path);
+	    if(!folder.exists()) {
+	        folder.mkdirs();
+	    }
+
+	    File copyFile = new File(path + fileName);
+	    try {
+	        file.transferTo(copyFile);
+	    } catch (IllegalStateException | IOException e) {
+	        e.printStackTrace();
+	    }
+	    return fileName;
+	}
+
+	
+	
 	@GetMapping("/project/detail")
-	public String detail(Model model, int projectId) {
-//		System.out.println("projectDetail : " + projectId);
+	public String detail(Model model, @Param("projectId") int projectId) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User loginUser = (User) auth.getPrincipal();
+		int mUserId = loginUser.getUserId();
+		
+		
 		Project project = detailService.detail(projectId);
 		model.addAttribute("project", project);
 		
 		List<Project> projectMember = detailService.projectMember(projectId);
-		if(projectMember.size() == 0 ) {
-			detailService.memberClean(projectId);
-		}
 		model.addAttribute("projectMember", projectMember);
 		
 		List<Project> projectUser = detailService.userView();
 		model.addAttribute("projectUser", projectUser);
 		
 		List<Project> projectChemical = pcService.projectChemicalList(projectId);
-		model.addAttribute("projectChemical", projectChemical); // projectId에 해당하는 user, chemical, approval 모두 뽑아옴
+		model.addAttribute("projectChemical", projectChemical);
 		
 		List<Project> chemicalList = pcService.chemicalList();
 		model.addAttribute("chemicalList", chemicalList); // chemical name 리스트 시약추가 모달에 전달
@@ -49,13 +99,27 @@ public class DetailController {
 		List<Project> memberSchedule = detailService.memberSchedule(projectId);
 		model.addAttribute("memberSchedule", memberSchedule);
 		
+		List<Project> docuView = docuService.docuView(projectId);
+		model.addAttribute("docuView", docuView);
+		
+		List<Customer> log = customerService.projectLog(projectId);
+	    model.addAttribute("log", log);
+	    
+	    List<Customer> member = customerService.claimMember(projectId);
+	    model.addAttribute("member", member);
+
+	    List<Customer> myLog = customerService.projectMyLog(projectId, mUserId);
+	    model.addAttribute("myLog", myLog);
+		
+	    /* 시약 사용 모달창 request.jsp를 include 하려는 시도 중
+		List<Project> projectsOfUser = service.projectListOfUser(user);
+		model.addAttribute("projectsOfUser", projectsOfUser);*/
 		
 		return "/project/detail";
 	}
 	
 	@PostMapping("/project/memberInsert")
 	public String memberInsert(Project project) {
-//		System.out.println(project);
 		detailService.pmUpdate(project);
 		detailService.memberInsert(project);
 		return "redirect:/project/detail?projectId=" + project.getProjectId() + "#member";
@@ -67,13 +131,11 @@ public class DetailController {
 		if(idList != null) {
 			detailService.memberDelete(idList);
 		}
-//		System.out.println(idList);
 		return "redirect:/project/detail?projectId=" + project.getProjectId() + "#member";
 	}
 	
 	@GetMapping("/project/delete")
 	public String projectDelete(int projectId) {
-//		System.out.println("projectDelete : " + projectId);
 		detailService.projectDelete(projectId);
 		return "redirect:/project/list";
 	}
@@ -85,13 +147,64 @@ public class DetailController {
 	}
 	
 	@PostMapping("/project/pcAdd")
-	public String pcAdd(Project project) {
-		System.out.println(project.getUserUserId());
-		if(project.getUserId() != 0 && project.getUsedQty() != 0) {
-			pcService.pcAdd(project);
-			System.out.println(project.getUserUserId());
+	public String pcAdd(Approval vo) {
+		if(vo.getChemicalId() != 0 && vo.getUserId() != 0) {
+			pcService.pcAdd(vo);
 		}
-		return "redirect:/project/detail?projectId=" + project.getProjectId() + "#chemical";
+		return "redirect:/project/detail?projectId=" + vo.getProjectId() + "#chemical";
 	}
 	
+	@PostMapping("/project/claimMessage")
+	public String claimMessage(Customer vo) {
+		customerService.claimMessage(vo);
+		return "redirect:/project/detail?projectId=" + vo.getProjectId() + "#claim";
+	}
+	
+	
+	@PostMapping("/document/insert")
+	public String insertDocument(Project project,
+	                             @RequestParam("file") MultipartFile file) {
+
+		
+	    if(file != null && !file.isEmpty()) {
+	        String fileName = fileUpload(file);
+	        project.setFileName(fileName);
+	    }
+
+	    project.setFilePath(path);
+
+	    docuService.insertDocument(project);
+	    docuService.docuApproval(project);
+	    
+	    
+	    return "redirect:/project/detail?projectId=" + project.getDocumentProjectId() + "#document";
+	}
+	
+	@GetMapping("/document/download")
+	public void fileDownload(@RequestParam String fileName, HttpServletResponse response) {
+		
+	    File file = new File(path + fileName);
+	    if(file.exists()) {
+	        response.setContentType("application/octet-stream");
+	        try {
+	            // 원본 파일명 (UUID 제거)
+	            String originalName = fileName.substring(fileName.indexOf("_") + 1);
+	            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(originalName, "UTF-8"));
+
+	            try (FileInputStream fis = new FileInputStream(file);
+	                 OutputStream os = response.getOutputStream()) {
+	                byte[] buffer = new byte[1024];
+	                int b;
+	                while((b = fis.read(buffer)) != -1) {
+	                    os.write(buffer, 0, b);
+	                }
+	            }
+	        } catch(IOException e) {
+	            e.printStackTrace();
+	            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+	        }
+	    } else {
+	        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+	    }
+	}
 }

@@ -4,15 +4,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.sh.haagendazo.model.Paging;
 import com.sh.haagendazo.model.Project;
 import com.sh.haagendazo.model.Schedule;
+import com.sh.haagendazo.model.User;
 import com.sh.haagendazo.service.DetailService;
 import com.sh.haagendazo.service.ScheduleService;
 
@@ -29,13 +36,12 @@ public class ScheduleController {
 	public String scheAdd(Schedule schedule) {
 		
 		Project project = detailService.detail(schedule.getProjectId());
-		System.out.println(schedule);
 		scheService.insertSchedule(schedule);
-		System.out.println(project);
-		
+		scheService.scheduleMessage(schedule);
 		return "redirect:/project/detail?projectId=" + schedule.getProjectId() + "#schedule";
 	}
 	
+	@ResponseBody
 	@PostMapping("/project/proSche")
 	public void proSche(Schedule schedule) {
 		scheService.projectScheduleUpdate(schedule);
@@ -54,33 +60,50 @@ public class ScheduleController {
         return "/schedule/schedule"; // /WEB-INF/views/schedule/schedule.jsp
     }
 
-    // 2) 캘린더 이벤트 JSON
     @GetMapping("/schedule/event")
     @ResponseBody
     public List<Map<String, Object>> getCalendarEvents() {
         List<Map<String, Object>> events = new ArrayList<>();
 
-        // 프로젝트 이벤트
-        List<Project> projects = scheService.projectCal();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User loginUser = (User) auth.getPrincipal();
+        int userId = loginUser.getUserId();
+
+        // 프로젝트 이벤트 (진하고 어두운 색 + 흰 글씨)
+        List<Project> projects = scheService.projectCal(userId, loginUser.getRole());
         for(Project p : projects) {
+            Random rand = new Random(p.getProjectId()); // 시드 고정
+            int r = rand.nextInt(100);
+            int g = rand.nextInt(100);
+            int b = rand.nextInt(100);
+            int a = rand.nextInt(40) + 50;
+
             Map<String, Object> event = new HashMap<>();
-            event.put("title", p.getProjectName());
+            event.put("title", "프로젝트 명 : "+ p.getProjectName());
             event.put("start", p.getStartDate());
             event.put("end", p.getEndDate());
-            event.put("color", "#1E90FF");
+            event.put("backgroundColor", "rgba(" + r + "," + g + "," + b + ", 0." + a + ")");
+            event.put("textColor", "#fff"); // 흰 글씨
             event.put("type", "project");
-            event.put("projectId", p.getProjectId()); // ← 여기 추가
+            event.put("projectId", p.getProjectId());
             events.add(event);
         }
 
-        // 스케줄 이벤트
-        List<Schedule> schedules = scheService.scheduleCal();
+        // 스케줄 이벤트 (밝고 연한 색 + 검정 글씨)
+        List<Schedule> schedules = scheService.scheduleCal(userId, loginUser.getRole());
         for(Schedule s : schedules) {
+            Random rand = new Random(s.getScheduleId()); // 시드 고정
+//            int r = rand.nextInt(156) + 100; // 밝은 색
+//            int g = rand.nextInt(156) + 100;
+//            int b = rand.nextInt(156) + 100;
+              int a = rand.nextInt(50) + 10;
+
             Map<String, Object> event = new HashMap<>();
-            event.put("title", s.getTitle());
+            event.put("title", "일정 명 : "+ s.getTitle());
             event.put("start", s.getStartDatetime());
             event.put("end", s.getEndDatetime());
-            event.put("color", "#FF4500");
+            event.put("backgroundColor", "rgba(10, 25, 151, 0." + a + ")");
+            event.put("textColor", "#000"); // 검정 글씨
             event.put("type", "schedule");
             event.put("projectId", s.getProjectId());
             events.add(event);
@@ -88,4 +111,20 @@ public class ScheduleController {
 
         return events;
     }
+    
+    @GetMapping("/today/my")
+    public String today(Model model, Paging paging) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User loginUser = (User) auth.getPrincipal(); // User 엔티티 그대로 가져오기
+        int userId = loginUser.getUserId();
+        
+        paging.setUserId(userId);
+        paging.setRole(loginUser.getRole());
+        
+        List<Project> todayUser = scheService.todayUser(paging);
+        model.addAttribute("todayUser", todayUser);
+        model.addAttribute("paging", new Paging(paging.getPage(), scheService.todayUserTotal(paging)));
+        return "/schedule/today";
+    }
+    
 }

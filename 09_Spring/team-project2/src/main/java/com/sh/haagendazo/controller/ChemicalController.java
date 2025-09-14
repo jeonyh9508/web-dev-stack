@@ -3,6 +3,7 @@ package com.sh.haagendazo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import com.sh.haagendazo.model.Chemical;
 import com.sh.haagendazo.model.Paging;
 import com.sh.haagendazo.model.Project;
 import com.sh.haagendazo.model.Storage;
+import com.sh.haagendazo.model.User;
 import com.sh.haagendazo.service.ChemicalService;
 
 @Controller
@@ -23,7 +25,11 @@ public class ChemicalController {
 	private ChemicalService service;
 	
 	@GetMapping("/chemical/list")
-	public String list(Paging paging, Model model) {
+	public String list(@AuthenticationPrincipal User user, Paging paging, Model model) {
+		// @GetMapping("/chemical/request") 이거 지우고 합침
+		List<Project> projectsOfUser = service.projectListOfUser(user);
+		model.addAttribute("projectsOfUser", projectsOfUser);
+		
 		List<Chemical> list = service.viewChemical(paging);
 		model.addAttribute("list", list);
 		model.addAttribute("StorageNameList", service.viewAllStorageName());
@@ -32,7 +38,7 @@ public class ChemicalController {
 	}
 	
 	@PostMapping("/chemical/manage")
-	public String manage(Chemical vo, String storageName, int storageId, String type) {
+	public String manage(Chemical vo, String storageName, String type) {
 		if(type != null && type.equals("modify")) {
 			service.modifyChemical(vo);
 		} else if(type != null && storageName != null && type.equals("add")) {
@@ -48,33 +54,16 @@ public class ChemicalController {
 		return "redirect:/chemical/list";
 	}
 	
+	@ResponseBody
 	@GetMapping("/chemical/stock")
-	public String storage(Model model) {
-		List<Storage> list = service.viewStorage();
-		model.addAttribute("list", list);
-		return "/chemical/storage";
+	public List<Storage> storage() {
+		return service.viewStorage();
 	}; 
 	
 	@GetMapping("/chemical/request")
-	public String request(Project vo, Model model) {
-		List<Project> projectsOfUser = service.projectListOfUser(vo.getUserId());
+	public String request(@AuthenticationPrincipal User user, Project vo, Model model) {
+		List<Project> projectsOfUser = service.projectListOfUser(user);
 		model.addAttribute("projectsOfUser", projectsOfUser);
-		model.addAttribute("userId", vo.getUserId());
-		
-		/* 승인 대기 항목 페이지에 정보 보내 줘야 함
-			 CREATE TABLE approval (  
-			    approval_id INT AUTO_INCREMENT PRIMARY KEY,      -- 승인 요청 ID
-			    project_id INT NOT NULL,                         -- 관련 프로젝트 ID
-			    requested_by INT NOT NULL,                       -- 요청자 ID (연구원 ID -> user_id)
-			    approval_type VARCHAR(50),                       -- 요청 유형 (문서, 예산, 시약 등)
-			    approval_content VARCHAR(50),                    -- 요청 내용 (추가, 삭제, 결제 등) -- 08/20 추가
-			    target_id INT,                                   -- 대상 항목 ID (문서 ID 등)
-			    status VARCHAR(20) DEFAULT '대기',                -- 상태 (대기, 승인, 반려)
-			    comment TEXT,                                    -- 관리자 코멘트
-			    approved_by INT,                                 -- 승인자 ID (관리자 ID -> user_id)
-			    approved_at DATETIME                             -- 승인 일시
-			);
-		 * */
 		return "/chemical/request";
 	}
 	
@@ -86,7 +75,7 @@ public class ChemicalController {
 	
 	@ResponseBody
 	@GetMapping("/getStockOfChemical")
-	public Chemical getStockOfChemical(int chemicalId) {
+	public Project getStockOfChemical(int chemicalId) {
 		return service.stockOfchemical(chemicalId);
 	}
 

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -8,6 +9,7 @@
     <title>Chemical</title>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="../../resource/css/layout.css">
+    <link rel="stylesheet" href="../../resource/css/user.css">
 	<meta charset="UTF-8">
 	<style>
 		body {
@@ -19,17 +21,19 @@
 		    padding-top: 50px;
 		    margin: 0;
 		    font-family: Arial, sans-serif;
-		    color: #f8f9fa; /* 흰색 계열 폰트 색상 */
-		    background-image: url(../resource/static/back1.jpg);
-		    background-size: cover;
-		    background-position: center;
-		    background-attachment: fixed;
-		    background-blend-mode: color;
-		    background-color: rgba(0, 0, 0, 0.6);
+		    color: black; /* 흰색 계열 폰트 색상 */
 		}
 		.header {
 			display: flex;
 			flex-direction: row;
+		}
+		table {
+			color: white;
+			background-image: url(../../resource/static/storage.jpg);
+		    background-size: cover;
+		    background-position: center;
+		    background-blend-mode: color;
+		    background-color: rgba(0, 0, 0, 0.5);
 		}
 	</style>
 	</head>
@@ -37,7 +41,7 @@
 	<jsp:include page="../header.jsp"></jsp:include>
 	<jsp:include page="../side.jsp"></jsp:include>
 	
-  	<h2>시약 재고 현황</h2>
+  	<h1 style="color: #ddd;">시약 재고 현황</h1>
 	<form id="tableForm">
 		<table border="1">
 		<tr>

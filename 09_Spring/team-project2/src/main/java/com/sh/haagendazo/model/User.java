@@ -24,6 +24,7 @@ public class User implements UserDetails {
 	private String name;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createdAt;
+	private int managerId;		// 관리자 id (상위)
 	
 	private int gradeId;
 	private String gradeName;
@@ -51,6 +52,7 @@ public class User implements UserDetails {
 	public String getUsername() {
 		return this.email;
 	}
+
 	
 //	@Override
 //	public boolean isAccountNonExpired() {

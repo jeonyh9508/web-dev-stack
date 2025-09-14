@@ -54,22 +54,10 @@
     <result property="approvedBy" column="approvedBy"/>
     <result property="approvedAt" column="approvedAt"/>
 </resultMap>
-
+<!--
 <select id="projectChemicalList" resultMap="projectChemical" parameterType="int">
  SELECT 
     project.project_id AS projectId,
-    
-    project_member.member_id AS memberId,
-    project_member.user_id AS memberUserId,
-    project_member.role AS memberRole,
-    
-    user.user_id AS userUserId,
-    user.email AS email,
-    user.password AS password,
-    user.name AS name,
-    user.dept_id AS deptId,
-    user.grade_id AS gradeId,
-    user.created_at AS userCreatedAt,
     
     pc.project_chemical_id AS projectChemicalId,
     pc.chemical_id AS pcChemicalId,
@@ -79,27 +67,30 @@
     
     chemical.chemical_id AS chemicalId,
     chemical.chemical_name AS chemicalName,
-    chemical.storage_unit AS storageUnit,
-    
-    approval.project_id AS approvalProjectId,
-    approval.requested_by AS requestedBy,
-    approval.approval_type AS approvalType,
-    approval.target_id AS targetId,
-    approval.status AS approvalStatus
+    chemical.storage_unit AS storageUnit
+   
 FROM project
-LEFT JOIN project_member 
-    ON project.project_id = project_member.project_id
-LEFT JOIN user 
-    ON project_member.user_id = user.user_id
 LEFT JOIN project_chemical pc
     ON project.project_id = pc.project_id
-    AND pc.user_id = project_member.user_id
 LEFT JOIN chemical 
     ON pc.chemical_id = chemical.chemical_id
-LEFT JOIN approval 
-    ON project.project_id = approval.project_id
+
 WHERE project.project_id = #{projectId}
   AND pc.project_chemical_id IS NOT NULL
+</select>
+-->
+<select id="projectChemicalList" resultMap="projectChemical" parameterType="int">
+	SELECT
+	    c.chemical_name AS chemicalName,
+	    c.cas_no AS casNo,
+	    c.storage_unit AS storageUnit,
+	    SUM(pc.used_qty) AS usedQty
+	FROM project_chemical AS pc
+	JOIN chemical AS c 
+		ON pc.chemical_id = c.chemical_id
+	WHERE pc.project_id = #{projectId}
+	    AND pc.is_approved = TRUE
+	GROUP BY c.chemical_name, c.cas_no, c.storage_unit
 </select>
 
 <!-- 시약 조회 -->
@@ -107,9 +98,15 @@ WHERE project.project_id = #{projectId}
 	SELECT chemical_id AS chemicalId, chemical_name AS chemicalName FROM chemical
 </select>
 
-<!-- 시약 추가 -->
-<insert id="pcAdd" parameterType="Project">
-	INSERT INTO project_chemical(project_id, chemical_id, user_id, used_qty, used_at)
-	VALUES (#{projectId}, #{pcChemicalId}, #{userId}, #{usedQty}, #{usedAt}); 
+<!-- 시약 추가: 요청 넣으면 project_chemical에 들어감 -->
+<insert id="additionNotApprovedChemical" parameterType="list" useGeneratedKeys="true" keyProperty="projectChemicalId">
+	INSERT INTO project_chemical(project_id, chemical_id, user_id, used_qty, is_approved) VALUES
+		(#{projectId}, #{chemicalId}, #{userId}, 0, FALSE)
+</insert>
+
+<!-- 시약 추가 승인요청 -->
+<insert id="pcAdd" parameterType="Approval">
+	INSERT INTO approval(project_id, requested_by, approval_type, approval_content, target_id) 
+	VALUES(#{projectId}, #{userId}, #{approvalType}, #{approvalContent}, #{projectChemicalId});
 </insert>
 </mapper>

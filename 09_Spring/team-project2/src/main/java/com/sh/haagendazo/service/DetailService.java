@@ -51,9 +51,6 @@ public class DetailService {
 		detailMapper.pmUpdate(project);
 	}
 	
-	public void memberClean(int projectId) {
-		detailMapper.memberClean(projectId);
-	}
 	
 	public List<Project> memberSchedule(int projectId){
 		return detailMapper.memberSchedule(projectId);

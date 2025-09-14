@@ -52,6 +52,7 @@ public class BoardService {
 			vo.setName(b.getName());
 			vo.setUploaderType(b.getUploaderType());
 			vo.setUploadedBy(b.getUploadedBy());
+			vo.setUploaderName(b.getUploaderName());
 			vo.setUploadedAt(b.getUploadedAt());
 			vo.setUpdatedAt(b.getUpdatedAt());
 			dtoList.add(vo);
@@ -59,8 +60,8 @@ public class BoardService {
 		return dtoList;
 	}
 	
-	public List<Board> showNotice() {
-		return mapper.showNotice();
+	public List<Board> showNotice(Paging paging) {
+		return mapper.showNotice(paging);
 	}
 	
 	public int total(Paging paging) {

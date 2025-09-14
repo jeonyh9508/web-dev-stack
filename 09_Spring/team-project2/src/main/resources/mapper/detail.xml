@@ -119,9 +119,6 @@
 </delete>
 
 <!-- project_member 제거 -->
-<update id="memberClean" parameterType="int">
-	Update project SET user_id = 0 WHERE project_id = #{projectId}
-</update>
 
 <select id="memberSchedule" resultMap="projectDetailMap" parameterType="int">
 SELECT 

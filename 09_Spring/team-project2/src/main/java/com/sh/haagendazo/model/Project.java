@@ -1,5 +1,6 @@
 package com.sh.haagendazo.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -49,6 +50,8 @@ public class Project {
 	private int documentId;
 	private int documentProjectId;
 	private int documentUserId;
+	private String docuTitle;
+	private String docuDesc;
 	private String fileName;
 	private String filePath;
 	private int version;
@@ -73,7 +76,7 @@ public class Project {
 	private int pcUserId;
 	private int usedQty;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date usedAt;
+	private LocalDate usedAt;
 
 	// chemical
 	private int chemicalId;
@@ -88,6 +91,7 @@ public class Project {
 	private String storageName;
 	private String storageLocation;
 
+	// schedule
 	private int scheduleId;
 	private String title;
 	private String scheDescription;

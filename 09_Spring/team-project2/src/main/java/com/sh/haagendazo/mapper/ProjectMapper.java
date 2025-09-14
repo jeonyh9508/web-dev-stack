@@ -15,10 +15,13 @@ public interface ProjectMapper {
 	int total(@Param("paging") Paging paging);
 	List<Project> selectAll(String select, String projectSearch);
 	int status(String status);
+	int userStatus(Paging paging);
 	void projectInsert(Project project);
 	int duplicate(String projectCode);
 	List<Project> searchBar(@Param("paging") Paging paging);
+	int searchBarTotal(@Param("paging") Paging paging);
 	void projectSelectDelete(List<String> idList);
-	int searchBarTotal(Paging paging);
-	
+	List<Project> userProject(@Param("paging") Paging paging);
+	List<Project> showLog();
+	int userProjectTotal(@Param("paging") Paging paging);
 }

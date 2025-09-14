@@ -26,7 +26,9 @@
 		    c.created_at,
 		    s.storage_name,
 		    s.location 
-		FROM chemical c JOIN storage s ON c.storage_id = s.storage_id
+		FROM chemical c 
+		JOIN storage s 
+			ON c.storage_id = s.storage_id
 		<where>
 			<if test="paging.search != null and paging.select != null">
 				<choose>
@@ -42,9 +44,12 @@
 				AND c.storage_id = #{paging.storageId}
 			</if>
 		</where>
+		ORDER BY c.chemical_name
+		<!--
 		<if test="paging.orderBy != null and paging.orderDirection != null">
 			ORDER BY #{paging.orderBy} = #{paging.orderDirection}
 		</if>
+		-->
 		LIMIT #{paging.offset}, #{paging.limit}
 	</select>
 	
@@ -112,9 +117,9 @@
 		    s.location,
 		    s.type,
 		    s.description,
-			COUNT(c.storage_id) AS 'stock'
-		 FROM chemical c
-		 RIGHT JOIN storage s ON c.storage_id = s.storage_id
+			COUNT(c.storage_id) AS stock
+		 FROM chemical AS c
+		 RIGHT JOIN storage AS s ON c.storage_id = s.storage_id
 		 GROUP BY s.storage_id
 	</select>
 	
@@ -175,7 +180,7 @@
     <result property="approvedAt" column="approvedAt"/>
 </resultMap>
 	
-	<select id="projectListOfUser" parameterType="int" resultMap="projectChemical">
+	<select id="projectListOfUser" parameterType="User" resultMap="projectChemical">
 		SELECT
 			p.project_name AS projectName,
 			p.project_id AS projectId
@@ -184,35 +189,81 @@
 			ON pm.project_id = p.project_id
 	    JOIN user AS u
 			ON pm.user_id = u.user_id
-		WHERE pm.user_id = #{userId}
+		<where>
+			<choose>
+				<when test="gradeId == 9">
+					<!-- 관리자는 모든 프로젝트 선택 가능 -->
+				</when>
+				<otherwise>
+					pm.user_id = #{userId}
+				</otherwise>
+			</choose>
+		</where>
+		GROUP BY projectName, projectId
 	</select>
 	
 	<select id="chemicalListOfProject" parameterType="int" resultMap="projectChemical">
-		SELECT
-			DISTINCT(c.chemical_id) AS 'chemicalId',
-		    c.chemical_name AS 'chemicalName',
-		    c.cas_no AS 'casNo'
+		SELECT 
+			c.chemical_id AS chemicalId, 
+		    c.chemical_name AS chemicalName, 
+		    c.cas_no AS casNo
 		FROM project_chemical AS pc
-		JOIN project AS p 
-			ON pc.project_id = p.project_id
-		JOIN chemical AS c
-			ON pc.chemical_id = c.chemical_id
+			JOIN project AS p
+				ON pc.project_id = p.project_id
+			JOIN chemical AS c
+				ON pc.chemical_id = c.chemical_id
 		WHERE pc.project_id = #{projectId}
+			AND pc.is_approved = TRUE
+			AND pc.used_qty = 0
+		GROUP BY c.chemical_id, c.chemical_name, c.cas_no
 	</select>
 	
-	<select id="stockOfchemical" parameterType="int" resultType="Chemical">
+	<select id="stockOfchemical" parameterType="int" resultType="Project">
 		SELECT 
-			DISTINCT(c.chemical_id) AS chemicalId,
-		    c.chemical_name AS chemicalName,
-		    c.stock_qty AS stockQty,
-		    c.threshold_qty AS thresholdQty,
-		    c.storage_unit AS storageUnit
+			pc.project_chemical_id AS projectChemicalId,
+			c.chemical_id AS chemicalId,
+			c.chemical_name AS chemicalName,
+			c.stock_qty AS stockQty,
+			c.threshold_qty AS thresholdQty,
+			c.storage_unit AS storageUnit
 		FROM project_chemical AS pc
 		JOIN project AS p 
 			ON pc.project_id = p.project_id
 		JOIN chemical AS c
 			ON pc.chemical_id = c.chemical_id
 		WHERE c.chemical_id = #{chemicalId}
+			AND pc.is_approved = 1
+			AND pc.used_qty = 0
+	</select>
+	
+	<!-- approvalType = Usage일 경우 -->
+	<insert id="requestUsageChemical" parameterType="Approval" useGeneratedKeys="true" keyProperty="projectChemicalId">
+		INSERT INTO project_chemical(project_id, chemical_id, user_id, used_qty, used_at, is_approved) VALUES
+		(#{projectId}, #{chemicalId}, #{userId}, #{usedQty}, NOW(), FALSE)
+	</insert>
+	
+	<!-- 시약 사용 승인요청 -->
+	<insert id="approvalRequestUsageChemical" parameterType="Approval">
+		INSERT INTO approval(project_id, requested_by, approval_type, approval_content, target_id) 
+		VALUES(#{projectId}, #{userId}, #{approvalType}, #{approvalContent}, #{projectChemicalId});
+	</insert>
+	
+	<!-- 시약 누적 바 그래프(현재 보유 시약량, 시약 총 사용량) -->
+	<select id="getChemicalChartData" resultType="Chemical">
+		SELECT
+			c.chemical_id AS chemicalId,
+			c.chemical_name AS chemicalName,
+			c.stock_qty AS stockQty,
+			COALESCE(pc_sum.total_used, 0) AS usedQty
+		FROM
+			chemical c
+		LEFT JOIN
+			(SELECT chemical_id, SUM(used_qty) AS total_used
+			 FROM project_chemical
+			 GROUP BY chemical_id) pc_sum
+		ON
+			c.chemical_id = pc_sum.chemical_id
+		ORDER BY c.chemical_id
 	</select>
 	
 </mapper>

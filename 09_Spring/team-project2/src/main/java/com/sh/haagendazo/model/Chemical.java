@@ -3,7 +3,6 @@ package com.sh.haagendazo.model;
 import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,5 +20,7 @@ public class Chemical {
 	
 	private String storageName;
 	private String storageLocation;
-
+	
+	private int usedQty;
+	
 }

@@ -2,6 +2,8 @@ package com.sh.haagendazo.model;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -45,6 +47,8 @@ public class Paging {
 	private String select; // 검색 타입
 	private String keyword;
 	
+	private String status;
+	
 	private String name;
 	private String email;
 	private String password;
@@ -55,11 +59,22 @@ public class Paging {
 	private int gradeId;
 	private int uploadedBy;
 	private int userId;
+	private int managerId;
+	
+	private String role;
 	
 	private String orderBy; // 정렬 기준 : 컬럼
 	private String orderDirection; // ASC or DESC : 정렬 방향
 	
-	private int storageId;
+	private String filterApprovalType;
+	private String filterApprovalContent;
+	private String filterStatus;
 	
+	private int storageId;
+	private MultipartFile file;
+	private int boardNo;
+	private String title;
+	private String content;
+	private String url;
 	
 }

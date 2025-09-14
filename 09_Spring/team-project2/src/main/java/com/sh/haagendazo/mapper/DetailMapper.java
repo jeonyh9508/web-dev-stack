@@ -19,6 +19,5 @@ public interface DetailMapper {
 	void memberInsert(Project project);
 	void pmUpdate(Project project);
 	void memberDelete(List<String> idList);
-	void memberClean(int projectId);
 	List<Project> memberSchedule(int projectId);
 }

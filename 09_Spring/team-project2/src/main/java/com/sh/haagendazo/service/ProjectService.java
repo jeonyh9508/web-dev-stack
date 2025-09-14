@@ -31,6 +31,7 @@ public class ProjectService {
 	}
 	
 	public List<Project> searchBar(Paging paging){
+		paging.setOffset(paging.getLimit() * (paging.getPage() - 1));
 		return projectMapper.searchBar(paging);
 	}
 	
@@ -40,6 +41,11 @@ public class ProjectService {
 	public int status(String status) {
 		return projectMapper.status(status);
 	}
+	
+	public int userStatus(Paging paging) {
+	    return projectMapper.userStatus(paging);
+	}
+	
 	
 	public void projectSelectDelete(List<String> idList) {
 		projectMapper.projectSelectDelete(idList);
@@ -55,5 +61,16 @@ public class ProjectService {
 		return check;
 	}
 	
+	public List<Project> userProject(Paging paging){
+		paging.setOffset(paging.getLimit() * (paging.getPage() - 1));
+		return projectMapper.userProject(paging);
+	}
+	
+	public List<Project> showLog(){
+		return projectMapper.showLog();
+	}
 
+	public int userProjectTotal(Paging paging) {
+		return projectMapper.userProjectTotal(paging);
+	}
 }

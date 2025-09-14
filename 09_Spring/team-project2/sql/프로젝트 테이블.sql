@@ -86,7 +86,9 @@ CREATE TABLE project_chemical (
 CREATE TABLE project_document (
     document_id INT AUTO_INCREMENT PRIMARY KEY,      -- 문서 ID
     project_id INT NOT NULL,                         -- 관련 프로젝트 ID
-    user_id INT NOT NULL,                            -- 업로드한 사용자 ID
+    user_id INT NOT NULL,                         -- 업로드한 사용자 ID
+    title VARCHAR(100) NOT NULL,
+    description TEXT,
     file_name VARCHAR(255) NOT NULL,                 -- 파일명
     file_path VARCHAR(255) NOT NULL,                 -- 저장 경로
     version INT DEFAULT 1,                           -- 문서 버전

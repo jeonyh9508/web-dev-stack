@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sh.haagendazo.mapper.ScheduleMapper;
+import com.sh.haagendazo.model.Paging;
 import com.sh.haagendazo.model.Project;
 import com.sh.haagendazo.model.Schedule;
 
@@ -25,14 +26,10 @@ public class ScheduleService implements ScheduleMapper{
 		scheMapper.projectScheduleUpdate(schedule);
 	}
 
-	@Override
-	public List<Schedule> scheduleCal() {
-		return scheMapper.scheduleCal();
-	}
 
 	@Override
-	public List<Project> projectCal() {
-		return scheMapper.projectCal();
+	public List<Project> projectCal(int userId, String role) {
+		return scheMapper.projectCal(userId, role);
 	}
 
 	@Override
@@ -40,4 +37,26 @@ public class ScheduleService implements ScheduleMapper{
 		scheMapper.scheduleDelete(scheduleId);
 		
 	}
+
+
+	@Override
+	public List<Schedule> scheduleCal(int userId, String role) {
+		return scheMapper.scheduleCal(userId, role);
+	}
+	
+	@Override
+	public List<Project> todayUser(Paging paging) {
+		return scheMapper.todayUser(paging);
+	}
+
+	@Override
+	public int todayUserTotal(Paging paging) {
+		return scheMapper.todayUserTotal(paging);
+	}
+
+	@Override
+	public void scheduleMessage(Schedule schedule) {
+		scheMapper.scheduleMessage(schedule);
+	}
+
 }

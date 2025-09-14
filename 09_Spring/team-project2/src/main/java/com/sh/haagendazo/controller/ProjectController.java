@@ -3,6 +3,8 @@ package com.sh.haagendazo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sh.haagendazo.model.Paging;
 import com.sh.haagendazo.model.Project;
+import com.sh.haagendazo.model.User;
 import com.sh.haagendazo.service.ProjectService;
 
 
@@ -37,26 +40,81 @@ public class ProjectController {
 		model.addAttribute("paging", new Paging(paging.getPage(), projectService.total(paging)));
 		return "/project/list";
 	}
+	
+	@GetMapping("/project/my")
+	public String userProject(Paging paging, Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User loginUser = (User) auth.getPrincipal(); // User 엔티티 그대로 가져오기
+		
+		int userId = loginUser.getUserId();
+		paging.setUserId(userId);
+		
+		paging.setStatus("계획중");
+		int count1 = projectService.userStatus(paging);
+
+		paging.setStatus("진행중");
+		int count2 = projectService.userStatus(paging);
+
+		paging.setStatus("완료");
+		int count3 = projectService.userStatus(paging);
+	    
+	    model.addAttribute("count1",count1);
+	    model.addAttribute("count2",count2);
+	    model.addAttribute("count3",count3);
+	    
+		List<Project> userProject = projectService.userProject(paging);
+		model.addAttribute("userProject", userProject);
+		model.addAttribute("paging", new Paging(paging.getPage(), projectService.userProjectTotal(paging)));
+		
+		return "/project/my";
+	}
 
 	@GetMapping("/project/searchBar")
 	public String searchBar(Paging paging, Model model) {
-		int count1 = projectService.status("계획중");
-		int count2 = projectService.status("진행중");
-		int count3 = projectService.status("완료");
-		
-		model.addAttribute("count1", count1);
-		model.addAttribute("count2", count2);
-		model.addAttribute("count3",count3);
-		
-		paging.setTotal(projectService.searchBarTotal(paging));
-		
-		System.out.println(paging);
-		
-		List<Project> list = projectService.searchBar(paging);
-		model.addAttribute("list", list);
-		model.addAttribute("paging", new Paging(paging.getPage(), projectService.searchBarTotal(paging)));
-		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User loginUser = (User) auth.getPrincipal(); // User 엔티티 그대로 가져오기
+		paging.setRole(loginUser.getRole());
+		if(loginUser.getRole().equals("ROLE_RESEARCHER")){
+			int userId = loginUser.getUserId();
+			paging.setUserId(userId);
+			
+			paging.setStatus("계획중");
+			int count1 = projectService.userStatus(paging);
+
+			paging.setStatus("진행중");
+			int count2 = projectService.userStatus(paging);
+
+			paging.setStatus("완료");
+			int count3 = projectService.userStatus(paging);
+		    
+		    model.addAttribute("count1",count1);
+		    model.addAttribute("count2",count2);
+		    model.addAttribute("count3",count3);
+		    
+		    paging.setTotal(projectService.searchBarTotal(paging));
+			
+			List<Project> list = projectService.searchBar(paging);
+			model.addAttribute("userProject", list);
+			model.addAttribute("paging", new Paging(paging.getPage(), projectService.searchBarTotal(paging)));
+			
+			return "/project/my";
+		} else {
+			int count1 = projectService.status("계획중");
+			int count2 = projectService.status("진행중");
+			int count3 = projectService.status("완료");
+			
+			model.addAttribute("count1", count1);
+			model.addAttribute("count2", count2);
+			model.addAttribute("count3",count3);
+			
+			paging.setTotal(projectService.searchBarTotal(paging));
+			
+			List<Project> list = projectService.searchBar(paging);
+			model.addAttribute("list", list);
+			model.addAttribute("paging", new Paging(paging.getPage(), projectService.searchBarTotal(paging)));
+			
 		return "/project/list";
+		}
 	}
 
 	@PostMapping("/project/selectDelete")

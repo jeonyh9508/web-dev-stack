@@ -14,7 +14,7 @@ public interface BoardMapper {
 	void updateBoard(Board vo);
 	
 	List<Board> showBoard(Paging paging);
-	List<Board> showNotice();
+	List<Board> showNotice(Paging paging);
 	int total(Paging paging);
 	Board selectBoard(int boardNo);
 	List<Board> view(int boardNo);

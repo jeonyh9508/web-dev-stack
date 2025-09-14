@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sh.haagendazo.mapper.ProjectChemicalMapper;
+import com.sh.haagendazo.model.Approval;
 import com.sh.haagendazo.model.Project;
 
 @Service
@@ -22,8 +24,10 @@ public class ProjectChemicalService {
 		return projectChemicalMapper.chemicalList();
 	}
 	
-	public void pcAdd(Project project) {
-		projectChemicalMapper.pcAdd(project);
+	@Transactional
+	public void pcAdd(Approval vo) {
+		projectChemicalMapper.additionNotApprovedChemical(vo);
+		projectChemicalMapper.pcAdd(vo);
 	}
 
 }

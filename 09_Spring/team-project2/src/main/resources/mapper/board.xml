@@ -31,32 +31,58 @@
 	</delete>
 	
 	<select id="selectBoard" parameterType="int" resultMap="boardMap">
-		SELECT * FROM board LEFT JOIN customer ON (uploaded_by = customer_id) LEFT JOIN customer_log USING (customer_id) LEFT JOIN user ON (assign_id = user_id) WHERE board_no= #{boardNo}
+		SELECT DISTINCT b.board_no AS board_no, b.url, b.type, b.title, b.content, b.uploader_type, b.uploaded_by, b.uploaded_at, b.updated_at, COALESCE(u.name, c.name) AS uploader_name
+		FROM board b
+		LEFT JOIN user u ON (uploaded_by = user_id) AND b.uploader_type = 'user'
+		LEFT JOIN customer c ON (uploaded_by = customer_id) AND b.uploader_type = 'customer'
+        LEFT JOIN customer_log USING (customer_id)
+		WHERE board_no= #{boardNo}
 	</select>
 	
 	<select id="showBoard" parameterType="Paging" resultMap="boardMap">
-		SELECT DISTINCT board_no, type, title, content, b.uploader_type, uploaded_by, uploaded_at, updated_at, COALESCE(u.name, c.name) AS uploader_name
+		SELECT DISTINCT b.board_no AS board_no, b.url, b.type, b.title, b.content, b.uploader_type, b.uploaded_by, b.uploaded_at, b.updated_at, COALESCE(u.name, c.name) AS uploader_name
 		FROM board b
 		LEFT JOIN user u ON (uploaded_by = user_id) AND b.uploader_type = 'user'
 		LEFT JOIN customer c ON (uploaded_by = customer_id) AND b.uploader_type = 'customer'
         LEFT JOIN customer_log USING (customer_id)
 		<where>
-		<if test="keyword != null">
-			title LIKE CONCAT('%',#{keyword},'%')
+		<if test="keyword != null and keyword != ''">
+			<choose>
+			<when test="select == 'title'">
+			b.title LIKE CONCAT('%',#{keyword},'%')
+			</when>
+			<when test="select == 'uploadedBy'">
+			COALESCE(u.name, c.name) LIKE CONCAT('%',#{keyword},'%')
+			</when>
+			</choose>
 		</if>
 		</where>
 		LIMIT #{offset}, #{limit}
 	</select>
 	
 	<select id="showNotice" resultMap="boardMap">
-		SELECT * FROM board LEFT JOIN customer ON (uploaded_by = customer_id) LEFT JOIN customer_log USING (customer_id) LEFT JOIN user ON (assign_id = user_id) WHERE type = 'notice'
+		SELECT DISTINCT board_no, title, content, type, uploaded_by, uploaded_at, updated_at 
+		FROM board LEFT JOIN customer ON (uploaded_by = customer_id) LEFT JOIN customer_log USING (customer_id) LEFT JOIN user ON (assign_id = user_id) WHERE type = 'notice'
+		ORDER BY updated_at DESC
+		LIMIT #{offset}, #{limit}
 	</select>
 	
 	<select id="total" parameterType="Paging" resultType="int">
-		SELECT COUNT(DISTINCT board_no) FROM board LEFT JOIN customer ON (uploaded_by = customer_id) LEFT JOIN customer_log USING (customer_id) LEFT JOIN user ON (assign_id = user_id)
+		SELECT COUNT(DISTINCT b.board_no) 
+		FROM board b
+		LEFT JOIN user u ON (uploaded_by = user_id) AND b.uploader_type = 'user'
+		LEFT JOIN customer c ON (uploaded_by = customer_id) AND b.uploader_type = 'customer'
+		LEFT JOIN customer_log USING (customer_id)
 		<where>
-		<if test="keyword != null">
-			title LIKE CONCAT('%',#{keyword},'%')
+		<if test="keyword != null and keyword != ''">
+			<choose>
+			<when test="select == 'title'">
+			b.title LIKE CONCAT('%',#{keyword},'%')
+			</when>
+			<when test="select == 'uploadedBy'">
+			COALESCE(u.name, c.name) LIKE CONCAT('%',#{keyword},'%')
+			</when>
+			</choose>
 		</if>
 		</where>
 	</select>
