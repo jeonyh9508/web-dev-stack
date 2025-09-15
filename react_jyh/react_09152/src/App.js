@@ -1,0 +1,117 @@
+import { useState } from "react";
+import logo from "./logo.svg";
+
+function App() {
+  // let mode = "WELCOME";
+  let [mode, setMode] = useState("WELCOME");
+  let [id, setId] = useState(null);
+  let content = null;
+
+  let m_topics = [
+    { id: 1, title: "HTML", body: "i am HTML" },
+    { id: 2, title: "CSS", body: "you are CSS" },
+    { id: 3, title: "JS", body: "he is JS" },
+  ];
+
+  if (mode === "WELCOME") {
+    content = <Article title="welcome mode state" body="STATE WEB"></Article>;
+  } else if (mode === "READ") {
+    let title = null;
+    let body = null;
+    for (let i = 0; i < m_topics.length; i++) {
+      if (m_topics[i].id === id) {
+        title = m_topics[i].title;
+        body = m_topics[i].body;
+      }
+    }
+    content = <Article title={title} body={body}></Article>;
+  }
+
+  return (
+    <div className="App">
+      <Header
+        title="React!!"
+        onChangeMode={() => {
+          setMode("WELCOME");
+        }}
+      />
+      <Nav
+        topics={m_topics}
+        onChangeMode={(id) => {
+          // mode = "READ";
+          // mode 가 변경되어도 새로고침이 되지않아 적용되지 않음
+          // console.log(mode);
+          setMode("READ");
+          setId(id);
+        }}
+      />
+      <Article title="WelCome" body="Hello ! React !! Web !!!" />
+
+      {content}
+    </div>
+  );
+}
+
+function Header(props) {
+  return (
+    <header>
+      <h1>
+        <a
+          href="/"
+          onClick={() => {
+            alert("나는 헤더");
+          }}
+        >
+          {props.title}
+        </a>
+      </h1>
+      <h1>
+        <a
+          href="/"
+          onClick={(event) => {
+            event.preventDefault();
+            props.onChangeMode();
+          }}
+        >
+          {props.title}
+        </a>
+      </h1>
+    </header>
+  );
+}
+
+function Nav(props) {
+  let lis = [];
+  for (let i = 0; i < props.topics.length; i++) {
+    let t = props.topics[i];
+    lis.push(
+      <li>
+        <a
+          id={t.id}
+          href={"/read/" + t.id}
+          onClick={(event) => {
+            event.preventDefault();
+            props.onChangeMode(Number(event.target.id));
+            // props.onChangeMode(parseInt(event.target.id));
+          }}
+        >
+          {t.title} / {t.body}
+        </a>
+      </li>
+    );
+  }
+  return (
+    <nav>
+      <ul>{lis}</ul>
+    </nav>
+  );
+}
+function Article(props) {
+  return (
+    <article>
+      <h2>{props.title}</h2>
+      <p>{props.body}</p>
+    </article>
+  );
+}
+export default App;
