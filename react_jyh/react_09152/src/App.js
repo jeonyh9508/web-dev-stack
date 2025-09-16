@@ -1,17 +1,19 @@
 import { useState } from "react";
-import logo from "./logo.svg";
 
 function App() {
   // let mode = "WELCOME";
   let [mode, setMode] = useState("WELCOME");
   let [id, setId] = useState(null);
+
+  // back 단에서 ai 사용할때?
+  let [nextId, setNextId] = useState(4);
   let content = null;
 
-  let m_topics = [
+  let [m_topics, setTopics] = useState([
     { id: 1, title: "HTML", body: "i am HTML" },
     { id: 2, title: "CSS", body: "you are CSS" },
     { id: 3, title: "JS", body: "he is JS" },
-  ];
+  ]);
 
   if (mode === "WELCOME") {
     content = <Article title="welcome mode state" body="STATE WEB"></Article>;
@@ -25,6 +27,23 @@ function App() {
       }
     }
     content = <Article title={title} body={body}></Article>;
+  } else if (mode === "CREATE") {
+    content = (
+      <Create
+        onCreate={(title, body) => {
+          let newTopic = { id: nextId, title: title, body: body };
+
+          // m_topics배열을 newTopics에 전체 복사(...m_topics)
+          let newTopics = [...m_topics];
+          newTopics.push(newTopic);
+          setTopics(newTopics);
+
+          setMode("READ");
+          setId(nextId);
+          setNextId(nextId + 1);
+        }}
+      ></Create>
+    );
   }
 
   return (
@@ -48,10 +67,42 @@ function App() {
       <Article title="WelCome" body="Hello ! React !! Web !!!" />
 
       {content}
+
+      <a
+        href="/create"
+        onClick={(event) => {
+          event.preventDefault();
+          setMode("CREATE");
+        }}
+      >
+        Create
+      </a>
     </div>
   );
 }
 
+function Create(props) {
+  return (
+    <article>
+      <h2>Create!!</h2>
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          let title = event.target.title.value;
+          let body = event.target.body.value;
+          console.log(title + body);
+          props.onCreate(title, body);
+        }}
+      >
+        <input type="text" name="title" placeholder="input title" />
+        <br />
+        <textarea name="body"></textarea>
+        <br />
+        <input type="submit" value="New Create!" />
+      </form>
+    </article>
+  );
+}
 function Header(props) {
   return (
     <header>
