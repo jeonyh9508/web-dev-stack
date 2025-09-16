@@ -77,6 +77,22 @@ function App() {
       >
         Create
       </a>
+
+      <input
+        type="button"
+        value="Delete"
+        onClick={(e) => {
+          let newTopics = [];
+          for (let i = 0; i < m_topics.length; i++) {
+            // m_topics에 지정되어 있는 id 와 지우려는 id 가 다른 경우 에만 newTopics 에 push
+            if (m_topics[i].id !== id) {
+              newTopics.push(m_topics[i]);
+            }
+          } // for 문 종료
+
+          setTopics(newTopics);
+        }}
+      />
     </div>
   );
 }
