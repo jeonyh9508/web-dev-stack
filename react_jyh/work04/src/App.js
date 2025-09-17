@@ -57,6 +57,7 @@ function App() {
     let name = e.target.myname.value;
     setGreet("안녕하세요 " + name + "님, 오늘의 기분은? ");
   }
+
   function moodChange(e) {
     let mood = e.target.value;
     if (mood === "행복") {
@@ -64,7 +65,7 @@ function App() {
     } else if (mood === "슬픔") {
       setMsg("슬퍼한다고 뭐가 되진 않아요.");
     } else if (mood === "화남") {
-      setMsg("긁히셨나요?");
+      setMsg("긁?");
     } else {
       setMsg("기분이 어떠냐고요");
     }
@@ -76,21 +77,21 @@ function App() {
         <input type="submit" value="인사하기" />
       </form>
       <p>{greet}</p>
-      <MyMood mood={moodChange} msg={msg}></MyMood>
+      <MyMood mood={moodChange}></MyMood>
+      <p>{msg}</p>
     </div>
   );
 }
 
-function MyMood(props) {
+function MyMood({ mood }) {
   return (
     <div>
-      <select onChange={props.mood}>
+      <select onChange={mood}>
         <option value="">기분 선택</option>
         <option value="행복">행복 </option>
         <option value="슬픔">슬픔</option>
         <option value="화남">화남</option>
       </select>
-      <p>{props.msg}</p>
     </div>
   );
 }
