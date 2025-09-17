@@ -2,10 +2,12 @@ import { useState } from "react";
 import Movie from "./components/Movie";
 import "./index.css";
 import MovieForm from "./components/MovieForm";
+import Navbar from "./components/Navbar";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
-  const [movieTitle, setMovieTitle] = useState("");
-  const [movieYear, setMovieYear] = useState("");
+  // const [movieTitle, setMovieTitle] = useState("");
+  // const [movieYear, setMovieYear] = useState("");
   const [movies, setMovies] = useState([]);
   // const movies = [
   //   { title: "해리포터1", year: 2001 },
@@ -37,11 +39,25 @@ function App() {
     // }
   };
   return (
-    <div className="App">
-      <h1>Movie List</h1>
-      <MovieForm addMovie={addMovie} />
-      {renderMovies}
-    </div>
+    <Router>
+      <div className="App">
+        <Navbar />
+        <Routes>
+          <Route
+            path="/movies"
+            element={
+              <div>
+                <h1>Movie List</h1>
+                <MovieForm addMovie={addMovie} />
+                {renderMovies}
+              </div>
+            }
+          />
+          <Route path="/users" element={<h1>User 컴포넌트</h1>} />
+          <Route path="/" element={<h1>Home 컴포넌트</h1>} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
