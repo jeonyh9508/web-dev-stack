@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 function TodoList(props) {
   return (
     <table border="1px">
@@ -21,7 +19,7 @@ function TodoList(props) {
                 value="삭제"
                 onClick={(e) => {
                   e.preventDefault();
-                  console.log(index);
+                  //console.log(index);
                   props.removeTodo(index);
                 }}
               />

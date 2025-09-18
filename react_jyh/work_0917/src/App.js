@@ -29,7 +29,12 @@ function App() {
         }}
       />
       <br />
-      <input type="date" value={due} onChange={(e) => setDue(e.target.value)} />
+      <input
+        type="text"
+        value={due}
+        placeholder="마감일 입력 (예 : 2025-09-18)"
+        onChange={(e) => setDue(e.target.value)}
+      />
       <input type="button" value="추가" onClick={addTodo} />
       <hr />
       <TodoList todoList={todoList} removeTodo={removeTodo} />
