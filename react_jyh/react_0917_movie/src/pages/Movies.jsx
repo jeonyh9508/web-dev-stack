@@ -5,6 +5,16 @@ import Movie from "../components/Movie";
 const Movies = () => {
   const [movies, setMovies] = useState([]);
 
+  const addMovie = (movie) => {
+    // if (movieTitle.trim() && movieYear.trim()) {
+    // alert(movieTitle + "/" + movieYear);
+    // let title = movieTitle;
+    // let year = movieYear;
+    // setMovies([...movies, { title, year }]);
+    // }
+    setMovies([...movies, movie]);
+  };
+
   const removeMovie = (id) => {
     // alert(id);
     setMovies(
@@ -19,16 +29,6 @@ const Movies = () => {
         return <Movie movie={movie} removeMovie={removeMovie} />;
       })
     : "등록된 영화가 없습니다.";
-
-  const addMovie = (movie) => {
-    // if (movieTitle.trim() && movieYear.trim()) {
-    // alert(movieTitle + "/" + movieYear);
-    // let title = movieTitle;
-    // let year = movieYear;
-    // setMovies([...movies, { title, year }]);
-    // }
-    setMovies([...movies, movie]);
-  };
 
   return (
     <div>

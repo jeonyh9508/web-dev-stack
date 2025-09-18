@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Users from "./pages/Users";
 import Home from "./pages/Home";
 import Movies from "./pages/Movies";
+import routes from "./routes";
 
 function App() {
   // const [movieTitle, setMovieTitle] = useState("");
@@ -21,11 +22,20 @@ function App() {
     <Router>
       <div className="App">
         <Navbar />
-        <Routes>
+        {/* <Routes>
           <Route path="/movies" element={<Movies />} />
           <Route path="/users" element={<Users />} />
           <Route path="/" element={<Home />} />
-        </Routes>
+        </Routes> */}
+        <div>
+          {routes.map((rou) => {
+            return (
+              <Routes>
+                <Route path={rou.path} element={<rou.component />} />
+              </Routes>
+            );
+          })}
+        </div>
       </div>
     </Router>
   );
