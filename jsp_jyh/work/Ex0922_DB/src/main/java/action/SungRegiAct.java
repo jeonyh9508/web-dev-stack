@@ -17,12 +17,7 @@ import vo.SjVO;
 public class SungRegiAct extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SungRegiAct() {
-        super();
-    }
+
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		

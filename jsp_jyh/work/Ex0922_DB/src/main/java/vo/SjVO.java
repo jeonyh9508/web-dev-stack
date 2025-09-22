@@ -6,6 +6,7 @@ public class SjVO {
 	private int no;
 	private String name;
 	private int kor, eng, mat;
+	
 	public int getNo() {
 		return no;
 	}
