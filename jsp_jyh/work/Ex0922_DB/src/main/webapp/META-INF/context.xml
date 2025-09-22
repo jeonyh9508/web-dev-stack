@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- JNDI (java naming directory interface)
+	: DB 연겨로가 관련된 소스들을 미리 작성해둔 설정 파일
+ -->
+<Context>
+	<Resource 
+	        auth="Container" 
+      		name="jdbc/oracle_test"
+      		type="javax.sql.DataSource"
+      		driverClassName="oracle.jdbc.driver.OracleDriver"
+      		factory="org.apache.commons.dbcp.BasicDataSourceFactory"
+      		url="jdbc:oracle:thin:@localhost:1521:xe"
+      		username="kh" password="qwer1234" 
+      		maxActive="20" maxIdle="10" maxWait="1"/>
+</Context>
