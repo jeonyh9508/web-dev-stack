@@ -16,6 +16,7 @@ function Signup() {
     setErrors(LoginValidation(values));
 
     axios.post("http://localhost:3000/signup", values).then((res) => {
+      console.log(res.data);
       alert("가입 성공");
       window.location.href = "/";
     });

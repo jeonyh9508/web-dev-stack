@@ -21,6 +21,7 @@ app.post("/signup", (req, res) => {
   const values = [req.body.name, req.body.email, req.body.password];
   db.query(sql, values, (err, data) => {
     if (err) {
+      console.error("DB Insert Error:", err);
       return res.json("Error");
     }
     return res.json(data);
