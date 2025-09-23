@@ -7,6 +7,20 @@
 <title>Insert title here</title>
 <script>
 	function send(f) {
+		// 유효성 검사는 클라이언트 단에서.
+		let deptno = f.deptno.value;
+		let patt = /^[0-9]*$/;
+		
+		if( !patt.test(deptno) ){
+			alert("부서 번호는 정수로 입력하세요.");
+			return;
+		}
+		
+		if( deptno =='' ){
+			alert("부서 번호를 입력하세요.");
+			return;
+		}
+		
 		let dname = f.dname.value;
 
 		if (dname == '') {
@@ -21,7 +35,8 @@
 			return;
 		}
 
-		f.action = 'dept_list.do';
+		// url 호출 -> 받는 Servlet 필요
+		f.action = 'dept_insert.do';
 		f.submit();
 	}
 </script>
@@ -29,6 +44,12 @@
 <body>
 	<form>
 		<table border="1">
+		<caption>부서 등록</caption>
+			<tr>
+				<th>부서번호</th>
+				<td><input name="deptno" /></td>
+				<!-- name 속성은 form 전송을 위함 -->
+			</tr>
 			<tr>
 				<th>부서명</th>
 				<td><input name="dname" /></td>

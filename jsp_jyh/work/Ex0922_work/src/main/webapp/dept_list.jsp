@@ -9,9 +9,11 @@
 </head>
 <body>
 	<table border="1">
+	
 		<caption>부서 목록</caption>
+		
 		<tr>
-			<th>부서 번호</th>
+			<th>번호</th>
 			<th>부서 명</th>
 			<th>부서 위치</th>
 			<th>비고</th>
@@ -21,9 +23,13 @@
 		<td>${vo.deptno}</td>
 		<td>${vo.dname}</td>
 		<td>${vo.loc}</td>
-		<td><input type="button" value="삭제" /></td>
+		<td>
+		<input type="button" value="수정" onClick="location.href='dept_modify.do?deptno=${vo.deptno}'" />
+		<input type="button" value="삭제" onClick="location.href='dept_delete.do?deptno=${vo.deptno}'" />
+		</td>
 		</tr>
 		</c:forEach>
+		
 		<tr>
 		<td colspan="4"> <input type="button" value="부서 등록" onClick="location.href='dept_insert.jsp'"/></td>
 		</tr>

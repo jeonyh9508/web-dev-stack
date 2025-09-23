@@ -30,3 +30,5 @@ public class DeptVO {
 	    this.loc = loc;
 	}
 }
+
+// 우클릭 Source -> Getter, Setter 

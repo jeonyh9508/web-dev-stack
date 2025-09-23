@@ -5,6 +5,7 @@ import MainComp from "./MainComp";
 
 function App() {
   return (
+    // Route path 경로 진입시 element 컴포넌트 호출
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />

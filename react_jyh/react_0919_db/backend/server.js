@@ -2,7 +2,7 @@ const express = require("express"); // Express 불러오기
 const mysql = require("mysql2"); // MySQL 불러오기
 const cors = require("cors"); // CORS 미들웨어
 
-const app = express(); // Express 앱 생성
+const app = express(); // Express app 생성
 app.use(cors()); // CORS 허용
 app.use(express.json()); // JSON 요청 파싱
 
@@ -19,7 +19,7 @@ app.post("/signup", (req, res) => {
   // 쿼리문 작성 컬럼은 백콧 ``
   const sql = "INSERT INTO login (`name`, `email`, `password`) VALUES (?)";
   const values = [req.body.name, req.body.email, req.body.password];
-  db.query(sql, values, (err, data) => {
+  db.query(sql, [values], (err, data) => {
     if (err) {
       console.error("DB Insert Error:", err);
       return res.json("Error");
@@ -30,8 +30,11 @@ app.post("/signup", (req, res) => {
 
 // 로그인 요청
 app.post("/login", (req, res) => {
+  // WHERE 조건 email, password 매칭
   const sql = "SELECT * FROM login WHERE `email`= ? AND `password`= ?";
+  // frontend에서 값 가져오기
   const values = [req.body.email, req.body.password];
+  // query 조회 성공 / 실패 여부
   db.query(sql, values, (err, data) => {
     if (err) {
       return res.json("Error");

@@ -12,9 +12,12 @@ function Signup() {
   const [errors, setErrors] = useState();
 
   const handleSubmit = (e) => {
+    // 새로고침 방지
     e.preventDefault();
+    // 회원가입 유효성 검사
     setErrors(LoginValidation(values));
 
+    // 서버에 입력 데이터 전송
     axios.post("http://localhost:3000/signup", values).then((res) => {
       console.log(res.data);
       alert("가입 성공");
@@ -23,6 +26,7 @@ function Signup() {
   };
 
   const handleInput = (e) => {
+    // input onChange -> setValues 업데이트
     setValues({ ...values, [e.target.name]: [e.target.value] });
   };
   return (

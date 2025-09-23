@@ -9,6 +9,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="dept_insert" parameterType="vo.DeptVO">
-		INSERT INTO dept VALUES (seq_dept_no.nextVal , #{dname}, #{loc})
+		INSERT INTO dept VALUES (#{deptno} , #{dname}, #{loc})
 	</insert>
+	
+	<delete id="dept_delete" parameterType="int">
+		DELETE FROM dept WHERE deptno=#{deptno}
+	</delete>
+	
+	<update id="dept_update" parameterType="java.util.Map">
+		UPDATE dept SET deptno = #{deptno}, dname = #{dname}, loc = #{loc} WHERE deptno = #{ori_deptno}
+	</update>
+	
+	<select id="modify_one" resultType="vo.DeptVO" parameterType="int">
+	SELECT * FROM dept WHERE deptno = #{deptno}
+	</select>
 </mapper>
