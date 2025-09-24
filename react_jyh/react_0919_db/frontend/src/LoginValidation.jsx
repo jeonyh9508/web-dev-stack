@@ -1,7 +1,8 @@
 import React from "react";
-function LoginValidation(props) {
-  // 회원가입 유효성(공란) 검사 function
 
+// 회원가입 / 로그인 유효성(공란) 검사 function
+// 공란 시 alert
+function LoginValidation(props) {
   if (props.name == "") {
     alert("이름을 입력하세요");
     return;

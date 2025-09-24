@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import LoginValidation from "./LoginValidation";
 import axios from "axios";
 function Login() {
-  // json 형식으로 세팅
+  // useState({}) -> json 형태로 관리
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -32,7 +32,7 @@ function Login() {
   };
 
   const handleInput = (e) => {
-    // input 태그 onChange 인식 -> setValues
+    // input 값이 변경(onChange)되면 기존 values에 덮어 씌우기 -> setValues
     setValues({ ...values, [e.target.name]: [e.target.value] });
   };
 

@@ -26,7 +26,7 @@ function Signup() {
   };
 
   const handleInput = (e) => {
-    // input onChange -> setValues 업데이트
+    // input 값이 변경(onChange)되면 기존 values에 덮어 씌우기 -> setValues
     setValues({ ...values, [e.target.name]: [e.target.value] });
   };
   return (
