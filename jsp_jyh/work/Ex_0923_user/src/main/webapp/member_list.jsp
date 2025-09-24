@@ -6,16 +6,44 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="js/httpRequest.js"></script>
 <script>
 
 	function del(idx) {
+
 		if (!confirm("삭제하시겠습니까?")) {
 			return;
 		} else {
+			let url = "member_del.do"
+			// 특수 문자 처리
+			let param = "idx=" + encodeURIComponent(idx);
 			
-			location.href = 'member_del.do?idx=' + idx;
+			sendRequest( url, param, resDel,"post");
 		}
-		;
+			//location.href = 'member_del.do?idx=' + idx;
+		}
+		
+		function resDel(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				
+				// data = "[{'res' : '%s'}]"
+				let data = xhr.responseText;
+				
+				let json = eval(data);
+				
+				if( json[0].res == 'yes' ){
+					alert("삭제 성공");
+					location.href = "list.do";
+				}else{
+					alert("삭제 실패");
+				}
+			}
+		};
+
+	
+	
+	function modify(idx) {
+		location.href = 'modify.do?idx=' + idx;
 	}
 </script>
 </head>
@@ -41,7 +69,7 @@
 				<td>${vo.email}</td>
 				<td>${vo.addr}</td>
 				<td>
-				<input type="button" value="수정" onClick="location.href='modify.do?idx=${vo.idx}'"/>
+				<input type="button" value="수정" onClick="modify('${vo.idx}')"/>
 				<input type="button" value="삭제" onClick="del('${vo.idx}')"/>
 				</td>
 			</tr>

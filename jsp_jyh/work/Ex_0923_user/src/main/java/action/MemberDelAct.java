@@ -20,9 +20,20 @@ public class MemberDelAct extends HttpServlet {
 		
 		int idx = Integer.parseInt(request.getParameter("idx"));
 		
-		MemberDAO.getInstance().memberDel(idx);
+		int res = MemberDAO.getInstance().memberDel(idx);
 		
-		response.sendRedirect("list.do");
+		String param = "no";
+		
+		if(res > 0 ) {
+			param = "yes";
+		}
+		
+		String resultStr = String.format("[{'res' : '%s'}]", param);
+		
+		response.getWriter().println(resultStr);
+		
+		
+//		response.sendRedirect("list.do");
 	}
 
 }

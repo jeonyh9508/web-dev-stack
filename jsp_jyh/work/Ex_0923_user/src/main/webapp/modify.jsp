@@ -6,8 +6,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
-	function modify(f){
-		f.action="member_modify.do"
+	function modify(f) {
+
+		f.action = "member_modify.do"
+		f.method = "post";
 		f.submit();
 	}
 </script>

@@ -28,4 +28,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		UPDATE member SET 
 		name = #{name}, id = #{id}, pwd=#{pwd}, email=#{email}, addr = #{addr} WHERE idx= #{idx}
 	</update>
+	
+	<select id="selectOne" resultType="vo.MemberVO" parameterType="String">
+		SELECT * FROM member WHERE id= #{id}
+	</select>
 </mapper>
