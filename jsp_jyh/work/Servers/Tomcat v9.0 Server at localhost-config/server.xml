@@ -162,7 +162,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="Ex0922_DB" path="/Ex0922_DB" reloadable="true" source="org.eclipse.jst.jee.server:Ex0922_DB"/><Context docBase="Ex0922_work" path="/Ex0922_work" reloadable="true" source="org.eclipse.jst.jee.server:Ex0922_work"/><Context docBase="Ex_0923_user" path="/Ex_0923_user" reloadable="true" source="org.eclipse.jst.jee.server:Ex_0923_user"/><Context docBase="Ex0924_session" path="/Ex0924_session" reloadable="true" source="org.eclipse.jst.jee.server:Ex0924_session"/></Host>
+      <Context docBase="Ex0922_DB" path="/Ex0922_DB" reloadable="true" source="org.eclipse.jst.jee.server:Ex0922_DB"/><Context docBase="Ex0922_work" path="/Ex0922_work" reloadable="true" source="org.eclipse.jst.jee.server:Ex0922_work"/><Context docBase="Ex_0923_user" path="/Ex_0923_user" reloadable="true" source="org.eclipse.jst.jee.server:Ex_0923_user"/><Context docBase="Ex0924_session" path="/Ex0924_session" reloadable="true" source="org.eclipse.jst.jee.server:Ex0924_session"/><Context docBase="Ex0925_api" path="/Ex0925_api" reloadable="true" source="org.eclipse.jst.jee.server:Ex0925_api"/><Context docBase="Ex0925_product" path="/Ex0925_product" reloadable="true" source="org.eclipse.jst.jee.server:Ex0925_product"/></Host>
     </Engine>
   </Service>
 </Server>
