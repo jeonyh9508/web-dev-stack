@@ -6,6 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+	function modify(idx) {
+		location.href = "modify_form.do?idx=" + idx;
+	}
+</script>
 </head>
 <body>
 	<jsp:include page="index.jsp" />
@@ -29,7 +34,8 @@
 			<td>
 				<del><fmt:formatNumber value="${p.p_price}"/> 원</del><br />
 				<fmt:formatNumber value="${p.p_saleprice}"/> 원<br />
-				<font color="red">( ${p.sale_rate} % )</font>
+				<font color="red">( ${p.sale_rate} % )</font><br />
+				<input type="button" value="수정" name="idx" onClick="modify(${p.idx})"/>
 			</td>
 		</tr>
 		</c:forEach>

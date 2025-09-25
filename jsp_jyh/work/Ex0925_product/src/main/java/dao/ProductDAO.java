@@ -46,4 +46,20 @@ public class ProductDAO {
 		return res;
 	}
 	
+	public ProductVO selectOne (int idx) {
+		SqlSession sql = factory.openSession();
+		ProductVO vo = sql.selectOne("product_one", idx);
+		sql.close();
+		
+		return vo;
+	}
+	
+	public int update (ProductVO vo) {
+		SqlSession sql = factory.openSession(true);
+		int res = sql.update("product_update", vo);
+		sql.close();
+		
+		return res;
+	}
+	
 }
