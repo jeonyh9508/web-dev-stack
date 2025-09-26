@@ -28,6 +28,7 @@ public class ProductDAO {
 		factory = MyBatisConnector.getInstance().getFactory();
 	}
 	
+	// 전체 상품 목록
 	public List<ProductVO> select (String category) {
 		
 		SqlSession sql = factory.openSession();
@@ -37,6 +38,7 @@ public class ProductDAO {
 		return list;
 	}
 	
+	// 상품 추가
 	public int insert (ProductVO vo) {
 		
 		SqlSession sql = factory.openSession(true);
@@ -46,17 +48,19 @@ public class ProductDAO {
 		return res;
 	}
 	
+	// 상세보기 / 수정을 위한 상품 조회
 	public ProductVO selectOne (int idx) {
 		SqlSession sql = factory.openSession();
-		ProductVO vo = sql.selectOne("product_one", idx);
+		ProductVO vo = sql.selectOne("p.product_one", idx);
 		sql.close();
 		
 		return vo;
 	}
 	
+	// 상품 수정
 	public int update (ProductVO vo) {
 		SqlSession sql = factory.openSession(true);
-		int res = sql.update("product_update", vo);
+		int res = sql.update("p.product_update", vo);
 		sql.close();
 		
 		return res;

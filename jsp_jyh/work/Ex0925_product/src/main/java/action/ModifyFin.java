@@ -42,6 +42,7 @@ public class ModifyFin extends HttpServlet {
 		
 		String p_image_s = orivo.getP_image_s();
 		String p_image_l = orivo.getP_image_l();
+		
 		File orifs = new File(path + p_image_s);
 		File orifl = new File(path + p_image_l);
 		

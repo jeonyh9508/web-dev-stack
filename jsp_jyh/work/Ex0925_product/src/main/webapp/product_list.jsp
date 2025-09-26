@@ -35,7 +35,7 @@
 				<del><fmt:formatNumber value="${p.p_price}"/> 원</del><br />
 				<fmt:formatNumber value="${p.p_saleprice}"/> 원<br />
 				<font color="red">( ${p.sale_rate} % )</font><br />
-				<input type="button" value="수정" name="idx" onClick="modify(${p.idx})"/>
+				<input type="button" value="상품 수정" name="idx" onClick="modify(${p.idx})"/>
 			</td>
 		</tr>
 		</c:forEach>
