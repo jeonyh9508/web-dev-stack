@@ -7,6 +7,31 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+	function modify(f) {
+		
+		let c_cnt = f.c_cnt.value;
+		let patt = /^[0-9]*$/;
+		
+		if ( !patt.test(c_cnt) || c_cnt == '' || c_cnt == 0 ){
+			alert("수량은 정수로 입력하세요.");
+			return;
+		}
+		
+		f.action ="cart_update.do";
+		f.submit();
+		
+	}
+	
+	function del(c_idx){
+		
+		if(!confirm("정말 삭제하시겠습니까?")){
+			return;
+		}
+		
+		location.href="delete_cart.do?c_idx=" +c_idx;
+	}
+</script>
 </head>
 <body>
 	<jsp:include page="index.jsp" />
@@ -30,14 +55,14 @@
 				</td>
 				<td>
 					<form>
-						<input type="hidden" value="" />
+						<input type="hidden" name="c_idx" value="${c.c_idx}" />
 						<input size="3" name="c_cnt" value="${c.c_cnt}"/> <br />
-						<input type="submit" value="수정" />
+						<input type="button" value="수정" onClick="modify(this.form)"/>
 					</form>
 				</td>
 				<td>${c.c_cnt * c.p_saleprice}</td>
 				<td>
-					<input type="button" value="삭제" />
+					<input type="button" value="삭제" onClick ="del(${c.c_idx})"/>
 				</td>
 			</tr>
 		</c:forEach>

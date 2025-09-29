@@ -13,30 +13,31 @@ import javax.servlet.http.HttpServletResponse;
 import dao.CartDAO;
 import vo.CartVO;
 
-
-@WebServlet("/cart_list.do")
-public class CartListAct extends HttpServlet {
+@WebServlet("/delete_cart.do")
+public class CartDeleteAct extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+   
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// cart_list.do?m_idx=(?)
+		int c_idx = Integer.parseInt(request.getParameter("c_idx"));
 		
-		int m_idx = Integer.parseInt(request.getParameter("m_idx"));
+		// 회원번호 가정
+		int m_idx = 1;
 		
-		List<CartVO> vo = CartDAO.getInstance().select(m_idx);
-		int total = CartDAO.getInstance().selectTotalAmount(m_idx);
+		CartDAO.getInstance().cartDelete(c_idx);
 		
-		request.setAttribute("vo", vo);
-		request.setAttribute("total", total);
+		List<CartVO> list = CartDAO.getInstance().select(m_idx);
+		int total_amount = CartDAO.getInstance().selectTotalAmount(m_idx);
 		
-//		for(int i = 0; i< vo.size(); i++) {
-//			System.out.println(vo.get(i).getC_cnt());
-//		}
+		request.setAttribute("vo", list);
+		request.setAttribute("total", total_amount);
 		
 		RequestDispatcher disp = request.getRequestDispatcher("cartList.jsp");
 		
 		disp.forward(request, response);
+		
 	}
+	
 
 }
