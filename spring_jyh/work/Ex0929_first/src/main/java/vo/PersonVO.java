@@ -6,6 +6,14 @@ public class PersonVO {
 	private int age;
 	private String tel;
 
+	public PersonVO( String name, int age, String tel) {
+		this.name = name;
+		this.age = age;
+		this.tel = tel;
+		
+		System.out.println("생성자 injection : " + name + " / " + age + " / " + tel);
+	}
+	
 	public PersonVO() {
 		System.out.println("PersonVO 기본 생성자");
 	}
@@ -16,6 +24,7 @@ public class PersonVO {
 
 	public void setName(String name) {
 		this.name = name;
+		System.out.println("--setName() : " + name);
 	}
 
 	public int getAge() {
@@ -24,6 +33,7 @@ public class PersonVO {
 
 	public void setAge(int age) {
 		this.age = age;
+		System.out.println("--setAge() : " + age);
 	}
 
 	public String getTel() {
@@ -32,5 +42,6 @@ public class PersonVO {
 
 	public void setTel(String tel) {
 		this.tel = tel;
+		System.out.println("--setTel() : " + tel);
 	}
 }
