@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- PersonVO p1 = new PersonVO() 
+		 p1.setName("홍길동");
+		 p1.setAge(20);-->
+	<bean id="p1" class="vo.PersonVO">
+		<!-- setter를 통해 값을 주입 (setter injection > si) -->
+		<property name="name" value="홍길동"/>
+		<property name="age" value="20"/>
+		<property name="tel" value="010-1234-1234"/>
+	</bean>
+	
+	<!-- PersonVO p2 = new PersonVO( "청길동" , 56 , "010-2345-2345") -->
+	<bean id="p2" class="vo.PersonVO">
+		<!-- constructor-arg 생성자로 접근 데이터 주입 (constructor injection > ci)-->
+		<constructor-arg value="청길동"/>
+		<constructor-arg value="56"/>
+		<constructor-arg value="010-2345-2345"/>
+	</bean>
+</beans>

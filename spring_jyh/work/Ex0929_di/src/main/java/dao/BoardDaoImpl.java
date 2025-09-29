@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BoardDaoImpl implements BoardDAO {
@@ -12,9 +13,15 @@ public class BoardDaoImpl implements BoardDAO {
 	}
 
 	@Override
-	public List<Object> selectList() {
-		// TODO Auto-generated method stub
-		return null;
+	public List selectList() {
+		// DB에서 정보를 가져왔다고 가정
+		List<String> list = new ArrayList<String>();
+		list.add("사과");
+		list.add("수박");
+		list.add("참외");
+		list.add("복숭아");
+		
+		return list;
 	}
 
 }

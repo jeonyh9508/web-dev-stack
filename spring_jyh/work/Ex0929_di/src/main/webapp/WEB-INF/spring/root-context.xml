@@ -2,7 +2,17 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
-	
+
 	<!-- Root Context: defines shared resources visible to all other web components -->
-		
+
+	<!-- BoardDaoImpl dao = new BoardDaoImpl() -->
+	<bean id="dao" class="dao.BoardDaoImpl">
+	</bean>
+
+	<!-- BoardServiceImpl serviceBean = new BoardServiceImpl(dao) -->
+	<bean id="serviceBean" class="service.BoardServiceImpl">
+	<!-- reference 로 미리 생성해둔 bean을 참조 (dipendency injection > di)-->
+		<constructor-arg ref="dao" />
+	</bean>
+
 </beans>
