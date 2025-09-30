@@ -419,7 +419,6 @@
 	
 		$("#additionProcessing").click((e) => {
 			e.preventDefault();
-			console.log(":");
 			const checkBoxes = document.querySelectorAll('input.additionBtn:checked');
 			const additionForm = document.querySelector('#additionForm');
 			

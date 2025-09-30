@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sh.haagendazo.mapper.ProjectChemicalMapper;
-import com.sh.haagendazo.model.Approval;
-import com.sh.haagendazo.model.Project;
+import com.sh.haagendazo.model.dto.Approval;
+import com.sh.haagendazo.model.dto.Project;
 
 @Service
 public class ProjectChemicalService {

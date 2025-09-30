@@ -5,9 +5,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.sh.haagendazo.model.Approval;
-import com.sh.haagendazo.model.Paging;
-import com.sh.haagendazo.model.User;
+import com.sh.haagendazo.model.dto.Approval;
+import com.sh.haagendazo.model.dto.Paging;
+import com.sh.haagendazo.model.dto.User;
 
 @Mapper
 public interface ApprovalMapper {

@@ -1,4 +1,4 @@
-<%@page import="com.sh.haagendazo.model.User"%>
+<%@page import="com.sh.haagendazo.model.dto.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -7,7 +7,7 @@
 <%@ page import="org.springframework.security.core.Authentication"%>
 <%@ page
 	import="org.springframework.security.core.context.SecurityContextHolder"%>
-<%@ page import="com.sh.haagendazo.model.User"%>
+
 <%@ page import="com.sh.haagendazo.service.UserService"%>
 <%@ page import="org.springframework.web.context.WebApplicationContext"%>
 <%@ page
@@ -156,7 +156,6 @@ if (auth != null && auth.getPrincipal() instanceof User) {
 		<div class="header-links">
 			<sec:authorize access="hasAnyRole('RESEARCHER','MANAGER')">
 				<div class="notification-container">
-					<!-- style="display:none;" -->
 					<a href="#" style="padding-right: 30px;"> <i
 						class="fas fa-bell" style="font-size: 20px;"></i>
 					</a>
@@ -176,7 +175,6 @@ if (auth != null && auth.getPrincipal() instanceof User) {
 							<a href="/mypage"><div class="notification-item">
 								클레임 처리 '<%=claimCount%>건'이 있습니다.
 							</div></a>
-						<!--  <a href="/mypage"><div class="notification-item"> '${user.name}'님으로부터 새로운 메시지가 도착했습니다.</div></a>  -->
 					</div>
 				</div>
 				<div>

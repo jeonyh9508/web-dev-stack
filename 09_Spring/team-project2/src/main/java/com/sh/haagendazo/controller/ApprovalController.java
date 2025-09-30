@@ -1,21 +1,19 @@
 package com.sh.haagendazo.controller;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sh.haagendazo.model.Approval;
-import com.sh.haagendazo.model.Paging;
-import com.sh.haagendazo.model.User;
+import com.sh.haagendazo.model.dto.Approval;
+import com.sh.haagendazo.model.dto.Paging;
+import com.sh.haagendazo.model.dto.User;
 import com.sh.haagendazo.service.ApprovalService;
 
 @Controller
@@ -26,7 +24,6 @@ public class ApprovalController {
 	
 	@GetMapping("/approval")
 	public String adminApprovalList(Paging paging, Model model) {
-		System.out.println("/approval: " + paging);
 		List<Approval> approvalList = service.allAprovalsList(paging);
 		
 		model.addAttribute("approvalList", approvalList);
@@ -36,7 +33,6 @@ public class ApprovalController {
 	
 	@GetMapping("/approval/my")
 	public String researcherApprovalList(@AuthenticationPrincipal User user, Paging paging, Model model) {
-		System.out.println("/approval/my: " + paging);
 		paging.setUserId(user.getUserId());
 		
 		List<Approval> approvalList = service.allAprovalsList(paging);
@@ -56,7 +52,6 @@ public class ApprovalController {
 									, @RequestParam(name="targetIdList", required = false) List<Integer> targetIdList
 									,@RequestParam(name="reqbyIdList", required = false) List<Integer> reqbyIdList
 									, @AuthenticationPrincipal User user, Approval vo) {
-		System.out.println("addtion: "+vo);
 		service.approvedChemicalAddition(approvalIdList, targetIdList, reqbyIdList, user, vo);
 		return "redirect:/approval";
 	}
@@ -69,7 +64,6 @@ public class ApprovalController {
 								,@RequestParam(name="reqbyIdList", required = false) List<Integer> reqbyIdList
 								, @AuthenticationPrincipal User user, Approval vo) {
 		service.approvedChemicalUsage(approvalIdList, chemicalIdList, targetIdList, usedQtyList, reqbyIdList, user, vo);
-		System.out.println("usage"+vo);
 		return "redirect:/approval";
 	}
 	
@@ -91,11 +85,7 @@ public class ApprovalController {
 			vo.setRequestedBy(approval1.getRequestedBy());
 			service.approvalMessage(vo);
 		}
-		System.out.println("docu"+approvalList);
-		System.out.println("docu"+reqbyIdList);
-		System.out.println("docu"+user);
-		System.out.println("docu"+vo);
-		service.processApproval(approvalList); // 사용 요청
+		service.processApproval(approvalList);
 		return "redirect:/approval";
 	}
 

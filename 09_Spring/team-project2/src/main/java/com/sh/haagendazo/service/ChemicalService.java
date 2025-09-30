@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sh.haagendazo.mapper.ChemicalMapper;
-import com.sh.haagendazo.model.Approval;
-import com.sh.haagendazo.model.Chemical;
-import com.sh.haagendazo.model.Paging;
-import com.sh.haagendazo.model.Project;
-import com.sh.haagendazo.model.Storage;
-import com.sh.haagendazo.model.User;
+import com.sh.haagendazo.model.dto.Approval;
+import com.sh.haagendazo.model.dto.Chemical;
+import com.sh.haagendazo.model.dto.Paging;
+import com.sh.haagendazo.model.dto.Project;
+import com.sh.haagendazo.model.dto.Storage;
+import com.sh.haagendazo.model.dto.User;
 
 @Service
 public class ChemicalService {

@@ -44,11 +44,28 @@ body {
 }
 
 /* 유저 정보 */
-.user-info-list p {
+.user-info-box {
+	display: flex;
+	justify-content: space-between;
+  	align-items: flex-start;
+  	font-family: "Gowun Batang", serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.user-info-list h5 {
 	display: flex;
 	align-items: center;
 	margin-bottom: 15px;
 	font-size: 16px;
+	font-weight: bold;
+	background: #fff;
+	padding: 5px 15px;
+	border: 1px solid #e0e0e0;
+	border-radius: 8px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	transition: transform 0.2s, box-shadow 0.2s;
+	width: 200px;	
 }
 
 .user-info-list p:first-of-type {
@@ -64,6 +81,19 @@ body {
 	display: inline-block;
 }
 
+.user-info-image {
+	border: 1px solid #ccc8;
+	width: 200px;
+	height: 300px;
+	
+	
+}
+
+.user-info-image img {
+	width: 100%;
+	border-radius: 5px;
+}
+
 /* 비밀번호 변경 섹션 */
 .changePwd {
 	margin-top: 30px;
@@ -71,8 +101,9 @@ body {
 	border-top: 1px solid #ddd;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
+	align-items: left;
 	gap: 10px;
+	opacity: 0.5;
 }
 
 .changePwd>span {
@@ -86,10 +117,10 @@ body {
 	color: var(--main-color);
 	border: none;
 	padding: 6px 14px;
-	cursor: pointer;
 	border-radius: 4px;
 	font-size: 14px;
 	transition: background-color 0.2s;
+	cursor: progress;
 }
 
 .changePwd button:hover {
@@ -243,16 +274,23 @@ table tr hover {
 
     <div id="info-box" class="mypage-container container-active">
         <h1 id="turn-page-title" data-target="info-box">마이페이지</h1>
-        <p><sec:authentication property="principal.name" />님 안녕하세요!</p>
-        
+        <div class="user-info-box">
         <div class="user-info-list">
-            <p><span>아이디</span> : <sec:authentication property="principal.email" /></p>
-            <p><span>이름</span> : <sec:authentication property="principal.name" /></p>
-            <p><span>이메일</span> : <sec:authentication property="principal.email" /></p>
-            <p><span>부서</span> : <sec:authentication property="principal.deptName" /></p>
-            <p><span>직급</span> : <sec:authentication property="principal.gradeName" /></p>
+        	<h5>사원명</h5>
+        	<p><sec:authentication property="principal.name" /></p>
+            <h5>아이디(e-mail)</h5>
+            <p><sec:authentication property="principal.email" /></p>
+            <h5>부서</h5>
+            <p><sec:authentication property="principal.deptName" /></p>
+            <h5>직급</h5>
+            <p><sec:authentication property="principal.gradeName" /></p>
+            <h5>메모</h5>
+            <textarea style="width:360px; font-size:1.2rem;">안녕하세요. 임상개발부 선임 김유나입니다.</textarea>
         </div>
-
+        <div class="user-info-image">
+			<img src="../../resource/static/woman1.png" width=200px;/>
+		</div>
+		</div>
         <div class="changePwd">
             <span>비밀번호 변경 : <input type="password" name="password">
                 <button id="checkReusePwd">중복체크</button>
@@ -365,14 +403,12 @@ $(document).ready(function() {
 	      const content = $(this).data("content");
 	      const type = $(this).data("type");
 	      const target = $(this).data("target");
-			console.log(target);
+			//console.log(target);
 		
-	      // 같은 메시지를 눌렀을 때 닫기
 	      if (openMessageId === messageNo) {
 	          $(".msg-content-view").hide();
 	          openMessageId = null;
 	      } else {
-	          // 다른 메시지를 눌렀을 때 내용 교체 후 열기
 	          $("#msg-title").text(title);
 	          $("#msg-content").text(content);
 	          $(".msg-content-view").show();
@@ -382,10 +418,8 @@ $(document).ready(function() {
 	          $(".transfer-page").data("target", target);
 	          $(".delete-message").data("id", messageNo);
 	          
-	          // 현재 열려 있는 메시지 ID 업데이트
 	          openMessageId = messageNo;
 
-	          // 읽음 처리
 	          $.ajax({
 	              url: "/messageRead",
 	              method: "post",

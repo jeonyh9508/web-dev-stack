@@ -14,11 +14,10 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         for (GrantedAuthority authority : authentication.getAuthorities()) {
             String role = authority.getAuthority();
             if ("ROLE_ADMIN".equals(role)) {
-                // 권한이 'ROLE_ADMIN'인 경우, '/admin'으로 리다이렉트
                 response.sendRedirect("/statistics");
                 return;
             }
-        // 특정 권한이 없는 경우, 기본 리다이렉트 페이지 설정
+        // 특정 권한이 없는 경우, index로
         response.sendRedirect("/");
     }
 }

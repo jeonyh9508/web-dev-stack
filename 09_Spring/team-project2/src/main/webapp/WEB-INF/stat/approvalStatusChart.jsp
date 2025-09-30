@@ -17,41 +17,6 @@ uri="http://www.springframework.org/security/tags"%>
 	<div style="width: 70%; margin: auto;">
 	    <canvas id="approvalStatusChart"></canvas>
 	</div>
-    <style>
-      .btn {
-        display: inline-block;
-        padding: 0.6rem 1.2rem;
-        font-size: 1rem;
-        font-weight: 600;
-        text-align: center;
-        text-decoration: none; /* a 태그일 경우 밑줄 제거 */
-        vertical-align: middle;
-        cursor: pointer;
-
-        border: 1px solid transparent;
-        border-radius: 0.25rem;
-
-        transition: all 0.2s ease-in-out; /* 부드러운 전환 효과 */
-      }
-
-      /* 회색 버튼 스타일 */
-      .btn-secondary {
-        color: #555;
-        background-color: transparent;
-        border-color: lightgrey;
-      }
-
-      /* 마우스를 올렸을 때 */
-      .btn-secondary:hover {
-        background-color: #5a6268;
-        border-color: #545b62;
-      }
-      .chart-pagination .btn {
-        padding: 0.3rem 0.8rem; /* 버튼의 상하, 좌우 여백을 줄임 */
-        font-size: 0.9rem; /* 폰트 크기를 살짝 줄임 */
-        font-weight: normal; /* 폰트 굵기를 보통으로 */
-      }
-    </style>
     <script>
 		$(function() {
 		    $.ajax({
@@ -81,7 +46,7 @@ uri="http://www.springframework.org/security/tags"%>
 		            const labels = Object.keys(allStatuses);
 		            const counts = Object.values(allStatuses);
 
-		            // 4. Chart.js로 가로 막대 그래프 생성
+		            // 4. Chart.js로 세로 막대 그래프 생성
 		            const ctx = document.getElementById('approvalStatusChart').getContext('2d');
 		            new Chart(ctx, {
 		                type: 'bar', // 차트 종류
@@ -98,21 +63,20 @@ uri="http://www.springframework.org/security/tags"%>
 		                        ],
 								borderColor: [
 				                    'rgba(108, 117, 125, 1)',
+				                    'rgba(255, 206, 86, 1)',
 				                    'rgba(54, 162, 235, 1)',
-				                    'rgba(255, 99, 132, 1)',
-				                    'rgba(255, 206, 86, 1)'
+				                    'rgba(255, 99, 132, 1)'
 				                ],
-				                borderWidth: 1
+				                borderWidth: 1,
 		                    }]
 		                },
 		                options: {
-		                    indexAxis: 'y', // ⬅️ 이 옵션이 그래프를 가로로 눕힙니다.
 		                    responsive: true,
 		                    plugins: {
 		                        legend: { display: false }
 		                    },
 		                    scales: {
-		                        x: { // x축(가로)이 이제 값을 나타냅니다.
+		                        y: { // y축(세로)이 이제 값을 나타냅니다.
 		                            beginAtZero: true,
 		                            ticks: { stepSize: 1 }
 		                        }

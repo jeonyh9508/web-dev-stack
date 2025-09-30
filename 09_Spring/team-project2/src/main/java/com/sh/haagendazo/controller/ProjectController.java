@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sh.haagendazo.model.Paging;
-import com.sh.haagendazo.model.Project;
-import com.sh.haagendazo.model.User;
+import com.sh.haagendazo.model.dto.Paging;
+import com.sh.haagendazo.model.dto.Project;
+import com.sh.haagendazo.model.dto.User;
 import com.sh.haagendazo.service.ProjectService;
 
 
@@ -35,7 +35,6 @@ public class ProjectController {
 	    model.addAttribute("count3",count3);
 	    
 		List<Project> list = projectService.selectAll(paging);
-//		System.out.println("project : " + list);
 		model.addAttribute("list", list);
 		model.addAttribute("paging", new Paging(paging.getPage(), projectService.total(paging)));
 		return "/project/list";
@@ -44,8 +43,7 @@ public class ProjectController {
 	@GetMapping("/project/my")
 	public String userProject(Paging paging, Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User loginUser = (User) auth.getPrincipal(); // User 엔티티 그대로 가져오기
-		
+		User loginUser = (User) auth.getPrincipal(); 
 		int userId = loginUser.getUserId();
 		paging.setUserId(userId);
 		
@@ -72,7 +70,7 @@ public class ProjectController {
 	@GetMapping("/project/searchBar")
 	public String searchBar(Paging paging, Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User loginUser = (User) auth.getPrincipal(); // User 엔티티 그대로 가져오기
+		User loginUser = (User) auth.getPrincipal();
 		paging.setRole(loginUser.getRole());
 		if(loginUser.getRole().equals("ROLE_RESEARCHER")){
 			int userId = loginUser.getUserId();
@@ -119,7 +117,6 @@ public class ProjectController {
 
 	@PostMapping("/project/selectDelete")
 	public String delelte(@RequestParam(name="idList", required = false) List<String> idList) {
-		// required : false -> null 이어도 에러가 나지 않음 기본값: true
 		if(idList != null) {
 			projectService.projectSelectDelete(idList);
 		}
@@ -147,7 +144,6 @@ public class ProjectController {
 	    } else {
 	    	return "fail";
 	    }
-	    
 	}
 	
 }

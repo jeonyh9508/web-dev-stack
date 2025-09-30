@@ -126,7 +126,7 @@
 			<th>등록일</th>
 			<sec:authorize access="hasAnyRole('MANAGER','ADMIN')">
 				<th>수정</th>
-				<th><button id ="deleteChem" class="btn btn-outline-danger">삭제</button> <input type="checkbox" id="deleteAll" /></th>
+				<th><button id ="deleteChem" class="btn btn-outline-danger">삭제</button></th>
 			</sec:authorize>
 		</tr>
 		<c:set var="num" value="${(paging.page - 1) * 10 + 1}" />

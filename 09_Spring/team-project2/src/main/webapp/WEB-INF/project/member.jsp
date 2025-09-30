@@ -36,8 +36,7 @@
 						<td>${projectMember.memberRole}</td>
 						<td>${projectMember.name}</td>
 						<sec:authorize access="hasAnyRole('ADMIN','MANAGER')">
-						<td><input type="checkbox" class="project-idList"
-							name="idList" value="${projectMember.memberId}"></td>
+						<td><input type="checkbox" class="project-idList" name="idList" value="${projectMember.memberId}"></td>
 						</sec:authorize>	
 					</tr>
 				</c:forEach>
@@ -80,8 +79,8 @@
 				</select>
 			</div>
 			<div>
-				<label>참여자</label> <select name="memberUserId" required
-					class="erp-select">
+				<label>참여자</label> 
+				<select name="memberUserId" required class="erp-select">
 					<option value="" disabled selected>선택</option>
 					<c:forEach items="${projectUser}" var="user">
 						<c:set var="sign" value="false" />
@@ -106,23 +105,19 @@
 
 <script>
 	$(function() {
-		// 모달 열기
 		$(".project-show-member-modal").click(function() {
 			$(".project-member-insert-modal").css("display", "flex");
 		});
 
-		// 모달 닫기
 		$(".project-close-member-modal").click(function() {
 			$(".project-member-insert-modal").hide();
 		});
 
-		// 체크박스 선택 시 삭제 버튼 활성/비활성
 		$(".project-idList").change(function() {
 			let check = $(".project-idList:checked").length;
 			$("#project-member-delete-btn").prop("disabled", check === 0);
 		});
 
-		// 담당자/연구원 조건 처리
 		function deleteManager() {
 			var researcher = false;
 			$('.project-idList').each(function() {
@@ -135,8 +130,8 @@
 				}
 			});
 		}
-
-		deleteManager(); // 초기 상태
-		$('.project-idList').change(deleteManager); // 체크박스 변경 시마다
+		deleteManager(); 
+		
+		$('.project-idList').change(deleteManager); 
 	});
 </script>

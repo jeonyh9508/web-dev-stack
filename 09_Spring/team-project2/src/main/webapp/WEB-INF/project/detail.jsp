@@ -142,7 +142,6 @@
 			</div>
 		</div>
 
-		<!-- 삭제 모달 -->
 		<div class="erp-open-modal project-delete-modal" id="deleteModal">
 			<div class="erp-modal-body">
 				<h3>삭제하시겠습니까?</h3>
@@ -155,7 +154,6 @@
 	</div>
 <script>
 $(function(){
-    // 삭제 모달 / 탭 관련 기존 코드 유지...
     $("#projectDeleteBtn").click(function() {
         $(".project-delete-modal").css("display","flex");
     });
@@ -168,7 +166,6 @@ $(function(){
         }
     });
 
-   // 삭제
     $("#projectDelete").click(function(e) {
         const projectId = $(this).data("id");
         $.ajax({
@@ -237,14 +234,11 @@ $(function(){
         }
     }
 
-    // 초기 체크
     check();
 
-    // 날짜 변경 시 체크
     startDate.on("change", check);
     endDate.on("change", check);
 
-    // 폼 제출 전 최종 체크
     $("#updateForm").on("submit", function(e) {
         check();
         if($updateBtn.prop("disabled")) e.preventDefault();

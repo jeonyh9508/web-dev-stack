@@ -1,7 +1,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sh.haagendazo.mapper.DetailMapper">
 <resultMap type="Project" id="projectDetailMap">
-    <!-- project -->
     <id property="projectId" column="project_id" />
     <result property="projectCode" column="project_code"/>
     <result property="projectName" column="project_name"/>
@@ -13,12 +12,10 @@
     <result property="description" column="description"/>
     <result property="createdAt" column="p_created_at"/>
     <result property="updatedAt" column="updated_at"/>
-    <!-- project_member -->
     <result property="memberId" column="member_id"/>
     <result property="memberUserId" column="pm_user_id"/>
     <result property="memberRole" column="role"/>
     <result property="memberCreatedAt" column="pm_created_at"/>
-    <!-- user (참여자) -->
     <result property="userUserId" column="u_user_id"/>
     <result property="email" column="email"/>
     <result property="password" column="password"/>
@@ -26,7 +23,6 @@
     <result property="deptId" column="dept_id"/>
     <result property="gradeId" column="grade_id"/>
     <result property="userCreatedAt" column="u_created_at"/>
-    <!-- schedule -->
     <result property="scheduleId" column="schedule_id"/>
     <result property="title" column="title"/>
     <result property="scheDescription" column="s_description"/>
@@ -37,7 +33,6 @@
     <result property="scheCreatedAt" column="s_created_at"/>
 </resultMap>
 
-<!-- 상세보기 -->
 <select id="detail" resultMap="projectDetailMap" parameterType="int">
  SELECT 
         project.project_id,
@@ -71,46 +66,38 @@
     LIMIT 1
 </select>
 
-<!-- 상세보기 프로젝트 참여자 -->
 <select id="projectMember" resultMap="projectDetailMap" parameterType="int">
 	SELECT project_id, project_member.role, name, project_member.member_id, project_member.user_id AS pm_user_id FROM project_member LEFT JOIN user USING (user_id)
 	WHERE project_id = #{projectId}
 </select>
 
-<!-- 상세보기 참여자 배정 -->
 <select id="userView" resultMap="projectDetailMap">
 	SELECT user_id AS u_user_id, name FROM user
 </select>
 
-<!-- 프로젝트 참여자 조회 -->
 <select id="projectUserList" resultMap="projectDetailMap" parameterType="int">
 	SELECT user.user_id AS u_user_id, name FROM user LEFT JOIN project_member USING (user_id) WHERE project_id = #{projectId}  
 </select>
 
-<!-- 상세보기 내 삭제 -->
 <delete id="projectDelete" parameterType="int">
 	DELETE FROM project WHERE project_id = #{projectId} 
 </delete>
 
-<!-- 상세보기 내 수정 -->
 <update id="projectUpdate" parameterType="Project">
 	UPDATE project SET status = #{status}, user_id = #{userId},start_date=#{startDate, jdbcType=DATE}, end_date = #{endDate, jdbcType=DATE}, updated_at = NOW() 
 	WHERE project_id = #{projectId}
 	AND #{endDate} >= #{startDate}
 </update>
 
-<!-- 프로젝트, 멤버 업데이트로 jsp 출력 -->
 <update id="pmUpdate" parameterType="Project">
 	UPDATE project SET user_id = #{userId} WHERE project_id = #{projectId}
 </update>
 
-<!-- project_member 추가 -->
 <insert id="memberInsert" parameterType="Project">
 	INSERT INTO project_member(project_id, user_id, role)
 	VALUES (#{projectId}, #{memberUserId}, #{memberRole})
 </insert>
 
-<!-- project_member 삭제 -->
 <delete id="memberDelete" parameterType="ArrayList">
 	DELETE FROM project_member WHERE member_id IN 
 	<foreach collection="idList" item="memberId" open="(" close=")" separator=",">
@@ -118,7 +105,6 @@
 	</foreach>
 </delete>
 
-<!-- project_member 제거 -->
 
 <select id="memberSchedule" resultMap="projectDetailMap" parameterType="int">
 SELECT 
@@ -142,4 +128,9 @@ JOIN schedule ON project.project_id = schedule.project_id
               AND user.user_id = schedule.user_id
 WHERE project.project_id = #{projectId}
 </select> 
+<update id="memberClean" parameterType="int">
+UPDATE project 
+SET user_id = null
+WHERE project_id = #{projectId}
+</update>
 </mapper>

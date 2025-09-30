@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sh.haagendazo.mapper.DocumentMapper;
-import com.sh.haagendazo.model.Project;
+import com.sh.haagendazo.model.dto.Project;
 
 @Service
 public class DocumentService implements DocumentMapper{

@@ -35,9 +35,7 @@ uri="http://www.springframework.org/security/tags"%>
                 var="list"
                 varStatus="status"
               >
-                <option value="${list.userUserId}">
-                  ${list.userUserId} / ${list.name}
-                </option>
+                <option value="${list.userUserId}">${list.name}</option>
               </c:forEach>
             </select>
           </td>
@@ -70,12 +68,11 @@ uri="http://www.springframework.org/security/tags"%>
 <script>
   $(".sendBtn").click(function (e) {
     e.preventDefault();
-    const tr = $(this).closest("tr"); // 현재 버튼이 속한 tr
+    const tr = $(this).closest("tr");
     const projectId = $(this).data("project-id");
     const logId = $(this).data("log-id");
-    const memberId = tr.find('select[name="memberId"]').val(); // tr 안의 select 값
-    const content = tr.find('textarea[name="content"]').val(); // tr 안의 textarea 값
-
+    const memberId = tr.find('select[name="memberId"]').val();
+    const content = tr.find('textarea[name="content"]').val();
 
     $.ajax({
       type: "post",

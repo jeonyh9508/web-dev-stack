@@ -5,8 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.sh.haagendazo.model.Customer;
-import com.sh.haagendazo.model.Paging;
+import com.sh.haagendazo.model.dto.Customer;
+import com.sh.haagendazo.model.dto.Paging;
 
 @Mapper
 public interface CustomerMapper {

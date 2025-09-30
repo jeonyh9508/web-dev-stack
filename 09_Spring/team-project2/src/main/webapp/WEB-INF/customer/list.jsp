@@ -188,7 +188,7 @@
 			url : "/customer/updateList",
 			data : updateList,
 			success : function(result) {
-				console.log(updateList);
+				//console.log(updateList);
 				alert("수정이 완료되었습니다!");
 				location.reload();
 			},
@@ -254,7 +254,7 @@
     });
 	*/
 
-	// 검색 입력 필드와 초기화 아이콘 관련 스크립트
+	// 인풋 입력 시 초기화 아이콘 노출
 	const searchInput = $('input[name="search"]');
 	const clearIcon = $('.clear-icon');
 
@@ -275,7 +275,7 @@
 		$(this).hide();
 		searchInput.focus();
 	});
-	document.body.appendChild(logoutModal); // 최상위로 이동
-	logoutModal.style.zIndex = '99999'; // 충분히 높게
+	document.body.appendChild(logoutModal);
+	logoutModal.style.zIndex = '9999';
 	</script>
 </body>

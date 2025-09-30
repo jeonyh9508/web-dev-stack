@@ -224,7 +224,7 @@
 	</select>
 
 	<select id="countClaim" parameterType="int" resultType="int">
-		SELECT COUNT(*) from customer_log JOIN message ON log_id = message.target_id
+		SELECT COUNT(*) from customer_log JOIN message ON project_id = message.target_id
 		where receiver_id = #{userId} AND message.type='claim' AND is_read =
 		0
 	</select>

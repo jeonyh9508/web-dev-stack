@@ -5,9 +5,9 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.sh.haagendazo.model.Message;
-import com.sh.haagendazo.model.Paging;
-import com.sh.haagendazo.model.User;
+import com.sh.haagendazo.model.dto.Message;
+import com.sh.haagendazo.model.dto.Paging;
+import com.sh.haagendazo.model.dto.User;
 
 @Mapper
 public interface UserMapper {

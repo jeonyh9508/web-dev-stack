@@ -114,7 +114,7 @@ uri="http://www.springframework.org/security/tags"%>
               .getElementById("chemicalChart")
               .getContext("2d");
             chemicalChart = new Chart(ctx, {
-              type: "bar",
+              type: "line",
               data: chartData,
               options: {
                 responsive: true,

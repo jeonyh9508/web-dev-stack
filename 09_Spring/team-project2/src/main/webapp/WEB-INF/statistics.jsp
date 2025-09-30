@@ -256,7 +256,7 @@ uri="http://www.springframework.org/security/tags"%>
 	flex: 1.3;
 }
 .slider-user {
-	flex: 1.5;
+	flex: 1.2;
 }
 .slider-approval {
 	flex: 1;
@@ -329,7 +329,7 @@ uri="http://www.springframework.org/security/tags"%>
         
         <div class="quadrant quadrant-graph slider-approval">
       		<div class="slider-container">
-      		<div class="slide active">
+      		<div class="slide active" onclick="location.href='/approval/my';">
               <h3>결재 진행 현황</h3>
               <h5>각 그래프 클릭 시 진행 중인 승인 내역이 조회됩니다.</h5>
 			  <jsp:include page="stat/approvalStatusChart.jsp" />

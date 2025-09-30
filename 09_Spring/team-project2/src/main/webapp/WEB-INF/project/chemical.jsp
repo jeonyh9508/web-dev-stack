@@ -12,7 +12,12 @@
 
 	<button type="button" class="erp-btn erp-btn-proj project-show-chemical-modal">시약 추가</button>
 	<button type="button" onclick="requestModal()" class="erp-btn" style="width: 130px;">시약 사용 요청</button>
-	<a href="/approval"><button type="button" class="erp-btn" style="width: 130px;">승인 페이지로</button></a>
+	<sec:authorize access="hasAnyRole('MANAGER','ADMIN')">
+		<a href="/approval"><button type="button" class="erp-btn" style="width: 130px;">승인 페이지로</button></a>
+	</sec:authorize>
+	<sec:authorize access="hasRole('RESEARCHER')">
+		<a href="/approval/my"><button type="button" class="erp-btn" style="width: 130px;">승인 페이지로</button></a>
+	</sec:authorize>
 
 	<form action="/project/pcDelete" method="post" class="erp-form project-chemical-delete">
 		<input type="hidden" name="projectId" value="${param.projectId}" />
@@ -53,7 +58,6 @@
 	</form>
 </div>
 
-<!-- 시약 추가 모달 -->
 <div class="erp-open-modal project-chemical-insert-modal">
 	<div class="erp-modal-body">
 		<form action="/project/pcAdd" method="post" class="erp-form">
@@ -83,12 +87,6 @@
 				</select>
 			</div>
 			
-			<!--
-			<div>
-            <label>사용량</label>
-            <input type="number" name="usedQty" value="1" required class="project-input">
-			</div>
-			-->
 			<button type="submit" class="erp-btn">등록</button>
 			<button type="button" class="erp-btn project-close-chemical-modal">닫기</button>
 		</form>
@@ -103,39 +101,26 @@
 
 <script>
 $(function() {
-		// 모달 열기
 		$(".project-show-chemical-modal").click(function() {
 			$(".project-chemical-insert-modal").css("display", "flex");
 		});
 
-		// 모달 닫기
 		$(".project-close-chemical-modal").click(function() {
 			$(".project-chemical-insert-modal").hide();
 		});
 
-		// 모달 외부 클릭 시 닫기
 		$(".project-chemical-insert-modal").click(function(e) {
 			if (e.target === this) {
 				$(this).hide();
 			}
 		});
 
-		// 수정 버튼 클릭
-		/*
-		$(".project-pc-update").click(function() {
-			const pcId = $(this).data("id");
-			console.log("수정 클릭, ID:", pcId);
-		});
-		*/
 	});
 	
 	const requestModal = function() {
-		// '시약 사용' 버튼 클릭 시
 		$('.request-modal').css('display', 'flex');
 	};
-	// 모달 배경 클릭 시 닫기
 	$('.request-modal').on('click', function(e) {
-	    // 클릭된 대상이 배경 자신일 경우에만
 	    if (e.target === this) {
 	        $(this).hide();
 	    }

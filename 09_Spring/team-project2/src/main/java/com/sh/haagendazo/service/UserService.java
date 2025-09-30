@@ -16,9 +16,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.sh.haagendazo.mapper.UserMapper;
-import com.sh.haagendazo.model.Message;
-import com.sh.haagendazo.model.Paging;
-import com.sh.haagendazo.model.User;
+import com.sh.haagendazo.model.dto.Message;
+import com.sh.haagendazo.model.dto.Paging;
+import com.sh.haagendazo.model.dto.User;
 
 
 @Service
@@ -31,8 +31,8 @@ public class UserService implements UserDetailsService {
 	private PasswordEncoder bcpe;
 	
 	public void register(User vo) {
-		System.out.println("암호화 전 : " + vo.getPassword());
-		System.out.println("암호화 후 : " + bcpe.encode(vo.getPassword()));
+		//System.out.println("암호화 전 : " + vo.getPassword());
+		//System.out.println("암호화 후 : " + bcpe.encode(vo.getPassword()));
 		String pwd = vo.getPassword();
 		vo.setPwd(pwd);
 		vo.setPassword(bcpe.encode(vo.getPassword()));
@@ -48,7 +48,7 @@ public class UserService implements UserDetailsService {
 	        	vo.setRole("ROLE_MANAGER");
 	        }
         mapper.register(vo);
-        System.out.println("회원가입 완료!");
+        //System.out.println("회원가입 완료!");
 	}
     
 
@@ -117,12 +117,12 @@ public class UserService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		System.out.println(email);
+		//System.out.println(email);
 		User user = mapper.login(email);
-		System.out.println("로그인 성공!");
-		System.out.println(user);
-		System.out.println("---------");
-		System.out.println("사용자 권한: " + user.getAuthorities());
+		//System.out.println("로그인 성공!");
+		//System.out.println(user);
+		//System.out.println("---------");
+		//System.out.println("사용자 권한: " + user.getAuthorities());
 		return user;
 	}
 

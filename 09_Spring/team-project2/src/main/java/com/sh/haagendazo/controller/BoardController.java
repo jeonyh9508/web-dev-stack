@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.http.ResponseEntity;
 
-import com.sh.haagendazo.model.Board;
-import com.sh.haagendazo.model.Customer;
-import com.sh.haagendazo.model.Paging;
-import com.sh.haagendazo.model.User;
+import com.sh.haagendazo.model.dto.Board;
+import com.sh.haagendazo.model.dto.Customer;
+import com.sh.haagendazo.model.dto.Paging;
+import com.sh.haagendazo.model.dto.User;
 import com.sh.haagendazo.service.BoardService;
 import com.sh.haagendazo.service.CustomerService;
 import com.sh.haagendazo.service.UserService;
@@ -52,7 +52,7 @@ public class BoardController {
 		// 중복 방지를 위한 UUID 적용
 		UUID uuid = UUID.randomUUID();
 		String fileName = uuid.toString() + "_" + file.getOriginalFilename();
-		System.out.println(file.getOriginalFilename());
+		// System.out.println(file.getOriginalFilename());
 		File copyFile = new File(path + fileName);
 		
 	    // 폴더 존재 확인
@@ -73,7 +73,6 @@ public class BoardController {
 	public String upload(MultipartFile file) {
 		String fileName = fileUpload(file);
 		// http://localhost:8081/ + fileName <- url
-		System.out.println();
 		return "redirect:/board";
 	}
 	
@@ -137,8 +136,6 @@ public class BoardController {
 	
 	@GetMapping("/customer/board")
 	public String showBoard(Model model, Paging paging) {
-		paging.setLimit(20);
-		paging.setPageSize(20);	
 		List<Board> list = boardService.showBoard(paging);
 		List<User> dept = userService.showCsdept();
 		List<User> manager = userService.showManager(paging);
@@ -193,7 +190,7 @@ public class BoardController {
 		vo.setUrl(url);
 		
 		boardService.addBoard(vo);
-		System.out.println(vo);
+		//System.out.println(vo);
 		
 		return "redirect:/customer/board";
 	}
@@ -211,7 +208,7 @@ public class BoardController {
 	public String view(int boardNo, Model model) {
 		Board board = boardService.selectBoard(boardNo);
 		model.addAttribute("board", board);
-		System.out.println(boardNo);
+		//System.out.println(boardNo);
 		return "/customer/view";
 	}
 	
@@ -231,7 +228,7 @@ public class BoardController {
 		
 		// 3. 해당 넘버에 따른 데이터들 수정
 		boardService.updateBoard(vo);
-		System.out.println(vo);
+		//System.out.println(vo);
 		return "redirect:/customer/view?boardNo=" + vo.getBoardNo();
 	}
 	

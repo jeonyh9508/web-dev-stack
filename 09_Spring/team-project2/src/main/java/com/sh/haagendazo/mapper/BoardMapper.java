@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.sh.haagendazo.model.Board;
-import com.sh.haagendazo.model.Paging;
+import com.sh.haagendazo.model.dto.Board;
+import com.sh.haagendazo.model.dto.Paging;
 
 @Mapper
 public interface BoardMapper {

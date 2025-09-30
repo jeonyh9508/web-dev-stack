@@ -8,10 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.sh.haagendazo.model.Customer;
-import com.sh.haagendazo.model.Paging;
-import com.sh.haagendazo.model.Project;
-import com.sh.haagendazo.model.User;
+import com.sh.haagendazo.model.dto.Customer;
+import com.sh.haagendazo.model.dto.Paging;
+import com.sh.haagendazo.model.dto.Project;
+import com.sh.haagendazo.model.dto.User;
 import com.sh.haagendazo.service.CustomerService;
 import com.sh.haagendazo.service.ProjectService;
 import com.sh.haagendazo.service.UserService;

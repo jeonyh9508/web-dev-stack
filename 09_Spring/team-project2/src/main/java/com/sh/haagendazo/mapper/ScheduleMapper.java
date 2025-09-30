@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.sh.haagendazo.model.Paging;
-import com.sh.haagendazo.model.Project;
-import com.sh.haagendazo.model.Schedule;
+import com.sh.haagendazo.model.dto.Paging;
+import com.sh.haagendazo.model.dto.Project;
+import com.sh.haagendazo.model.dto.Schedule;
 
 @Mapper
 public interface ScheduleMapper {

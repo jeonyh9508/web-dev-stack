@@ -41,8 +41,9 @@
             <a href="#" class="link-find" data-bs-toggle="modal" data-bs-target="#findIdModal">아이디 찾기</a>
             <span class="divider">|</span>
             <a href="#" class="link-find" data-bs-toggle="modal" data-bs-target="#findPwdModal">비밀번호 찾기</a>
-            <span class="divider">|</span>
-            <a href="#" class="link-find" data-bs-toggle="modal" data-bs-target="#userListModal">유저 목록</a>
+            
+            <%-- <span class="divider">|</span>
+            <a href="#" class="link-find" data-bs-toggle="modal" data-bs-target="#userListModal">유저 목록</a> --%>
         </div>
     </div>
 
@@ -209,7 +210,7 @@
                 },
                 error: function(xhr, status, error) {
                     // 요청 실패 시 에러 처리
-                    console.error('AJAX Error: ', status, error);
+                    //console.error('AJAX Error: ', status, error);
                     alert('아이디를 찾는 도중 오류가 발생했습니다. 다시 시도해주세요.');
                 }
             });

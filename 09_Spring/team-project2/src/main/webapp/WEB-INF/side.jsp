@@ -153,7 +153,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 		
 			<div id="logoutModal" class="modal">
 				<div class="modal-content">
-					<p>로그아웃하시겠습니까?</p>
+					<p>로그아웃 하시겠습니까?</p>
 					<div class="modal-buttons logout-modal-buttons">
 						<button id="confirmLogout" style="width:60px; height: 37px; padding:0;">확인</button>
 						<button id="cancelLogout" style="width:60px; height: 37px; padding:0;">취소</button>

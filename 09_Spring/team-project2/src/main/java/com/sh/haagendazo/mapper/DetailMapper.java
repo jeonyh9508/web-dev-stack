@@ -4,12 +4,13 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.sh.haagendazo.model.Project;
+import com.sh.haagendazo.model.dto.Project;
 
 @Mapper
 public interface DetailMapper {
 	
 	Project detail(int projectId);
+	
 	List<Project> projectMember(int projectId);
 	List<Project> userView();
 	List<Project> projectUserList(int projectId);
@@ -20,4 +21,6 @@ public interface DetailMapper {
 	void pmUpdate(Project project);
 	void memberDelete(List<String> idList);
 	List<Project> memberSchedule(int projectId);
+	
+	void memberClean(int projectId);
 }

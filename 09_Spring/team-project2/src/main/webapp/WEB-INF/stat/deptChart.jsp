@@ -62,7 +62,7 @@ $(function() {
                                 const label = context.chart.data.labels[context.dataIndex];
                                 return label;
                             },
-                            font: { weight: 'bold' },
+                            font: { weight: 'normal' },
                             anchor: 'end',
                             align: 'start',
                             offset: 10

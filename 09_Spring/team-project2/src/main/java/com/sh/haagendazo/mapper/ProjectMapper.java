@@ -5,8 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.sh.haagendazo.model.Paging;
-import com.sh.haagendazo.model.Project;
+import com.sh.haagendazo.model.dto.Paging;
+import com.sh.haagendazo.model.dto.Project;
 
 @Mapper
 public interface ProjectMapper {

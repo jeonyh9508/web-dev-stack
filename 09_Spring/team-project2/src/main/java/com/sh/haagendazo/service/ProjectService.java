@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sh.haagendazo.mapper.ProjectMapper;
-import com.sh.haagendazo.model.Paging;
-import com.sh.haagendazo.model.Project;
+import com.sh.haagendazo.model.dto.Paging;
+import com.sh.haagendazo.model.dto.Project;
 
 @Service
 public class ProjectService {

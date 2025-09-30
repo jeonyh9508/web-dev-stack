@@ -19,7 +19,6 @@
 	</resultMap>
 
 	<resultMap id="ScheduleProjectMap" type="Project">
-		<!-- Schedule -->
 		<id property="scheduleId" column="schedule_id" />
 		<result property="title" column="title" />
 		<result property="scheDescription" column="scheDescription" />
@@ -29,19 +28,16 @@
 		<result property="scheEndDatetime" column="scheEndDatetime" />
 		<result property="scheCreatedAt" column="scheCreatedAt" />
 
-		<!-- Project -->
 		<result property="projectId" column="project_id" />
 		<result property="projectName" column="project_name" />
 		<result property="startDate" column="start_date" />
 		<result property="endDate" column="end_date" />
 
-		<!-- ProjectMember -->
 		<result property="memberId" column="member_id" />
 		<result property="memberUserId" column="memberUserId" />
 		<result property="memberRole" column="member_role" />
 		<result property="memberCreatedAt" column="memberCreatedAt" />
 
-		<!-- User -->
 		<result property="userUserId" column="userUserId" />
 		<result property="name" column="name" />
 		<result property="deptId" column="dept_id" />

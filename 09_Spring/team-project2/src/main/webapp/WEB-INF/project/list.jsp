@@ -148,27 +148,22 @@
 	</div>
 	<script>
 $(function(){
-    // 검색 select 변경
     $("#projectSelect").change(()=> {
         $("#projectSearch").attr("type", $("#projectSelect").val() === "date" ? "date" : "text");
     });
 
-    // detail 이동
     $(".project-detail-btn").click((e)=>{
         const projectId = $(e.target).data("id");
         location.href = "/project/detail?projectId=" + projectId;
     });
 
-    // 체크박스 선택 시 modal 버튼 활성/비활성
     $(".erp-show-modal-btn").prop("disabled", true);
     $(".project-idList").change(()=>{
         const check = $(".project-idList:checked").length;
         $(".erp-show-modal-btn").prop("disabled", check === 0);
     });
 
-    // modal 열기 (중복 방지)
     $(".erp-show-modal-btn").click(function() {
-        // 기존 열려있는 modal 숨기기
         $(".project-open-modal").hide();
         const checkList = $(".project-idList:checked").map(function() {
             return $(this).data("code") + " : " + $(this).data("name");
@@ -177,15 +172,13 @@ $(function(){
         $("#selectDeleteModal").css("display","flex");
     });
 
-    // modal 닫기
     $(".project-close-modal-btn").click(()=>$("#selectDeleteModal").hide());
     $("#selectDeleteModal").click((e)=>{
         if(e.target === e.currentTarget) $(e.currentTarget).hide();
     });
 
- 	// 모달 열기
     $(".erp-insert-modal").click(function() {
-        $(".insert-modal").css("display", "flex"); // 바깥 컨테이너를 보이게
+        $(".insert-modal").css("display", "flex"); 
     });
   
     
@@ -193,14 +186,12 @@ $(function(){
         $(this).closest(".insert-modal").css("display", "none");
     });
     
-    // 삭제 submit
     $("#projectSelectDeleteBtn").click(()=>$(".erp-select-delete").submit());
 
-    // insert 페이지 이동
     $(".erp-insertPage").click(()=>location.href = "/project/insert");
 });
-document.body.appendChild(logoutModal); // 최상위로 이동
-logoutModal.style.zIndex = '99999'; // 충분히 높게
+document.body.appendChild(logoutModal); 
+logoutModal.style.zIndex = '99999'; 
 </script>
 
 </body>

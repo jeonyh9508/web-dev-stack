@@ -26,28 +26,34 @@
 		INSERT INTO customer(name, department, phone, email) VALUES(#{name}, #{department}, #{phone}, #{email})
 	</insert>
 	
-	<select id="allCustomer" parameterType="Paging" resultMap="customerMap">
-		SELECT
-		c.customer_id, c.department, c.name, u.name AS user_name, c.assign_id, c.phone, c.email, c.created_at, MAX(p.project_name) AS project_name, MAX(l.log_date) AS log_date 
-		FROM customer c
-		LEFT JOIN customer_log l ON c.customer_id = l.customer_id
-		LEFT JOIN user u ON c.assign_id = u.user_id
-		LEFT JOIN project p ON l.project_id = p.project_id
-		<where>
-			<choose>
-				<when test="select == '고객명' and search != null and search != ''">
-					c.name LIKE CONCAT('%', #{search}, '%')
-				</when>
-				<when test="select == '담당자명' and search != null and search != ''">
-					u.name LIKE CONCAT('%', #{search}, '%')
-				</when>
-				<when test="select == '상담일자' and search != null and search != ''">
-					DATE(l.log_date) = STR_TO_DATE(#{search}, '%Y-%m-%d')
-				</when>
-			</choose>
-		</where>
-		GROUP BY c.customer_id, c.department, c.name, u.name, c.assign_id, c.phone, c.email, c.created_at
-		LIMIT #{offset}, #{limit}
+	<select id="allCustomer" parameterType="Paging"
+	resultMap="customerMap">
+	SELECT
+	c.customer_id, c.department, c.name, u.name AS user_name, c.assign_id, c.phone,
+	c.email, c.created_at, MAX(p.project_name) AS project_name,
+	MAX(l.log_date) AS log_date
+	FROM customer c
+	LEFT JOIN customer_log l ON c.customer_id = l.customer_id
+	LEFT JOIN user u ON c.assign_id = u.user_id
+	LEFT JOIN project p ON l.project_id = p.project_id
+	<where>
+		<choose>
+			<when test="select == '고객명' and search != null and search != ''">
+				c.name LIKE CONCAT('%', #{search}, '%')
+			</when>
+			<when
+				test="select == '담당자명' and search != null and search != ''">
+				u.name LIKE CONCAT('%', #{search}, '%')
+			</when>
+			<when
+				test="select == '상담일자' and search != null and search != ''">
+				DATE(l.log_date) = STR_TO_DATE(#{search}, '%Y-%m-%d')
+			</when>
+		</choose>
+	</where>
+	GROUP BY c.customer_id, c.department, c.name, u.name, c.assign_id,
+	c.phone, c.email, c.created_at
+	LIMIT #{offset}, #{limit}
 	</select>
 	
 	<select id="total" parameterType="Paging" resultType="int">

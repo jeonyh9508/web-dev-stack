@@ -159,7 +159,7 @@
             url : "/customer/updateLog",
             data : updateLog,
             success : function(result) {
-                console.log(updateLog);
+                //console.log(updateLog);
                 alert("수정이 완료되었습니다!");
                 location.reload();
             },

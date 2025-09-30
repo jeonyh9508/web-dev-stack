@@ -47,7 +47,6 @@ function checkAll() {
 }
 
 
-// 코드 중복 체크
 $("#projectCode").keyup(function() {
     const projectCode = $(this).val().trim();
     if(!projectCode){
@@ -73,7 +72,6 @@ $("#projectCode").keyup(function() {
     });
 });
 
-// 프로젝트명 체크
 $("#projectName").keyup(function() {
     const projectName = $(this).val().trim();
     if(!projectName){
@@ -86,7 +84,6 @@ $("#projectName").keyup(function() {
     checkAll();
 });
 
-// 날짜 체크
 $(document).ready(function() {
     const todayStr = new Date().toISOString().split('T')[0];
     $("#startDate, #endDate").attr("min", todayStr);

@@ -105,12 +105,10 @@
 	</div>
 	<script>
 $(function(){
-    // 검색 select 변경
     $("#projectSelect").change(()=> {
         $("#projectSearch").attr("type", $("#projectSelect").val() === "date" ? "date" : "text");
     });
 
-    // detail 이동
     $(".project-detail-btn").click((e)=>{
         const projectId = $(e.target).data("id");
         console.log(projectId);
@@ -118,8 +116,8 @@ $(function(){
     });
 
 });
-document.body.appendChild(logoutModal); // 최상위로 이동
-logoutModal.style.zIndex = '99999'; // 충분히 높게
+document.body.appendChild(logoutModal); 
+logoutModal.style.zIndex = '99999'; 
 </script>
 
 </body>

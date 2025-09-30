@@ -45,11 +45,6 @@
 			</if>
 		</where>
 		ORDER BY c.chemical_name
-		<!--
-		<if test="paging.orderBy != null and paging.orderDirection != null">
-			ORDER BY #{paging.orderBy} = #{paging.orderDirection}
-		</if>
-		-->
 		LIMIT #{paging.offset}, #{paging.limit}
 	</select>
 	
@@ -73,7 +68,7 @@
 	</select>
 	
 	<update id="modifyChemical" parameterType="Chemical">
-		UPDATE chemical SET stock_qty = #{stockQty}, cas_no = #{casNo} 
+		UPDATE chemical SET stock_qty = #{stockQty}
 		WHERE chemical_id = #{chemicalId}
 	</update>
 	

@@ -2,13 +2,11 @@
 <mapper namespace="com.sh.haagendazo.mapper.DocumentMapper">
 	<resultMap id="docuMap" type="Project">
 		<id property="projectId" column="projectId" />
-		<!-- project_member -->
 		<result property="memberId" column="memberId" />
 		<result property="memberUserId" column="memberUserId" />
 		<result property="memberRole" column="memberRole" />
 		<result property="memberCreatedAt" column="memberCreatedAt" />
 
-		<!-- user -->
 		<result property="userUserId" column="userUserId" />
 		<result property="email" column="email" />
 		<result property="password" column="password" />
@@ -17,7 +15,6 @@
 		<result property="gradeId" column="gradeId" />
 		<result property="userCreatedAt" column="userCreatedAt" />
 
-		<!-- project_document -->
 		<result property="documentId" column="documentId" />
 		<result property="documentProjectId" column="documentProjectId" />
 		<result property="documentUserId" column="documentUserId" />

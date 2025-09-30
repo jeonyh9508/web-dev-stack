@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sh.haagendazo.model.Chemical;
-import com.sh.haagendazo.model.Paging;
-import com.sh.haagendazo.model.Project;
-import com.sh.haagendazo.model.Storage;
-import com.sh.haagendazo.model.User;
+import com.sh.haagendazo.model.dto.Chemical;
+import com.sh.haagendazo.model.dto.Paging;
+import com.sh.haagendazo.model.dto.Project;
+import com.sh.haagendazo.model.dto.Storage;
+import com.sh.haagendazo.model.dto.User;
 import com.sh.haagendazo.service.ChemicalService;
 
 @Controller
@@ -26,7 +26,6 @@ public class ChemicalController {
 	
 	@GetMapping("/chemical/list")
 	public String list(@AuthenticationPrincipal User user, Paging paging, Model model) {
-		// @GetMapping("/chemical/request") 이거 지우고 합침
 		List<Project> projectsOfUser = service.projectListOfUser(user);
 		model.addAttribute("projectsOfUser", projectsOfUser);
 		

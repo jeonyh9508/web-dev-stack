@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sh.haagendazo.model.Message;
-import com.sh.haagendazo.model.Paging;
-import com.sh.haagendazo.model.User;
+import com.sh.haagendazo.model.dto.Message;
+import com.sh.haagendazo.model.dto.Paging;
+import com.sh.haagendazo.model.dto.User;
 import com.sh.haagendazo.service.UserService;
 
 
@@ -110,7 +110,7 @@ public class UserController {
 		//User user = (User) session.getAttribute("user");
 		//vo.setUserId(user.getUserId());
 		service.updateUser(vo); // DB에서 사용자 정보를 업데이트
-		System.out.println(vo);
+		//System.out.println(vo);
 		
 	    // 2. 현재 로그인된 사용자의 Authentication 객체를 가져옵니다.
 	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -146,7 +146,7 @@ public class UserController {
 	@PostMapping("/user/delete")
 	public String deleteUser(User vo) {
 		service.deleteUser(vo);
-		System.out.println(vo);
+		//System.out.println(vo);
 		return "redirect:/user";
 	}
 	
@@ -179,7 +179,7 @@ public class UserController {
         // 4. 모델에 갱신된 사용자 정보를 담아 JSP로 전달합니다.
         model.addAttribute("user", newAuth);
         int userId = loginUser.getUserId();
-        System.out.println(newAuth);
+        //System.out.println(newAuth);
         List<Message> messageView = service.messageView(userId);
         
         model.addAttribute("messageView", messageView);
@@ -191,7 +191,7 @@ public class UserController {
 	public String admin() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) auth.getPrincipal();
-		System.out.println(user);
+		//System.out.println(user);
 		return "/user/admin";
 	}
 	

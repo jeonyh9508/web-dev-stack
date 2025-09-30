@@ -492,24 +492,24 @@ uri="http://www.springframework.org/security/tags"%>
               <jsp:include page="stat/projectcount.jsp" />
             </sec:authorize>  
             </div>
-			<div class="slide">
-			            <sec:authorize access="hasRole('RESEARCHER')">
-			              <h3>나의 결재 현황</h3>
-			              <h5>
-			                각 그래프 클릭 시 현재 진행상황에 해당하는 결재건이
-			                조회됩니다.
-			              </h5>
-			              <jsp:include page="stat/approvalStatusChart.jsp" />
-			            </sec:authorize>
-			            <sec:authorize access="hasRole('MANAGER')">  
-			              <h3>승인 요청 현황</h3>
-			              <h5>
-			                각 그래프 클릭 시 현재 진행상황에 해당하는 결재건이
-			                조회됩니다.
-			              </h5>
-			              <jsp:include page="stat/approvalStatusChart.jsp" />
-			            </sec:authorize>  
-			            </div>
+			<div class="slide" onclick="location.href='/approval/my'";>
+	            <sec:authorize access="hasRole('RESEARCHER')">
+	              <h3>나의 결재 현황</h3>
+	              <h5>
+	                그래프 클릭 시 현재 진행상황에 해당하는 결재건이
+	                조회됩니다.
+	              </h5>
+	              <jsp:include page="stat/approvalStatusChart.jsp" />
+	            </sec:authorize>
+	            <sec:authorize access="hasRole('MANAGER')">  
+	              <h3>승인 요청 현황</h3>
+	              <h5>
+	                그래프 클릭 시 현재 진행상황에 해당하는 결재건이
+	                조회됩니다.
+	              </h5>
+	              <jsp:include page="stat/approvalStatusChart.jsp" />
+	            </sec:authorize>  
+	            </div>
 				<div class="slider-controls">
               <button class="prevSlideBtn">◀</button>
               <button class="nextSlideBtn">▶</button>

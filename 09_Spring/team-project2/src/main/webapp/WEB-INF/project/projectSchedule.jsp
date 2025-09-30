@@ -60,7 +60,6 @@
 	</table>
 </div>
 
-<!-- 일정 등록 모달 -->
 <div class="erp-open-modal project-sche-add-modal">
     <div class="erp-modal-body">
         <form action="/project/scheAdd" method="post" class="erp-form">
@@ -106,13 +105,11 @@
 
 <script>
 $(function() {
-    // 모달 열기/닫기
     $(".project-show-sche-add-modal").click(()=>$(".project-sche-add-modal").css("display","flex"));
     $(".project-close-modal").click(()=>$(".project-sche-add-modal").hide());
 
    
 
-    // 삭제 버튼
     $(".project-schedule-delete-btn").click(function(){
         const scheduleId = $(this).data("id");
         const projectId = $(this).data("project");
@@ -175,7 +172,6 @@ $(function() {
         });
     });
 
-    // 일정 입력 검증
     function projectInsertSchedule() {
         const projectStart = new Date(Number($("#projectStart").val()));
         const projectEnd = new Date(Number($("#projectEnd").val()));

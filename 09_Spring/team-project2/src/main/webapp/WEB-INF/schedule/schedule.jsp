@@ -132,8 +132,8 @@ a {
 
 				eventDidMount : function(info) {
 					info.el.title = info.event.title;
-					info.el.style.border = "none"; // 테두리 제거
-					info.el.style.borderRadius = "0"; // 모서리 제거
+					info.el.style.border = "none"; 
+					info.el.style.borderRadius = "0"; 
 				},
 
 				eventClick : function(info) {
@@ -150,8 +150,8 @@ a {
 			calendar.render();
 		});
 		
-		document.body.appendChild(logoutModal); // 최상위로 이동
-		logoutModal.style.zIndex = '99999'; // 충분히 높게
+		document.body.appendChild(logoutModal); 
+		logoutModal.style.zIndex = '99999'; 
 	</script>
 
 </body>

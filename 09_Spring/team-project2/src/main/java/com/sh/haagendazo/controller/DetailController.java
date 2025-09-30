@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sh.haagendazo.model.Approval;
-import com.sh.haagendazo.model.Customer;
-import com.sh.haagendazo.model.Project;
-import com.sh.haagendazo.model.User;
+import com.sh.haagendazo.model.dto.Approval;
+import com.sh.haagendazo.model.dto.Customer;
+import com.sh.haagendazo.model.dto.Project;
+import com.sh.haagendazo.model.dto.User;
 import com.sh.haagendazo.service.CustomerService;
 import com.sh.haagendazo.service.DetailService;
 import com.sh.haagendazo.service.DocumentService;
@@ -48,12 +48,10 @@ public class DetailController {
 	
 	private String path = "D:\\team-project\\src\\main\\webapp\\resource\\upload\\";
 	
-	// fileUpload
 	private String fileUpload(MultipartFile file) {
 	    UUID uuid = UUID.randomUUID();
 	    String fileName = uuid.toString() + "_" + file.getOriginalFilename();
 
-	    // 폴더 존재 확인
 	    File folder = new File(path);
 	    if(!folder.exists()) {
 	        folder.mkdirs();
@@ -83,6 +81,9 @@ public class DetailController {
 		
 		List<Project> projectMember = detailService.projectMember(projectId);
 		model.addAttribute("projectMember", projectMember);
+		if(projectMember.size() == 0 ) {
+			detailService.memberClean(projectId);
+		};
 		
 		List<Project> projectUser = detailService.userView();
 		model.addAttribute("projectUser", projectUser);
@@ -91,10 +92,10 @@ public class DetailController {
 		model.addAttribute("projectChemical", projectChemical);
 		
 		List<Project> chemicalList = pcService.chemicalList();
-		model.addAttribute("chemicalList", chemicalList); // chemical name 리스트 시약추가 모달에 전달
+		model.addAttribute("chemicalList", chemicalList); 
 		
 		List<Project> projectUserList = detailService.projectUserList(projectId);
-		model.addAttribute("projectUserList", projectUserList); // 해당 projectId에 참여한 유저 이름 리스트
+		model.addAttribute("projectUserList", projectUserList); 
 		
 		List<Project> memberSchedule = detailService.memberSchedule(projectId);
 		model.addAttribute("memberSchedule", memberSchedule);
@@ -111,10 +112,6 @@ public class DetailController {
 	    List<Customer> myLog = customerService.projectMyLog(projectId, mUserId);
 	    model.addAttribute("myLog", myLog);
 		
-	    /* 시약 사용 모달창 request.jsp를 include 하려는 시도 중
-		List<Project> projectsOfUser = service.projectListOfUser(user);
-		model.addAttribute("projectsOfUser", projectsOfUser);*/
-		
 		return "/project/detail";
 	}
 	
@@ -127,7 +124,6 @@ public class DetailController {
 	
 	@PostMapping("/project/memberDelete")
 	public String delelte(@RequestParam(name="idList", required = false) List<String> idList, Project project) {
-		// required : false -> null 이어도 에러가 나지 않음 기본값: true
 		if(idList != null) {
 			detailService.memberDelete(idList);
 		}
@@ -187,7 +183,6 @@ public class DetailController {
 	    if(file.exists()) {
 	        response.setContentType("application/octet-stream");
 	        try {
-	            // 원본 파일명 (UUID 제거)
 	            String originalName = fileName.substring(fileName.indexOf("_") + 1);
 	            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(originalName, "UTF-8"));
 

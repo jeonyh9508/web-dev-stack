@@ -9,9 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sh.haagendazo.mapper.ApprovalMapper;
 import com.sh.haagendazo.mapper.ChemicalMapper;
-import com.sh.haagendazo.model.Approval;
-import com.sh.haagendazo.model.Paging;
-import com.sh.haagendazo.model.User;
+import com.sh.haagendazo.model.dto.Approval;
+import com.sh.haagendazo.model.dto.Paging;
+import com.sh.haagendazo.model.dto.User;
 
 @Service
 public class ApprovalService {

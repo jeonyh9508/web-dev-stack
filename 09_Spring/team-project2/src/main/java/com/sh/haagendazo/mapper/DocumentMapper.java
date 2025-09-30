@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.sh.haagendazo.model.Project;
+import com.sh.haagendazo.model.dto.Project;
 
 @Mapper
 public interface DocumentMapper {

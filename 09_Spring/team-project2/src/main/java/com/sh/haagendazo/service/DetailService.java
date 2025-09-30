@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sh.haagendazo.mapper.DetailMapper;
-import com.sh.haagendazo.model.Project;
+import com.sh.haagendazo.model.dto.Project;
 
 @Service
 public class DetailService {
@@ -54,5 +54,9 @@ public class DetailService {
 	
 	public List<Project> memberSchedule(int projectId){
 		return detailMapper.memberSchedule(projectId);
+	}
+	
+	public void memberClean(int projectId) {
+		detailMapper.memberClean(projectId);
 	}
 }

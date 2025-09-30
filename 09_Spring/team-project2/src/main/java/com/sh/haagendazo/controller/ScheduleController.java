@@ -16,10 +16,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import com.sh.haagendazo.model.Paging;
-import com.sh.haagendazo.model.Project;
-import com.sh.haagendazo.model.Schedule;
-import com.sh.haagendazo.model.User;
+import com.sh.haagendazo.model.dto.Paging;
+import com.sh.haagendazo.model.dto.Project;
+import com.sh.haagendazo.model.dto.Schedule;
+import com.sh.haagendazo.model.dto.User;
 import com.sh.haagendazo.service.DetailService;
 import com.sh.haagendazo.service.ScheduleService;
 
@@ -54,10 +54,9 @@ public class ScheduleController {
 		scheService.scheduleDelete(scheduleId);
 	}
 	
-	  // 1) 캘린더 페이지
     @GetMapping("/schedule")
     public String schedulePage() {
-        return "/schedule/schedule"; // /WEB-INF/views/schedule/schedule.jsp
+        return "/schedule/schedule"; 
     }
 
     @GetMapping("/schedule/event")
@@ -69,10 +68,9 @@ public class ScheduleController {
         User loginUser = (User) auth.getPrincipal();
         int userId = loginUser.getUserId();
 
-        // 프로젝트 이벤트 (진하고 어두운 색 + 흰 글씨)
         List<Project> projects = scheService.projectCal(userId, loginUser.getRole());
         for(Project p : projects) {
-            Random rand = new Random(p.getProjectId()); // 시드 고정
+            Random rand = new Random(p.getProjectId());
             int r = rand.nextInt(100);
             int g = rand.nextInt(100);
             int b = rand.nextInt(100);
@@ -83,19 +81,15 @@ public class ScheduleController {
             event.put("start", p.getStartDate());
             event.put("end", p.getEndDate());
             event.put("backgroundColor", "rgba(" + r + "," + g + "," + b + ", 0." + a + ")");
-            event.put("textColor", "#fff"); // 흰 글씨
+            event.put("textColor", "#fff");
             event.put("type", "project");
             event.put("projectId", p.getProjectId());
             events.add(event);
         }
 
-        // 스케줄 이벤트 (밝고 연한 색 + 검정 글씨)
         List<Schedule> schedules = scheService.scheduleCal(userId, loginUser.getRole());
         for(Schedule s : schedules) {
-            Random rand = new Random(s.getScheduleId()); // 시드 고정
-//            int r = rand.nextInt(156) + 100; // 밝은 색
-//            int g = rand.nextInt(156) + 100;
-//            int b = rand.nextInt(156) + 100;
+            Random rand = new Random(s.getScheduleId()); 
               int a = rand.nextInt(50) + 10;
 
             Map<String, Object> event = new HashMap<>();
@@ -103,7 +97,7 @@ public class ScheduleController {
             event.put("start", s.getStartDatetime());
             event.put("end", s.getEndDatetime());
             event.put("backgroundColor", "rgba(10, 25, 151, 0." + a + ")");
-            event.put("textColor", "#000"); // 검정 글씨
+            event.put("textColor", "#000"); 
             event.put("type", "schedule");
             event.put("projectId", s.getProjectId());
             events.add(event);
@@ -115,7 +109,7 @@ public class ScheduleController {
     @GetMapping("/today/my")
     public String today(Model model, Paging paging) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User loginUser = (User) auth.getPrincipal(); // User 엔티티 그대로 가져오기
+        User loginUser = (User) auth.getPrincipal(); 
         int userId = loginUser.getUserId();
         
         paging.setUserId(userId);

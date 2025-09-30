@@ -130,7 +130,6 @@
 </body>
 <script>
 
-// 삭제 버튼
 $(".project-schedule-delete-btn").click(function(){
     const scheduleId = $(this).data("id");
     const projectId = $(this).data("project");
@@ -192,7 +191,7 @@ $(".project-schedule-update-btn").click(function() {
     });
 });
 
-document.body.appendChild(logoutModal); // 최상위로 이동
-logoutModal.style.zIndex = '99999'; // 충분히 높게
+document.body.appendChild(logoutModal);
+logoutModal.style.zIndex = '99999';
 </script>
 </html>

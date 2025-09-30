@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sh.haagendazo.mapper.CustomerMapper;
-import com.sh.haagendazo.model.Customer;
-import com.sh.haagendazo.model.Paging;
+import com.sh.haagendazo.model.dto.Customer;
+import com.sh.haagendazo.model.dto.Paging;
 
 @Service
 public class CustomerService implements CustomerMapper {
