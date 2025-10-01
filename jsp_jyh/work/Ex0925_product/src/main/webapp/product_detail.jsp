@@ -75,13 +75,13 @@
 				<td>등록일</td>
 				<td>${vo.p_date}</td>
 			</tr>
-			<tr>
+			<%-- <tr>
 				<td colspan="2" align="center"> 
 					<input type="button" value="장바구니에 담기" onClick="addCart('${vo.idx}','${1}')" />
 					<input type="button" value="장바구니 보기" onClick="location.href='cart_list.do?m_idx=1'" />
 					<input type="button" value="이전 화면" onClick="history.back()" />
 				</td>
-			</tr>
+			</tr> --%>
 		</table>
 </body>
 </html>
