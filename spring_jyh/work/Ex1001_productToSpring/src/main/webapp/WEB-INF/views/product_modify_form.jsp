@@ -14,8 +14,9 @@
 </head>
 <body>
 	<jsp:include page="index.jsp" />
-	<form method="post">
+	<form method="post" enctype="multipart/form-data">
 		<input type="hidden" name="idx" value="${vo.idx}" />
+		<input type="hidden" name="idx" value="${vo.category}" />
 		<table border="1" align="center" width="600">
 			<tr>
 				<td>제품 카테고리</td>
@@ -48,14 +49,14 @@
 				<td colspan="2"><textarea rows="5" cols="85" name="p_content"
 						style="resize: none">${vo.p_content}</textarea></td>
 			</tr>
-			<%-- <tr>
+			<tr>
 				<td>작은 사진 (썸네일)</td>
-				<td><img src="images/${vo.p_image_s}" width="100"/><input type="file" name="p_image_s" /></td>
+				<td><img src="resources/images/${vo.p_image_s}" width="100"/><input type="file" name="sPhoto" /></td>
 			</tr>
 			<tr>
 				<td>큰 사진 (상세 보기)</td>
-				<td><img src="images/${vo.p_image_l}"  width="100"/><input type="file" name="p_image_l" /></td>
-			</tr> --%>
+				<td><img src="resources/images/${vo.p_image_l}"  width="100"/><input type="file" name="lPhoto" /></td>
+			</tr>
 			<tr align="right">
 				<td colspan="2"><input type="button" value="상품 수정" onClick="send(this.form)" /> 
 					<input type="button" value="취소" 	onClick="history.back()" /></td>

@@ -47,7 +47,7 @@
 		<c:forEach var="c" items="${vo}">
 			<tr align="center">
 				<td>${c.p_num}</td>
-				<td><img src="images/${c.p_image_s}" width="75"/></td>
+				<td><img src="resources/images/${c.p_image_s}" width="75"/></td>
 				<td>${c.p_name}</td>
 				<td>
 					단가 : <fmt:formatNumber value="${c.p_price}" />	 <br/>

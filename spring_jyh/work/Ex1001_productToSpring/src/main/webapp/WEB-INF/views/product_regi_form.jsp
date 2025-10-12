@@ -16,7 +16,7 @@
 </head>
 <body>
 	<jsp:include page="index.jsp" />
-	<form method="post">
+	<form method="post" enctype="multipart/form-data">
 	<!-- Byte 기반의 Stream -> post 메소드는 1바이트 씩 -->
 		<table border="1" align="center" width="600">
 			<tr>
@@ -56,14 +56,14 @@
 			<tr>
 				<td colspan="2"><textarea rows="5" cols="85" name="p_content" style="resize:none"></textarea></td>
 			</tr>
-			<!-- <tr>
+			 <tr>
 				<td>작은 사진 (썸네일)</td>
-				<td><input type="file" name="p_image_s" /></td>
+				<td><input type="file" name="sPhoto" /></td>
 			</tr>
 				<tr>
 				<td>큰 사진 (상세 보기)</td>
-				<td><input type="file" name="p_image_l" /></td>
-			</tr> -->
+				<td><input type="file" name="lPhoto" /></td>
+			</tr>
 			<tr align="right">
 			<td colspan="2">
 				<input type="button" value="상품 등록" onClick="send(this.form)" />

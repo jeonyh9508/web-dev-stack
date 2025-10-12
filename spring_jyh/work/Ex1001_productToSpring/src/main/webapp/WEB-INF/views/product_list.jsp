@@ -30,7 +30,7 @@
 		<tr align="center">
 			<td>${p.p_num}</td>
 			<td>
-				<img src="product/images/${p.p_image_s}" width="100" />
+				<img src="resources/images/${p.p_image_s}" width="100" />
 			</td>
 
 			<td><a href="view.do?idx=${p.idx}">${p.p_name}</a></td>

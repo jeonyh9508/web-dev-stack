@@ -11,8 +11,17 @@ public class VisitVO {
     private String pwd;
     private String ip;
     private Date regdate;
+    private String filename;
+    
+    public String getFilename() {
+		return filename;
+	}
 
-    // 기본 생성자
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
+	// 기본 생성자
     public VisitVO() {
     }
 

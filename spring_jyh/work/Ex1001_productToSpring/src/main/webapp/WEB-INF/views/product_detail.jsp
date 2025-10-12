@@ -63,7 +63,7 @@
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
-				<img src="images/${vo.p_image_l}"  width="500"/>
+				<img src="resources/images/${vo.p_image_l}"  width="500"/>
 				<br />
 				<br />
 				<!-- DB 엔터값 적용 -->

@@ -3,9 +3,11 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="v">
+
 	<select id="visit_list" resultType="visit">
 		SELECT * FROM visit
 	</select>
+	
 	<insert id="visit_insert" parameterType="visit">
 		INSERT INTO visit
 		VALUES(
@@ -14,7 +16,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{content},
 		#{pwd},
 		#{ip},
-		SYSDATE)
+		SYSDATE,
+		#{filename})
 	</insert>
 	
 	<select id="visit_one" parameterType="int" resultType="visit">
@@ -27,7 +30,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		content = #{content},
 		pwd= #{pwd},
 		ip = #{ip},
-		regdate = SYSDATE
+		regdate = SYSDATE,
+		filename = #{filename}
 		WHERE idx = #{idx}
 	</update>
 	
