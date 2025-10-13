@@ -34,7 +34,7 @@ public class SearchAct extends HttpServlet {
 		// URL 객체
 		URL url = new URL(urlStr);
 	
-		// HttpURLConnection(추상 클래스) url경로를 베이스로 Http와 연결하는 연결객체
+		// HttpURLConnection(추상 클래스) url경로를 베이스로 Http와 연결하는 객체
 		HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 		
 		// 발급받은 Id / Secret (네이버 API 기준 참고사항)

@@ -61,7 +61,7 @@ public class ProductController {
 		
 		ProductVO vo = product_dao.selectOne(idx);
 		
-		String webPath = "/resources/images";
+		String webPath = "/resources/images/";
 		// 절대 경로
 //		String savePath = "C:\\Users\\user1\\Desktop\\upload";
 		String savePath = app.getRealPath(webPath);
@@ -139,7 +139,7 @@ public class ProductController {
 	@RequestMapping("/insert.do")
 	public String insert(ProductVO vo, MultipartFile sPhoto, MultipartFile lPhoto) {
 
-		String webPath = "/resources/images";
+		String webPath = "/resources/images/";
 		// 절대 경로
 //		String savePath = "C:\\Users\\user1\\Desktop\\upload";
 		String savePath = app.getRealPath(webPath);
@@ -196,6 +196,8 @@ public class ProductController {
 	public String cartList(int m_idx, Model model) {
 		List<CartVO> list = cart_dao.select(m_idx);
 		model.addAttribute("vo", list);
+		int total = cart_dao.selectTotalAmount(m_idx);
+		model.addAttribute("total",total);
 		return "cartList";
 	}
 

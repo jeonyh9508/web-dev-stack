@@ -53,9 +53,10 @@
 					<td><input name="pwd" type="password" /></td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="button" value="등록"
-						onClick="insert(this.form)" /> <input type="button" value="목록으로"
-						onClick="history.back()" /></td>
+					<td colspan="2">
+						<input type="button" value="등록" onClick="insert(this.form)" /> 
+						<input type="button" value="목록으로"	onClick="history.back()" />
+					</td>
 				</tr>
 			</table>
 		</form>

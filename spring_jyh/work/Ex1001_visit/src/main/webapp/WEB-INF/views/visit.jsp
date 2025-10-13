@@ -65,7 +65,9 @@
 					<td><pre>${list.content}</pre></td>
 				</tr>
 				<tr>
-					<td><img src="resources/upload/${list.filename}" /></td>
+					<c:if test="${list.filename ne 'no_file'}">
+						<td><img src="resources/upload/${list.filename}" width="200"/></td>
+					</c:if>
 				</tr>
 				<tr>
 					<td>작성자 : ${list.name}(${list.ip})</td>
