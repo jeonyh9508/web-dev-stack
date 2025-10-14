@@ -66,4 +66,11 @@ public class LoginController {
 		String resultStr = String.format("[{'res':'%s'}]", result);
 		return resultStr;
 	}
+	@RequestMapping("logout.do")
+	public String logout() {
+		HttpSession session = request.getSession();
+		session.removeAttribute("member_idx");
+		
+		return "redirect:login.do";
+	}
 }

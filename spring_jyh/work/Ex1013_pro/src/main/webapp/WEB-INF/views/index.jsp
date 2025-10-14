@@ -13,6 +13,10 @@
 	text-decoration: underline;
 	color: red;
 	}
+	.logout-btn{
+	display:flex;
+	justify-content:right;
+	}
 </style>
 </head>
 <body>
@@ -26,7 +30,8 @@
 	 	<a href="list.do?category=ele002">생활가전</a>
 	 	<a href="list.do?category=sp003">스포츠</a>
 	</center>
-	<hr width="600" border="1" noshade color="navy"/>
 	
+	<hr width="600" border="1" noshade color="navy"/>
+	<div class="logout-btn"><input type="button" value="로그아웃" onClick="location.href='/logout.do'" /></div>
 </body>
 </html>
