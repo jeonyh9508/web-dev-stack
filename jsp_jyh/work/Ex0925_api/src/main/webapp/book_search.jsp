@@ -23,7 +23,7 @@
 	        json[0].items.forEach( item => {
 	            let row = document.createElement("tr");
 	            row.innerHTML = "<td><img src='" + item.image + "' width='100' /></td>"
-	            + "<td><span class='title'>" + item.title + "</span>"
+	            + "<td class='content'><span class='title'>" + item.title + "</span>"
 	            + "<br /><span class='author'>저자 : " + item.author
 	            + "</span><br /><span class='price''>가격 : " + item.discount + "원</span></td>";
 	            resTable.appendChild(row);
@@ -32,33 +32,34 @@
 	}  
 	</script>
 <style>
-body{
+body {
 	height: 100vh;
-	background-color: #5F7161; 
+	background-color: #5F7161;
 }
+
 .container {
 	max-width: 1200px;
 	margin: 40px auto;
 	padding: 20px;
 	text-align: center;
 	background-color: #EFEAD8;
-	border-radius: 12px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
 }
 
 h1 {
 	margin-bottom: 25px;
+	color: #333;
 }
 
 form {
 	margin-bottom: 30px;
 }
 
-input[name="search_txt"] {
-	padding: 8px 12px;
+input[type="text"] {
+	padding: 10px;
 	font-size: 16px;
 	border: 2px solid #6D8B74;
-	border-radius: 6px;
+	border-radius: 5px;
 	width: 60%;
 	max-width: 300px;
 	margin-right: 10px;
@@ -66,18 +67,17 @@ input[name="search_txt"] {
 }
 
 input[type="button"] {
-	padding: 9px 20px;
+	padding: 10px 20px;
 	font-size: 16px;
 	background-color: #6D8B74;
 	border: none;
 	color: white;
-	border-radius: 6px;
+	border-radius: 5px;
 	cursor: pointer;
-	transition: background-color 0.3s ease;
 }
 
 input[type="button"]:hover {
-	background-color: #2980b9;
+	background-color: #46594a;
 }
 
 table {
@@ -88,41 +88,42 @@ table {
 
 tr {
 	background-color: #D0C9C0;
-	border-radius: 12px;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 td {
 	padding: 15px;
 	vertical-align: top;
-	border-radius: 12px;
+	border-radius: 10px;
 }
 
 td img {
 	margin: 15px;
-	border-radius: 8px;
 }
 
 .title {
 	font-weight: 700;
 	font-size: 20px;
+	color: #333;
 }
 
 .author, .price {
 	display: block;
 	margin-top: 8px;
 	line-height: 1.6;
-	
 }
 
-.author{
-font-size: 17px;
-color:
+.author {
+	font-size: 17px;
+	color: #333;
 }
 
-.price{
-font-size: 15px;
-color: #7f8c8d;
+.price {
+	font-size: 15px;
+	color: #454c4d;
+}
+
+.content {
+	vertical-align: middle;
 }
 </style>
 </head>
@@ -131,8 +132,8 @@ color: #7f8c8d;
 	<div class="container">
 		<h1>도서 검색</h1>
 		<form>
-			<input name="search_txt" placeholder="검색어를 입력하세요" /> <input
-				type="button" value="검색" onClick="m_send(this.form)" />
+			<input type="text" name="search_txt" placeholder="검색어를 입력하세요" /> 
+			<input type="button" value="검색" onClick="m_send(this.form)" />
 		</form>
 		<table id="resTable">
 		</table>
