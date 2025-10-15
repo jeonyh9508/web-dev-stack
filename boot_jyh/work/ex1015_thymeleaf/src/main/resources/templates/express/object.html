@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!-- 타임리프를 사용하기 위한 템플릿 -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!-- calendars 예약어를 통한 포멧 변경 -->
+    현재 날짜 :  <span th:text="${#calendars.format(date, 'yyyy-MM-dd HH:mm:ss')}"></span>
+    <br>
+    잔액 : <span th:text="${#numbers.formatInteger(money, 1, 'COMMA')}" />
+    <ul>
+        <li th:text="${members[0].name}"></li>
+        <li th:text="${members[0].email}"></li>
+        <li th:text="${members[0].age}"></li>
+    </ul>
+    <hr>
+    <table style="border-collapse:collapse;">
+        <tr th:each="vo : ${members}">
+            <td th:text="${vo.name}" style="border: 1px solid black"></td>
+            <td th:text="${vo.email}" style="border: 1px solid black"></td>
+            <td th:text="${vo.age}" style="border: 1px solid black"></td>
+        </tr>
+
+    </table>
+</body>
+</html>
