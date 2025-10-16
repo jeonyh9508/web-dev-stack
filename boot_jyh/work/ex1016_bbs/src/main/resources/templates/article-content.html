@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/content_css.css}">
+    <script>
+        function del(id){
+            if(!confirm("정말 삭제하시겠습니까 ? " )){
+                return;
+            }else{
+                location.href="delete?id="+id;
+            }
+        }
+    </script>
+</head>
+<body>
+<section class="container">
+<h1>상세보기</h1>
+<table>
+    <tbody>
+    <tr>
+        <td>#</td>
+        <td th:text="${article.id}">게시글 번호</td>
+    </tr>
+    <tr>
+        <td>제목</td>
+        <td th:text="${article.title}">제목</td>
+    </tr>
+    <tr>
+        <td>내용</td>
+        <td th:text="${article.description}" style="white-space:pre">내용</td>
+    </tr>
+    <tr>
+        <td>작성일</td>
+        <td th:text="${#dates.format(article.created, 'yyyy-MM-dd HH:mm:ss')}">작성일</td>
+    </tr>
+    <tr>
+        <td>수정일</td>
+        <td th:text="${#dates.format(article.updated, 'yyyy-MM-dd HH:mm:ss')}">수정일</td>
+    </tr>
+    </tbody>
+</table>
+<div>
+<input type="button" value="목록으로" th:onclick="|location.href='@{/article/list}'|"/>
+<input type="button" value="수정" th:onclick="|location.href='@{/article/edit(id=${article.id})}'|"/>
+<input type="button" value="삭제" th:onclick="|del(${article.id})|"/>
+</div>
+</section>
+</body>
+</html>

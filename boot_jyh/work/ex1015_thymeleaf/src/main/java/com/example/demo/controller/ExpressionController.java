@@ -56,6 +56,7 @@ public class ExpressionController {
         }else{
             model.addAttribute("p_mem", members.get(0));
         }
+        System.out.println(id);
         return "express/member-fin";
     }
 

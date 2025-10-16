@@ -1,0 +1,83 @@
+section.container {
+    width: 60%;
+    margin: 50px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fefefe;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+/* 제목 */
+section.container h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 40px;
+    font-size: 28px;
+    letter-spacing: 1px;
+}
+
+/* 폼 레이블 */
+form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+/* 입력 필드 */
+form input[type="text"],
+form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+form textarea {
+    min-height:300px;
+    resize:none;
+}
+
+form input[type="text"]:focus,
+form textarea:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+}
+
+/* 버튼 공통 스타일 */
+input[type="button"] {
+    display: inline-block;
+    margin-right: 15px;
+    padding: 10px 25px;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+/* 버튼 색상 */
+input[type="button"]:nth-child(1) { /* 목록으로 */
+    background-color: #888;
+    color: white;
+}
+
+input[type="button"]:nth-child(2) { /* 작성 */
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* 버튼 hover */
+input[type="button"]:hover {
+    opacity: 0.85;
+}
+
+/* div로 묶어 필드 간격 유지 */
+form div {
+    margin-bottom: 20px;
+}

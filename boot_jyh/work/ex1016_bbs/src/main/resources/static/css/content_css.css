@@ -1,0 +1,78 @@
+/* 전체 섹션 */
+section.container {
+    width: 70%;
+    margin: 40px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fdfdfd;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* 제목 */
+section.container h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* 테이블 기본 스타일 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+table td {
+    padding: 10px 15px;
+    border-bottom: 1px solid #ddd;
+    vertical-align: top;
+}
+
+/* 좌측 컬럼(라벨) */
+table td:first-child {
+    font-weight: bold;
+    width: 20%;
+    color: #555;
+}
+
+/* 우측 컬럼(내용) */
+table td:last-child {
+    width: 80%;
+    word-wrap: break-word;
+    white-space: pre-wrap; /* 줄바꿈 유지 */
+    color: #333;
+}
+
+/* 버튼 공통 스타일 */
+input[type="button"] {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+/* 버튼 색상 */
+input[type="button"]:nth-child(1) { /* 목록으로 */
+    background-color: #888;
+    color: white;
+}
+
+input[type="button"]:nth-child(2) { /* 수정 */
+    background-color: #4CAF50;
+    color: white;
+}
+
+input[type="button"]:nth-child(3) { /* 삭제 */
+    background-color: #f44336;
+    color: white;
+}
+
+/* 버튼 hover 효과 */
+input[type="button"]:hover {
+    opacity: 0.85;
+}
