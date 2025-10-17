@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.ArticleDAO">
+    <select id="selectAll" resultType="avo">
+        SELECT * FROM article
+    </select>
+    <select id="showView" resultType="avo" parameterType="Integer">
+        SELECT * FROM article WHERE id = #{id}
+    </select>
+    <insert id="addArticle" parameterType="avo">
+        INSERT INTO article(title, description, created, updated, member_id) VALUES (#{title},#{description},NOW(),NOW(),#{member_id})
+    </insert>
+    <update id="editArticle" parameterType="avo">
+        UPDATE article SET title = #{title}, description = #{description}, updated = NOW() WHERE id = #{id}
+    </update>
+    <delete id="delArticle" parameterType="Integer">
+        DELETE FROM article WHERE id = #{id}
+    </delete>
+</mapper>

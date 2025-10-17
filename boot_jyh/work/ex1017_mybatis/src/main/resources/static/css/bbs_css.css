@@ -1,0 +1,75 @@
+/* 전체 섹션 스타일 */
+section {
+    width: 80%;
+    margin: 40px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* 제목 */
+section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* 테이블 기본 스타일 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* 테이블 헤더 */
+table thead th {
+    padding: 10px;
+}
+
+/* 각 컬럼별 너비 지정 */
+table thead th:nth-child(1) { width: 5%; }   /* ID */
+table thead th:nth-child(2) { width: 30%; }  /* 제목 */
+table thead th:nth-child(3) { width: 15%; }  /* 작성일 */
+table thead th:nth-child(4) { width: 15%; }  /* 수정일 */
+table thead th:nth-child(5) { width: 5%; }   /* 회원ID */
+
+/* 본문 셀에도 동일하게 적용 */
+table tbody td:nth-child(1),
+table tbody td:nth-child(3),
+table tbody td:nth-child(4),
+table tbody td:nth-child(5) {
+    text-align: center;
+}
+
+/* 헤더 셀 */
+table thead th {
+    padding: 10px;
+}
+
+/* 테이블 본문 셀 */
+table tbody td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* 홀수 줄 배경색 */
+table tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+/* 홀수 줄 hover 효과 */
+table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* 제목 링크 스타일 */
+table tbody td a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+table tbody td a:hover {
+    text-decoration: underline;
+}
+
+a[th\\:href*="/article/add"]:hover {
+    background-color: #45a049;
+}

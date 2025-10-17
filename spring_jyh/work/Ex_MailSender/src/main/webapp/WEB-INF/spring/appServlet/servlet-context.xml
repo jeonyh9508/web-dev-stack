@@ -21,6 +21,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- 의존성 주입 -->
 	<beans:bean class="com.kh.mail.EmailController">
 		<beans:constructor-arg ref="mss" />
 	</beans:bean>

@@ -9,7 +9,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 
 public class MailSendService {
 
-	// 디펜던시 추가
+	// 메일 전송을 위한 의존성 주입
 	private JavaMailSender javaMailSender;
 
 	private int authNumber = 0;
@@ -18,7 +18,7 @@ public class MailSendService {
 		this.javaMailSender = javaMailSender;
 	}
 	
-	// 난수 인증번호 생성
+	// 난수(인증번호 6자리) 인증번호 생성
 	public void makeRandomNumber() {
 		Random rnd = new Random();
 		// 난수 범위 111111 ~ 999999
@@ -51,6 +51,7 @@ public class MailSendService {
 			// html 태그를 사용하기 위해서 true 사용
 			mailHelper.setText(content, true);
 			
+			// 전송
 			javaMailSender.send(mail);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

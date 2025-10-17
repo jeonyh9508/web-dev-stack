@@ -69,14 +69,14 @@ div{
 </style>
 <script>
 	function mailCheck(f) {
-		// ajax 로 email 파라미터 전송
+		// ajax 로 email 파라미터를 담아 전송
 		let userEmail = f.userEmail.value;
 		let url = "mailCheck.do";
 		let param = "email=" + userEmail;
 		sendRequest(url, param, resultMail, "post");
 	}
 
-	// 전역 변수로 리턴받을 변수 지정
+	// 인증번호를 저장할 전역 변수 지정
 	let res;
 
 	function resultMail() {
@@ -91,6 +91,7 @@ div{
 		}
 	}
 
+	// 전송 받은 값과 입력 값을 비교
 	function change_input() {
 		let check_input = document.getElementById("check_input");
 		let mail_check_warn = document.getElementById("mail_check_warn");

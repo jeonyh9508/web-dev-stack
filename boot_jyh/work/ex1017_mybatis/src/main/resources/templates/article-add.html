@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/newArticle_css.css}">
+    <script>
+        function send(f){
+        if(f.title.value == null || f.title.value == ''){
+            alert("제목을 입력하세요.");
+            return;
+        }else if(f.description.value == null || f.description.value == ''){
+            alert("내용을 입력하세요.");
+            return;
+        }
+            f.submit();
+        }
+
+    </script>
+</head>
+<body>
+<section class="container">
+    <form th:action="@{/add}" method="post">
+        <input type="hidden" name="member_id" th:value="${member_id}">
+
+        <h1>새 글 쓰기</h1>
+        <label>제목</label>
+        <input type="text" name="title"/>
+        <label>내용</label>
+        <textarea name="description"></textarea>
+        <div>
+            <input type="button" value="목록으로" th:onclick="|history.back()|"/>
+            <input type="button" value="작성" th:onclick="send(this.form)"/>
+        </div>
+    </form>
+</section>
+</body>
+</html>

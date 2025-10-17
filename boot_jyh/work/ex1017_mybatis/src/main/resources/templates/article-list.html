@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/bbs_css.css}">
+</head>
+<body>
+<section>
+    <h2>게시글 목록</h2>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>제목</th>
+            <th>작성일</th>
+            <th>수정일</th>
+            <th>회원ID</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="vo : ${articles}">
+            <td th:text="${vo.id}"></td>
+            <td>
+                <a th:text="${vo.title}" th:href="@{content(id=${vo.id})}">제목</a>
+            </td>
+            <td th:text="${#dates.format(vo.created, 'yyyy-MM-dd HH:mm:ss')}">작성일</td>
+            <td th:text="${#dates.format(vo.updated, 'yyyy-MM-dd HH:mm:ss')}">수정일</td>
+            <td th:text="${vo.member_id}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <input type="button" value="새 글 작성" th:onclick="|location.href='@{/add(member_id = ${1})}'|"/>
+</section>
+</body>
+</html>
